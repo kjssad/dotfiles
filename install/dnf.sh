@@ -1,39 +1,10 @@
 #!/usr/bin/env bash
 
-echo -e "\\nInstalling base desktop environment."
-echo "=============================="
-dnf install gdm --setopt=install_weak_deps=False
+# echo -e "\\nInstalling base desktop environment."
+# echo "=============================="
 dnf group install base-x "Hardware Support" "Common NetworkManager Submodules" "Firefox Web Browser"
-dnf install \
-    file-roller \
-    eog \
-    evince \
-    gnome-sudoku \
-    gnome-calculator \
-    gnome-tweaks \
-    gnome-system-monitor \
-    gnome-power-manager \
-    gnome-disk-utility \
-    gedit \
-    gnome-calendar \
-    nautilus \
-    nautilus-sendto \
-    evince-nautilus \
-    file-roller-nautilus \
-    gnome-terminal-nautilus \
-    microcode_ctl \
-    tar \
-    sqlite \
-    NetworkManager-config-connectivity-fedora \
-    bind-utils \
-    xdg-user-dirs \
-    xdg-user-dirs-gtk \
-    dmidecode \
-    mcelog \
-    dejavu-sans-fonts \
-    dejavu-serif-fonts \
-    dejavu-sans-mono-fonts \
-    gnome-themes-extra
+sudo dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-software,gnome-weather,gnome-photos,gnome-documents,gnome-contacts,gnome-maps,gnome-user-docs,simple-scan,yelp,PackageKit-command-not-found,PackageKit-gtk3-module,cheese,gnome-characters,gnome-classic-session,gnome-clocks,gnome-font-viewer,gnome-getting-started-docs,gnome-initial-setup,gnome-logs,gnome-screenshot,baobab,orca,chrome-gnome-shell,totem" --setopt=install_weak_deps=False
+sudo dnf group install Standard --exclude="ed,irqbalance,opensc,rsyslog,smartmontools,abrt-cli,sssd,nano"
 
 echo -e "\\nInstalling RPM Fusion."
 echo "=============================="
