@@ -1,0 +1,81 @@
+export DOTFILES=$HOME/.dotfiles
+export ZSH=$DOTFILES/zsh
+
+# display how long all tasks over 10 seconds take
+export REPORTTIME=10
+
+[[ -e ~/.terminfo ]] && export TERMINFO_DIRS=~/.terminfo:/usr/share/terminfo
+
+# source all .zsh files inside of the zsh/ directory
+for config ($ZSH/**/*.zsh) source $config
+
+if [[ -a ~/.localrc ]]; then
+    source ~/.localrc
+fi
+
+# initialize autocomplete
+autoload -U compinit add-zsh-hook
+compinit
+
+export EDITOR='nvim'
+export GIT_EDITOR='nvim'
+
+# add rbenv to path
+if [[ -d $HOME/.rbenv/bin ]]; then
+    export PATH=$HOME/.rbenv/bin:$PATH
+fi
+
+# load rbenv
+if type rbenv > /dev/null 2>&1; then
+    eval "$(rbenv init -)"
+fi
+
+# adding path directory for custom scripts
+export PATH=$DOTFILES/bin:$PATH
+
+# check for custom bin directory and add to path
+if [[ -d ~/.bin ]]; then
+    export PATH=~/.bin:$PATH
+fi
+
+# add a config file for ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
+source ~/.zplug/init.zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+zplug 'zsh-users/zsh-autosuggestions'
+zplug 'mafredri/zsh-async'
+zplug 'sindresorhus/pure', use:pure.zsh, as:theme
+
+if ! zplug check; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load
+
+# add color to man pages
+export MANROFFOPT='-c'
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 2)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+
