@@ -1,7 +1,7 @@
 # reload zsh config
 alias reload!='RELOAD=1 source ~/.zshrc'
 
-alias vi="~/Applications/nvim.appimage"
+alias vi="nvim"
 alias vim="nvim"
 alias vimdiff="nvim -d"
 
