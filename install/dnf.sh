@@ -3,8 +3,8 @@
 # echo -e "\\nInstalling base desktop environment."
 # echo "=============================="
 dnf group install base-x "Hardware Support" "Common NetworkManager Submodules" "Firefox Web Browser"
-sudo dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-software,gnome-weather,gnome-photos,gnome-documents,gnome-contacts,gnome-maps,gnome-user-docs,simple-scan,yelp,PackageKit-command-not-found,PackageKit-gtk3-module,cheese,gnome-characters,gnome-classic-session,gnome-clocks,gnome-font-viewer,gnome-getting-started-docs,gnome-initial-setup,gnome-logs,gnome-screenshot,baobab,orca,chrome-gnome-shell,totem" --setopt=install_weak_deps=False
-sudo dnf group install Standard --exclude="ed,irqbalance,opensc,rsyslog,smartmontools,abrt-cli,sssd,nano"
+dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-software,gnome-weather,gnome-photos,gnome-documents,gnome-contacts,gnome-maps,gnome-user-docs,simple-scan,yelp,PackageKit-command-not-found,PackageKit-gtk3-module,cheese,gnome-characters,gnome-classic-session,gnome-clocks,gnome-font-viewer,gnome-getting-started-docs,gnome-initial-setup,gnome-logs,gnome-screenshot,baobab,orca,chrome-gnome-shell,totem" --setopt=install_weak_deps=False
+dnf group install Standard --exclude="ed,irqbalance,opensc,rsyslog,smartmontools,abrt-cli,sssd,nano"
 
 echo -e "\\nInstalling RPM Fusion."
 echo "=============================="
@@ -16,6 +16,10 @@ echo -e "\\nInstalling Multimedia codecs."
 echo "=============================="
 dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf install libva-intel-driver gstreamer1-vaapi libva-utils
+
+echo -e "\\nInstalling Fonts."
+echo "=============================="
+dnf install mozilla-fira-mono-fonts google-noto-cjk-fonts google-noto-emoji-color-fonts
 
 echo -e "\\nInstalling RPM packages."
 echo "=============================="
