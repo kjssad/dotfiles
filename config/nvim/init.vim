@@ -333,7 +333,8 @@ call plug#begin('~/.config/nvim/plugged')
         \   'coc-elixir',
         \   'coc-git',
         \   'coc-highlight',
-        \   'coc-snippets'
+        \   'coc-snippets',
+        \   'coc-emmet'
         \ ]
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
