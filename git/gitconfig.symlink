@@ -154,7 +154,7 @@
     extendRegexp = true
     lineNumber = true
 [credential]
-	helper = cache --timeout 3600
+	helper = /usr/libexec/git-core/git-credential-libsecret
 [difftool "vimdiff"]
 	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "vimdiff"]
