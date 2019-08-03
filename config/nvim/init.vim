@@ -119,59 +119,58 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'itchyny/lightline.vim'
 
         let g:lightline = {
-        \   'colorscheme': 'quantum',
-        \   'mode_map': {
-        \       'n' : 'N',
-        \       'i' : 'I',
-        \       'R' : 'R',
-        \       'v' : 'V',
-        \       'V' : 'VL',
-        \       "\<C-v>": 'VB',
-        \       'c' : 'C',
-        \       's' : 'S',
-        \       'S' : 'SL',
-        \       "\<C-s>": 'SB',
-        \       't': 'T',
-        \   },
-        \   'active': {
-        \       'left': [
-        \           [ 'mode', 'paste' ],
-        \           [ 'gitbranch' ],
-        \           [ 'readonly', 'filetype', 'filename' ]
-        \       ],
-        \       'right': [
-        \           [ 'fileformat', 'fileencoding' ],
-        \           [ 'percent', 'lineinfo' ],
-        \           [ 'diagnostic' ]
-        \       ]
-        \   },
-        \   'component_function': {
-        \       'fileencoding': 'LightlineFileEncoding',
-        \       'filename': 'LightlineFileName',
-        \       'fileformat': 'LightlineFileFormat',
-        \       'filetype': 'LightlineFileType',
-        \       'shiftwidth':  'LightLineFileShiftWidth',
-        \       'gitbranch': 'LightlineGitBranch',
-        \       'diagnostic': 'LightlineLanguageDiagnostic'
-        \   },
-        \   'tabline': {
-        \       'left': [ [ 'tabs' ] ],
-        \       'right': [ [ 'close' ] ]
-        \   },
-        \   'tab': {
-        \       'active': [ 'filename', 'modified' ],
-        \       'inactive': [ 'filename', 'modified' ],
-        \   },
-        \   'separator': { 'left': '', 'right': '' },
-        \   'subseparator': { 'left': '', 'right': '' }
+            \ 'colorscheme': 'quantum',
+            \ 'mode_map': {
+                \ 'n' : 'N',
+                \ 'i' : 'I',
+                \ 'R' : 'R',
+                \ 'v' : 'V',
+                \ 'V' : 'VL',
+                \ "\<C-v>": 'VB',
+                \ 'c' : 'C',
+                \ 's' : 'S',
+                \ 'S' : 'SL',
+                \ "\<C-s>": 'SB',
+                \ 't': 'T',
+            \ },
+            \ 'active': {
+                \ 'left': [
+                    \ [ 'mode', 'paste' ],
+                    \ [ 'gitbranch' ],
+                    \ [ 'readonly', 'filename' ]
+                \ ],
+                \ 'right': [
+                    \ [ 'fileformat', 'fileencoding' ],
+                    \ [ 'percent', 'lineinfo' ],
+                    \ [ 'diagnostic', 'shiftwidth' ]
+                \ ]
+            \   },
+            \ 'component_function': {
+                \ 'fileencoding': 'LightlineFileEncoding',
+                \ 'filename': 'LightlineFileName',
+                \ 'fileformat': 'LightlineFileFormat',
+                \ 'shiftwidth':  'LightLineFileShiftWidth',
+                \ 'gitbranch': 'LightlineGitBranch',
+                \ 'diagnostic': 'LightlineLanguageDiagnostic'
+            \ },
+            \ 'tabline': {
+                \ 'left': [ [ 'tabs' ] ],
+                \ 'right': [ [ 'close' ] ]
+            \ },
+            \ 'tab': {
+                \ 'active': [ 'filename', 'modified' ],
+                \ 'inactive': [ 'filename', 'modified' ],
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
         \ }
 
         function! LightlineGitBranch()
-            return expand('%:t') =~ 'NERD_tree'? '' : get(g:, 'coc_git_status', '')
+            return &filetype == 'defx'? '' : get(g:, 'coc_git_status', '')
         endfunction
 
         function! LightlineLanguageDiagnostic() abort
-            if expand('%:t') =~ 'NERD_tree'
+            if &filetype == 'defx'
                 return
             endif
 
@@ -194,21 +193,26 @@ call plug#begin('~/.config/nvim/plugged')
             return get(g:, 'coc_status', '') . '  ' . join(msgs, ' ')
         endfunction
 
-        function! LightlineFileType()
-            return expand('%:t') =~ 'NERD_tree'? '' : WebDevIconsGetFileTypeSymbol()
-        endfunction
-
         function! LightlineFileName() abort
-            let filename = winwidth(0) > 70? expand('%') : expand('%:t')
-            if filename =~ 'NERD_tree'
+            if &filetype == 'defx'
                 return ''
             endif
+
+            let filename = winwidth(0) > 84? expand('%') : expand('%:t')
             let modified = &modified ? ' +' : ''
-            return fnamemodify(filename, ":~:.") . modified
+            return WebDevIconsGetFileTypeSymbol() . ' ' . fnamemodify(filename, ":~:.") . modified
         endfunction
 
         function! LightLineFileShiftWidth()
-            return 'Spaces: ' . &shiftwidth
+            if &filetype == 'defx'
+                return ''
+            endif
+
+            if &expandtab == 1
+                return 'Spaces: ' . &shiftwidth
+            else
+                return 'Tabs: ' . &shiftwidth
+            endif
         endfunction
 
         function! LightlineFileFormat()
@@ -232,6 +236,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " shortcut to save
     nmap <leader>, :w<cr>
+
+    " shortcut to quit
+    nmap <leader>` :q<cr>
 
     " set paste toggle
     set pastetoggle=<leader>v
@@ -306,7 +313,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     augroup focusedwindow
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * if expand('%:t') !~ 'NERD_tree' | set relativenumber | endif
+        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" | set relativenumber | endif
         autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
     augroup END
 " }}}
@@ -321,7 +328,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
     Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
-    Plug 'tpope/vim-vinegar' " netrw helper
     Plug 'vim-scripts/matchit.zip' " extended % matching
     Plug 'wincent/ferret' " multi-file search
 
@@ -345,7 +351,8 @@ call plug#begin('~/.config/nvim/plugged')
         " coc-git keymappings
         nmap [g <Plug>(coc-git-prevchunk)
         nmap ]g <Plug>(coc-git-nextchunk)
-        nmap gs <Plug>(coc-git-chunkinfo)
+        nmap gb <Plug>(coc-git-chunkinfo)
+        nmap gs :CocCommand git.chunkStage<cr>
         nmap gu :CocCommand git.chunkUndo<cr>
 
         " Use `[c` and `]c` to navigate diagnostics
@@ -401,8 +408,6 @@ call plug#begin('~/.config/nvim/plugged')
         endfunction
 
         let g:coc_snippet_next = '<tab>'
-
-        autocmd FileType nerdtree let b:coc_suggest_disable = 1
     " }}}
 
     " FZF {{{
@@ -461,7 +466,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
         let g:indentLine_bufTypeExclude = ['help', 'terminal']
-        let g:indentLine_fileTypeExclude = ['markdown', 'json']
+        let g:indentLine_fileTypeExclude = ['markdown', 'json', 'defx']
         let g:indentLine_char = '│'
         let g:indentLine_first_char = '│'
         let g:indentLine_showFirstIndentLevel=1
@@ -469,65 +474,112 @@ call plug#begin('~/.config/nvim/plugged')
         let g:indentLine_setColors = 0
     " }}}
 
-    " NERDTree {{{
-        Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-        Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Defx {{{
+        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'kristijanhusak/defx-icons'
+        Plug 'kristijanhusak/defx-git'
         Plug 'ryanoasis/vim-devicons'
-        " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-        let g:WebDevIconsOS = 'Linux'
-        let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-        let g:DevIconsEnableFoldersOpenClose = 1
-        let g:DevIconsEnableFolderExtensionPatternMatching = 1
-        let NERDTreeMinimalUI=1
-        let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
-        let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
-        let NERDTreeNodeDelimiter = "\u263a" " smiley face
+        let s:defxIsOpen = 0
 
-        " let s:elixir = "ab9df2"
-        " let g:NERDTreeExtensionHighlightColor = {}
-        " let g:NERDTreeExtensionHighlightColor['ex'] = s:elixir
-        " let g:NERDTreeExtensionHighlightColor['exs'] = s:elixir
-
-        " let g:NERDTreeSyntaxDisableDefaultExtensions = 1
-        " let g:NERDTreeDisableExactMatchHighlight = 1
-        " let g:NERDTreeDisablePatternMatchHighlight = 1
-        " let g:NERDTreeSyntaxEnabledExtensions = ['html', 'js', 'css', 'md', 'exs', 'ex', 'cpp']
-
-        augroup nerdtree
+        augroup defx.nvim
             autocmd!
-            autocmd FileType nerdtree setlocal nolist " turn off whitespace characters
-            " autocmd FileType nerdtree setlocal nocursorline " turn off line highlighting for performance
+            autocmd BufEnter,FocusGained * if &filetype == "defx" | match Defx_indent /│/ | endif
+            autocmd FileType defx call s:defx_mappings()
+            autocmd VimEnter * call s:setup_defx()
         augroup END
 
-        " Toggle NERDTree
-        function! ToggleNerdTree()
-            if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
-                :NERDTreeFind
+        " toggle defx
+        nnoremap <silent><Leader>k :call <sid>defx_open()<CR>
+        " find the current file in defx
+        nnoremap <silent><Leader>y :call <sid>defx_open({ 'find_current_file': v:true })<CR>
+
+        function! s:setup_defx() abort
+            call defx#custom#option('_', {
+                \ 'columns': 'git:indent:icons:filename'
+                \ })
+
+            call defx#custom#column('git', 'indicators', {
+                \ 'Modified'  : 'M',
+                \ 'Staged'    : 'S',
+                \ 'Untracked' : 'U',
+                \ 'Renamed'   : 'R',
+                \ 'Unmerged'  : 'G',
+                \ 'Deleted'   : 'D',
+                \ 'Ignored'   : 'I',
+                \ 'Unknown'   : '?',
+                \ 'Dirty'     : '●'
+                \ })
+
+            call defx#custom#column('indent', {
+                \ 'indent': '│',
+                \ })
+
+            call defx#custom#column('filename', {
+                \ 'min_width': 40,
+                \ 'max_width': 80
+                \ })
+        endfunction
+
+        function! s:defx_open(...) abort
+            let l:opts = get(a:, 1, {})
+            let l:path = getcwd()
+
+            let l:args = ' -direction=topleft -winwidth=34 -split=vertical -show-ignored-files -listed -resume'
+
+            if has_key(l:opts, 'find_current_file')
+                if &filetype ==? 'defx'
+                    return
+                endif
+
+                let s:defxIsOpen = 1
+
+                call execute(printf('Defx %s -search=%s %s', l:args, expand('%:p'), l:path))
+
+                return
+            endif
+
+            if @% != "" && @% !~ "Startify" && &filetype != 'defx' && s:defxIsOpen != 1
+                let s:defxIsOpen = 1
+
+                call execute(printf('Defx %s -search=%s %s', l:args, expand('%:p'), l:path))
             else
-                :NERDTreeToggle
+                let s:defxIsOpen = s:defxIsOpen ==# 0? 1 : 0
+
+                call execute(printf('Defx -toggle %s %s', l:args, l:path))
             endif
         endfunction
 
-        " toggle nerd tree
-        nmap <silent> <leader>k :call ToggleNerdTree()<cr>
-        " find the current file in nerdtree without needing to reload the drawer
-        nmap <silent> <leader>y :NERDTreeFind<cr>
+        function! s:DefxMenu() abort
+            let l:actions = ['new_multiple_files', 'move', 'remove', 'rename', 'copy', 'paste', 'redraw']
+            let l:selection = confirm('Action?', "&New file/directory\nMove\n&Delete\n&Rename\n&Copy\n&Paste")
+            silent exe 'redraw'
 
-        let NERDTreeShowHidden=1
-        let g:NERDTreeIndicatorMapCustom = {
-        \ "Modified"  : "!",
-        \ "Staged"    : "+",
-        \ "Untracked" : "?",
-        \ "Renamed"   : "»",
-        \ "Unmerged"  : "=",
-        \ "Deleted"   : "_",
-        \ "Dirty"     : "∗",
-        \ "Clean"     : "`",
-        \ 'Ignored'   : '~',
-        \ "Unknown"   : "."
-        \ }
-    " }}}
+            return feedkeys(defx#do_action(l:actions[l:selection - 1]))
+        endfunction
+
+        function s:ToggleDefx() abort
+            if defx#is_directory()
+                return defx#do_action('open_or_close_tree')
+            endif
+            return defx#do_action('drop')
+        endfunction
+
+        function! s:defx_mappings() abort
+            nnoremap <silent><buffer>m :call <sid>DefxMenu()<CR>
+            nnoremap <silent><buffer><expr> o <sid>ToggleDefx()
+            nnoremap <silent><buffer><expr> O defx#do_action('open_tree_recursive')
+            nnoremap <silent><buffer><expr> <CR> <sid>ToggleDefx()
+            nnoremap <silent><buffer><expr> C defx#is_directory() ? defx#do_action('multi', ['open', 'change_vim_cwd']) : 'C'
+            nnoremap <silent><buffer><expr> s defx#do_action('open', 'botright vsplit')
+            nnoremap <silent><buffer><expr> R defx#do_action('redraw')
+            nnoremap <silent><buffer><expr> U defx#do_action('multi', [['cd', '..'], 'change_vim_cwd'])
+            nnoremap <silent><buffer><expr> H defx#do_action('toggle_ignored_files')
+            nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+            nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+            nnoremap <silent><buffer><expr> q defx#do_action('quit')
+        endfunction
+    " }}}"
 
     " Snippets {{{
         Plug 'honza/vim-snippets'
@@ -551,38 +603,6 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent><leader>gb :Gblame<cr>
     " }}}
 
-    " " vim-illuminate {{{
-    "     "  automatically highlight the word under the cursor
-    "     Plug 'RRethy/vim-illuminate'
-
-    "     let g:Illuminate_ftblacklist = ['nerdtree']
-    "     let g:Illuminate_delay = 500
-    "     " let g:Illuminate_highlightUnderCursor = 0
-
-    "     function! DisableIlluminate()
-    "         set updatetime=0
-
-    "         call illuminate#disable_illumination()
-
-    "         return ''
-    "     endfunction
-
-    "     function! EnableIlluminate()
-    "         set updatetime=300
-
-    "         call illuminate#enable_illumination()
-    "     endfunction
-
-    "     vnoremap <silent> <expr> <SID>DisableIlluminate DisableIlluminate()
-    "     nnoremap <silent> <script> v v<SID>DisableIlluminate
-    "     nnoremap <silent> <script> V V<SID>DisableIlluminate
-    "     nnoremap <silent> <script> <C-v> <C-v><SID>DisableIlluminate
-
-    "     augroup illuminate_toggle
-    "         autocmd CursorHold * call EnableIlluminate()
-    "     augroup END
-    " " }}}
-
     " Language-specific plugins {{{
         Plug 'sheerun/vim-polyglot'
 
@@ -605,4 +625,18 @@ call plug#end()
     filetype plugin indent on
 
     colorscheme quantum
+
+    hi link DefxIconsOpenedTreeIcon Constant
+    hi link DefxIconsNestedTreeIcon Constant
+    hi link DefxIconsClosedTreeIcon Constant
+    hi link DefxIconsParentDirectory Keyword
+    hi link Defx_indent Conceal
+    hi def link Defx_git_0_Untracked SignifySignAdd
+    hi def link Defx_git_0_Renamed SignifySignChange
+    hi def link Defx_git_0_Modified SignifySignChange
+    hi def link Defx_git_0_Unmerged SignifySignDelete
+    hi def link Defx_git_0_Deleted SignifySignDelete
+    hi def link Defx_git_0_Dirty Delimeter
+    hi def link Defx_git_0_Staged Type
+    hi def link Defx_filename_3_root Keyword
 " }}}

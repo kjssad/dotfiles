@@ -16,7 +16,7 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "●",
   "diagnostic.hintSign": "○",
-  "highlight.disableLanguages": ["nerdtree"],
+  "highlight.disableLanguages": ["defx"],
   "coc.preferences.extensionUpdateCheck": "never",
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
@@ -47,4 +47,3 @@
   },
   "emmet.includeLanguages": {"eelixir": "html"}
 }
-
