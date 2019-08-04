@@ -1,2 +1,2 @@
 setlocal foldmethod=syntax
-setlocal colorcolumn=98
+setlocal colorcolumn=80
