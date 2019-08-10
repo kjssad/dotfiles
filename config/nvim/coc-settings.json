@@ -1,23 +1,24 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "suggest.enablePreview": true,
-  "suggest.noselect": false,
+  "coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.snippetStatusText": "\uf64d",
+  "codeLens.enable": true,
+  "diagnostic.errorSign": "✖",
+  "diagnostic.hintSign": "○",
+  "diagnostic.infoSign": "●",
+  "diagnostic.warningSign": "⚠",
   "elixir.pathToElixirLS": "~/Applications/elixir-ls/language_server.sh",
-  "git.branchCharacter": "\uE725",
+  "emmet.includeLanguages": {"eelixir": "html"},
+  "git.addGlameToVirtualText": true,
   "git.addedSign.text": "┃",
-  "git.changedSign.text": "┃",
-  "git.removedSign.text": "┃",
+  "git.branchCharacter": "\uE725",
   "git.changeRemovedSign.text": "┃",
-  "git.confictedDecorator": "═",
+  "git.changedSign.text": "┃",
+  "git.conflictedDecorator": "═",
+  "git.removedSign.text": "┃",
   "git.stagedDecorator": "+",
   "git.untrackedDecorator": "?",
-  "git.addGlameToVirtualText": true,
-  "diagnostic.errorSign": "✖",
-  "diagnostic.warningSign": "⚠",
-  "diagnostic.infoSign": "●",
-  "diagnostic.hintSign": "○",
   "highlight.disableLanguages": ["defx"],
-  "coc.preferences.extensionUpdateCheck": "never",
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
     "method": "\uf6a6",
@@ -45,5 +46,5 @@
     "typeParameter": "\uf278",
     "default": "\uf29c"
   },
-  "emmet.includeLanguages": {"eelixir": "html"}
+  "suggest.enablePreview": true
 }
