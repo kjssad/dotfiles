@@ -335,15 +335,19 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
         let g:coc_global_extensions = [
-        \   'coc-pairs',
-        \   'coc-elixir',
-        \   'coc-git',
-        \   'coc-highlight',
-        \   'coc-snippets',
-        \   'coc-emmet'
-        \ ]
+            \ 'coc-pairs',
+            \ 'coc-elixir',
+            \ 'coc-git',
+            \ 'coc-highlight',
+            \ 'coc-snippets',
+            \ 'coc-emmet',
+            \ 'coc-json'
+            \ ]
 
-        autocmd CursorHold * silent call CocActionAsync('highlight')
+        augroup coc
+            autocmd CursorHold * silent call CocActionAsync('highlight')
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup END
 
         " trigger completion
         inoremap <silent><expr> <c-space> coc#refresh()
@@ -360,8 +364,9 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
         " Remap keys for gotos
-        nmap <silent> gd <Plug>(coc-definition)
-        nmap <silent> gy <Plug>(coc-type-definition)
+        nmap <silent> gf <Plug>(coc-definition)
+        nmap <silent> gl <Plug>(coc-declaration)
+        nmap <silent> gt <Plug>(coc-type-definition)
         nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> gr <Plug>(coc-references)
 
@@ -394,13 +399,14 @@ call plug#begin('~/.config/nvim/plugged')
             endif
         endfunction
 
+        nnoremap <expr><C-n> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-n>"
+        nnoremap <expr><C-p> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-p>"
+
         inoremap <silent><expr> <TAB>
             \ pumvisible() ? coc#_select_confirm() :
             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
-
-        inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
         function! s:check_back_space() abort
             let col = col('.') - 1
