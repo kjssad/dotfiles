@@ -313,7 +313,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     augroup focusedwindow
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" | set relativenumber | endif
+        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" && !coc#util#has_float() | set relativenumber | endif
         autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
     augroup END
 " }}}
@@ -485,6 +485,7 @@ call plug#begin('~/.config/nvim/plugged')
         augroup defx.nvim
             autocmd!
             autocmd BufEnter,FocusGained * if &filetype == "defx" | match Defx_indent /│/ | endif
+            autocmd FileType defx match Defx_indent /│/
             autocmd FileType defx call s:defx_mappings()
             autocmd VimEnter * call s:setup_defx()
         augroup END
@@ -517,7 +518,7 @@ call plug#begin('~/.config/nvim/plugged')
 
             call defx#custom#column('filename', {
                 \ 'min_width': 40,
-                \ 'max_width': 80
+                \ 'max_width': 100
                 \ })
         endfunction
 
@@ -626,17 +627,17 @@ call plug#end()
 
     colorscheme quantum
 
-    hi link DefxIconsOpenedTreeIcon Constant
-    hi link DefxIconsNestedTreeIcon Constant
-    hi link DefxIconsClosedTreeIcon Constant
+    hi link DefxIconsOpenedTreeIcon Structure
+    hi link DefxIconsNestedTreeIcon Structure
+    hi link DefxIconsClosedTreeIcon Structure
     hi link DefxIconsParentDirectory Keyword
     hi link Defx_indent Conceal
-    hi def link Defx_git_0_Untracked SignifySignAdd
-    hi def link Defx_git_0_Renamed SignifySignChange
-    hi def link Defx_git_0_Modified SignifySignChange
-    hi def link Defx_git_0_Unmerged SignifySignDelete
-    hi def link Defx_git_0_Deleted SignifySignDelete
     hi def link Defx_git_0_Dirty Delimeter
-    hi def link Defx_git_0_Staged Type
     hi def link Defx_filename_3_root Keyword
+    hi Defx_git_0_Untracked guifg=#87DE74 gui=bold
+    hi Defx_git_0_Renamed guifg=#FFD866 gui=bold
+    hi Defx_git_0_Modified guifg=#FFD866 gui=bold
+    hi Defx_git_0_Unmerged guifg=#EB5368 gui=bold
+    hi Defx_git_0_Deleted guifg=#EB5368 gui=bold 
+    hi Defx_git_0_Staged guifg=#75BFFF gui=bold
 " }}}
