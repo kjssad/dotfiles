@@ -453,16 +453,24 @@ call plug#begin('~/.config/nvim/plugged')
         \   'left':    30
         \ })<CR>
 
+        augroup fzf
+            autocmd!
+            autocmd  FileType fzf set laststatus=0 noruler
+            \| autocmd BufLeave <buffer> set laststatus=2 ruler
+        augroup END
+
         command! FZFMru call fzf#run({
-        \  'source':  v:oldfiles,
-        \  'sink':    'e',
-        \  'options': '-m -x +s', \  'down':    '40%'})
+            \ 'source':  v:oldfiles,
+            \ 'sink':    'e',
+            \ 'options': '-m -x +s', \  'down':    '40%'})
 
         command! -bang -nargs=* Find call fzf#vim#grep(
             \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
             \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+
         command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+
         command! -bang -nargs=? -complete=dir GitFiles
             \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
     " }}}
