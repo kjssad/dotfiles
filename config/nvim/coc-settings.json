@@ -8,7 +8,12 @@
   "diagnostic.infoSign": "●",
   "diagnostic.warningSign": "⚠",
   "elixir.pathToElixirLS": "~/Applications/elixir-ls/language_server.sh",
-  "emmet.includeLanguages": {"eelixir": "html"},
+  "elixirLS.dialyzerEnabled": false,
+  "emmet.includeLanguages": {
+    "eelixir": "html",
+    "vue": "html"
+  },
+  "emmet.showExpandedAbbreviation": "always",
   "git.addGlameToVirtualText": true,
   "git.addedSign.text": "┃",
   "git.branchCharacter": "\uE725",
@@ -17,8 +22,9 @@
   "git.conflictedDecorator": "═",
   "git.removedSign.text": "┃",
   "git.stagedDecorator": "+",
+  "git.topRemovedSign.text": "┏",
   "git.untrackedDecorator": "?",
-  "highlight.disableLanguages": ["defx"],
+  "highlight.disableLanguages": ["defx", "qf"],
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
     "method": "\uf6a6",
