@@ -180,37 +180,37 @@ call plug#begin('~/.config/nvim/plugged')
     inoremap jk <esc>
 
     " shortcut to save
-    nmap <leader>, :w<cr>
+    nmap <leader>, :w<CR>
 
     " shortcut to quit
-    nmap <leader>` :q<cr>
+    nmap <leader>` :q<CR>
 
     " set paste toggle
     set pastetoggle=<leader>v
 
     " edit ~/.config/nvim/init.vim
-    map <leader>ev :e! ~/.config/nvim/init.vim<cr>
+    map <leader>ev :e! ~/.config/nvim/init.vim<CR>
 
     " disable highlighting of current search until next search
-    noremap <space> :nohlsearch<cr>
+    noremap <space> :nohlsearch<CR>
 
     " activate spell-checking alternatives
-    nmap ;s :set invspell spelllang=en<cr>
+    nmap ;s :set invspell spelllang=en<CR>
 
     " remove extra whitespace
-    nmap <leader><space> :%s/\s\+$<cr>
-    nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
+    nmap <leader><space> :%s/\s\+$<CR>
+    nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<CR>
 
     " switch between current and last buffer
     nmap <leader>. <c-^>
 
     " enable . command in visual mode
-    vnoremap . :normal .<cr>
+    vnoremap . :normal .<CR>
 
-    map <silent> <C-h> :call functions#WinMove('h')<cr>
-    map <silent> <C-j> :call functions#WinMove('j')<cr>
-    map <silent> <C-k> :call functions#WinMove('k')<cr>
-    map <silent> <C-l> :call functions#WinMove('l')<cr>
+    map <silent> <C-h> :call functions#WinMove('h')<CR>
+    map <silent> <C-j> :call functions#WinMove('j')<CR>
+    map <silent> <C-k> :call functions#WinMove('k')<CR>
+    map <silent> <C-l> :call functions#WinMove('l')<CR>
 
     " scroll the viewport faster
     nnoremap <C-e> 3<C-e>
@@ -221,13 +221,13 @@ call plug#begin('~/.config/nvim/plugged')
     vnoremap < <gv
 
     " helpers for dealing with other people's code
-    nmap \t :set ts=4 sts=4 sw=4 noet<cr>
-    nmap \s :set ts=4 sts=4 sw=4 et<cr>
-    nmap \2t :set ts=2 sts=2 sw=2 noet<cr>
-    nmap \2s :set ts=2 sts=2 sw=2 et<cr>
+    nmap \t :set ts=4 sts=4 sw=4 noet<CR>
+    nmap \s :set ts=4 sts=4 sw=4 et<CR>
+    nmap \2t :set ts=2 sts=2 sw=2 noet<CR>
+    nmap \2s :set ts=2 sts=2 sw=2 et<CR>
 
     " check the highlight group used for words under cursor
-    nmap <F2> :call functions#SynStack()<cr>
+    nmap <F2> :call functions#SynStack()<CR>
 " }}}
 
 " AutoGroups {{{
@@ -240,7 +240,7 @@ call plug#begin('~/.config/nvim/plugged')
         " make quickfix windows take all the lower section of the screen
         " when there are multiple windows open
         autocmd FileType qf wincmd J
-        autocmd FileType qf nmap <buffer> q :q<cr>
+        autocmd FileType qf nmap <buffer> q :q<CR>
 
         " Go to the last cursor location when a file is opened, unless this is a git commit
         au BufReadPost *
@@ -295,8 +295,8 @@ call plug#begin('~/.config/nvim/plugged')
         nmap [g <Plug>(coc-git-prevchunk)
         nmap ]g <Plug>(coc-git-nextchunk)
         nmap gb <Plug>(coc-git-chunkinfo)
-        nmap gs :CocCommand git.chunkStage<cr>
-        nmap gu :CocCommand git.chunkUndo<cr>
+        nmap gs :CocCommand git.chunkStage<CR>
+        nmap gu :CocCommand git.chunkUndo<CR>
 
         " Use `[c` and `]c` to navigate diagnostics
         nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -347,7 +347,7 @@ call plug#begin('~/.config/nvim/plugged')
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 
-        inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+        inoremap <silent><expr> <CR> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
         function! s:check_back_space() abort
             let col = col('.') - 1
@@ -365,15 +365,15 @@ call plug#begin('~/.config/nvim/plugged')
 
         if isdirectory(".git")
             " if in a git project, use :GFiles
-            nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<cr>
+            nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<CR>
         else
             " otherwise, use :FZF
-            nmap <silent> <leader>t :FZF<cr>
+            nmap <silent> <leader>t :FZF<CR>
         endif
 
-        nmap <silent> <leader>s :GFiles?<cr>
-        nmap <silent> <leader>r :Buffers<cr>
-        nmap <silent> <leader>e :FZF<cr>
+        nmap <silent> <leader>s :GFiles?<CR>
+        nmap <silent> <leader>r :Buffers<CR>
+        nmap <silent> <leader>e :FZF<CR>
 
         nmap <leader><tab> <plug>(fzf-maps-n)
         xmap <leader><tab> <plug>(fzf-maps-x)
@@ -557,7 +557,7 @@ call plug#begin('~/.config/nvim/plugged')
     " vim-bbye {{{
         Plug 'moll/vim-bbye'
 
-        nmap <leader>b :Bdelete<cr>
+        nmap <leader>b :Bdelete<CR>
     " }}}
 
     " vim-fugitive {{{
@@ -566,10 +566,10 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug 'sodapopcan/vim-twiggy'
         " Plug 'christoomey/vim-conflicted'
 
-        nmap <silent> <leader>gs :Gstatus<cr>
-        nmap <leader>ge :Gedit<cr>
-        nmap <silent><leader>gr :Gread<cr>
-        nmap <silent><leader>gb :Gblame<cr>
+        nmap <silent> <leader>gs :Gstatus<CR>
+        nmap <leader>ge :Gedit<CR>
+        nmap <silent><leader>gr :Gread<CR>
+        nmap <silent><leader>gb :Gblame<CR>
     " }}}
 
     " Language-specific plugins {{{
