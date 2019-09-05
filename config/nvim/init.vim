@@ -448,9 +448,18 @@ call plug#begin('~/.config/nvim/plugged')
         " find the current file in defx
         nnoremap <silent><Leader>y :call <sid>defx_open({ 'find_current_file': v:true })<CR>
 
+        function! Root(path) abort
+          return fnamemodify(a:path, ':t')
+        endfunction
+
         function! s:setup_defx() abort
+            call defx#custom#source('file', {
+                \ 'root': 'Root',
+                \})
+
             call defx#custom#option('_', {
-                \ 'columns': 'git:indent:icons:filename'
+                \ 'columns': 'mark:indent:icons:filename:git',
+                \ 'root_marker': ' ',
                 \ })
 
             call defx#custom#column('git', 'indicators', {
@@ -470,8 +479,13 @@ call plug#begin('~/.config/nvim/plugged')
                 \ })
 
             call defx#custom#column('filename', {
-                \ 'min_width': 40,
-                \ 'max_width': 100
+                \ 'min_width': 33,
+                \ 'max_width': 33,
+                \ 'root_marker_highlight': 'Ignore',
+                \ })
+
+            call defx#custom#column('mark', {
+                \ 'readonly_icon': '',
                 \ })
         endfunction
 
@@ -479,7 +493,7 @@ call plug#begin('~/.config/nvim/plugged')
             let l:opts = get(a:, 1, {})
             let l:path = getcwd()
 
-            let l:args = ' -direction=topleft -winwidth=34 -split=vertical -show-ignored-files -listed -resume'
+            let l:args = " -direction=topleft -winwidth=37 -split=vertical -show-ignored-files -listed -resume"
 
             if has_key(l:opts, 'find_current_file')
                 if &filetype ==? 'defx'
@@ -580,17 +594,18 @@ call plug#end()
 
     colorscheme quantum
 
+    hi def link Defx_filename_3_root Structure
+    hi def link Defx_filename_3_parent_directory Constant
+    hi def link Defx_git_4_Dirty Comment
     hi link DefxIconsOpenedTreeIcon Structure
     hi link DefxIconsNestedTreeIcon Structure
     hi link DefxIconsClosedTreeIcon Structure
     hi link DefxIconsParentDirectory Keyword
     hi link Defx_indent Conceal
-    hi def link Defx_git_0_Dirty Delimeter
-    hi def link Defx_filename_3_root Keyword
-    hi Defx_git_0_Untracked guifg=#87DE74 gui=bold
-    hi Defx_git_0_Renamed guifg=#FFD866 gui=bold
-    hi Defx_git_0_Modified guifg=#FFD866 gui=bold
-    hi Defx_git_0_Unmerged guifg=#EB5368 gui=bold
-    hi Defx_git_0_Deleted guifg=#EB5368 gui=bold 
-    hi Defx_git_0_Staged guifg=#75BFFF gui=bold
+    hi Defx_git_4_Untracked guifg=#87DE74 gui=bold
+    hi Defx_git_4_Renamed guifg=#FFD866 gui=bold
+    hi Defx_git_4_Modified guifg=#FFD866 gui=bold
+    hi Defx_git_4_Unmerged guifg=#EB5368 gui=bold
+    hi Defx_git_4_Deleted guifg=#EB5368 gui=bold
+    hi Defx_git_4_Staged guifg=#75BFFF gui=bold
 " }}}
