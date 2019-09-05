@@ -262,6 +262,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'sickill/vim-pasta' " context-aware paste
     Plug 'tpope/vim-abolish' " substitute, search, and abbreviate multiple variants of a word
     Plug 'tpope/vim-commentary' " easy commenting motions
+    Plug 'tpope/vim-eunuch' " eunuch.vim: Helpers for UNIX 
     Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
     Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
