@@ -167,6 +167,9 @@ call plug#begin('~/.config/nvim/plugged')
                 \ 'active': [ 'filename', 'modified' ],
                 \ 'inactive': [ 'filename', 'modified' ],
             \ },
+            \ 'tab_component_function': {
+                \ 'filename': 'helpers#lightline#fileName'
+            \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' }
         \ }
@@ -211,6 +214,8 @@ call plug#begin('~/.config/nvim/plugged')
     map <silent> <C-j> <Plug>WinMoveDown
     map <silent> <C-k> <Plug>WinMoveUp
     map <silent> <C-l> <Plug>WinMoveRight
+
+    nmap <leader>z <Plug>Zoom
 
     " scroll the viewport faster
     nnoremap <C-e> 3<C-e>
