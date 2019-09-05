@@ -207,10 +207,10 @@ call plug#begin('~/.config/nvim/plugged')
     " enable . command in visual mode
     vnoremap . :normal .<CR>
 
-    map <silent> <C-h> :call functions#WinMove('h')<CR>
-    map <silent> <C-j> :call functions#WinMove('j')<CR>
-    map <silent> <C-k> :call functions#WinMove('k')<CR>
-    map <silent> <C-l> :call functions#WinMove('l')<CR>
+    map <silent> <C-h> <Plug>WinMoveLeft
+    map <silent> <C-j> <Plug>WinMoveDown
+    map <silent> <C-k> <Plug>WinMoveUp
+    map <silent> <C-l> <Plug>WinMoveRight
 
     " scroll the viewport faster
     nnoremap <C-e> 3<C-e>
