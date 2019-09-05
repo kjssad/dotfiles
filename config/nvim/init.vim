@@ -70,7 +70,7 @@ call plug#begin('~/.config/nvim/plugged')
     set linebreak " wrap at a word boundary
 
     set wildmenu " enhanced command line completion
-    set wildmode=list:longest " complete files like a shell
+    set wildmode=full " complete files like a shell
 
     set magic " Set magic on, for regex
 
@@ -98,6 +98,7 @@ call plug#begin('~/.config/nvim/plugged')
     " toggle invisible characters
     set list
     set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+    set fillchars=fold:\ ,diff:
     set showbreak=↪
 
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
@@ -108,6 +109,11 @@ call plug#begin('~/.config/nvim/plugged')
     if (has("termguicolors"))
         set termguicolors
     endif
+
+    function! Fold()
+      return getline(v:foldstart) . ''
+    endfunction
+    set foldtext=Fold()
 
     set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
     set ttyfast " faster redrawing
@@ -188,10 +194,6 @@ call plug#begin('~/.config/nvim/plugged')
     " disable highlighting of current search until next search
     noremap <space> :nohlsearch<cr>
 
-    " nnoremap <leader>c :set cursorline!<cr>
-    " nnoremap <leader>l :set list!<cr>
-    " nnoremap <leader>rn :set relativenumber!<cr>
-
     " activate spell-checking alternatives
     nmap ;s :set invspell spelllang=en<cr>
 
@@ -224,9 +226,6 @@ call plug#begin('~/.config/nvim/plugged')
     nmap \2t :set ts=2 sts=2 sw=2 noet<cr>
     nmap \2s :set ts=2 sts=2 sw=2 et<cr>
 
-    " ripgrep
-    nnoremap <leader>rg :Rg 
-
     " check the highlight group used for words under cursor
     nmap <F2> :call functions#SynStack()<cr>
 " }}}
@@ -252,7 +251,7 @@ call plug#begin('~/.config/nvim/plugged')
 
     augroup focusedwindow
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" && !coc#util#has_float() | set relativenumber | endif
+        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" && &filetype != "qf" | set relativenumber | endif
         autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
     augroup END
 " }}}
@@ -348,6 +347,8 @@ call plug#begin('~/.config/nvim/plugged')
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 
+        inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
         function! s:check_back_space() abort
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~# '\s'
@@ -420,12 +421,11 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
         let g:indentLine_bufTypeExclude = ['help', 'terminal']
-        let g:indentLine_fileTypeExclude = ['markdown', 'json', 'defx']
         let g:indentLine_char = '│'
+        let g:indentLine_fileTypeExclude = ['markdown', 'json', 'defx']
         let g:indentLine_first_char = '│'
-        let g:indentLine_showFirstIndentLevel=1
-
         let g:indentLine_setColors = 0
+        let g:indentLine_showFirstIndentLevel=1
     " }}}
 
     " Defx {{{
