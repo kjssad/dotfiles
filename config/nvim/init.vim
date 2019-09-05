@@ -146,12 +146,12 @@ call plug#begin('~/.config/nvim/plugged')
                 \ ]
             \   },
             \ 'component_function': {
-                \ 'fileencoding': 'LightlineFileEncoding',
-                \ 'filename': 'LightlineFileName',
-                \ 'fileformat': 'LightlineFileFormat',
-                \ 'shiftwidth':  'LightLineFileShiftWidth',
-                \ 'gitbranch': 'LightlineGitBranch',
-                \ 'diagnostic': 'LightlineLanguageDiagnostic'
+                \ 'fileencoding': 'helpers#lightline#fileEncoding',
+                \ 'filename': 'helpers#lightline#fileName',
+                \ 'fileformat': 'helpers#lightline#fileFormat',
+                \ 'shiftwidth':  'helpers#lightline#shiftWidth',
+                \ 'gitbranch': 'helpers#lightline#gitBranch',
+                \ 'diagnostic': 'helpers#lightline#languageDiagnostic'
             \ },
             \ 'tabline': {
                 \ 'left': [ [ 'tabs' ] ],
@@ -164,67 +164,6 @@ call plug#begin('~/.config/nvim/plugged')
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' }
         \ }
-
-        function! LightlineGitBranch()
-            return &filetype == 'defx'? '' : get(g:, 'coc_git_status', '')
-        endfunction
-
-        function! LightlineLanguageDiagnostic() abort
-            if &filetype == 'defx'
-                return
-            endif
-
-            let info = get(b:, 'coc_diagnostic_info', {})
-
-            let msgs = []
-
-            if get(info, 'error', 0)
-                call add(msgs, '✖ ' . info['error'])
-            else
-                call add(msgs, '✖ ' . 0)
-            endif
-
-            if get(info, 'warning', 0)
-                call add(msgs, '⚠ ' . info['warning'])
-            else
-                call add(msgs, '⚠ ' . 0)
-            endif
-
-            return get(g:, 'coc_status', '') . '  ' . join(msgs, ' ')
-        endfunction
-
-        function! LightlineFileName() abort
-            if &filetype == 'defx'
-                return ''
-            endif
-
-            let filename = winwidth(0) > 84? expand('%') : expand('%:t')
-            let modified = &modified ? ' +' : ''
-            return WebDevIconsGetFileTypeSymbol() . ' ' . fnamemodify(filename, ":~:.") . modified
-        endfunction
-
-        function! LightLineFileShiftWidth()
-            if &filetype == 'defx'
-                return ''
-            endif
-
-            if &expandtab == 1
-                return 'Spaces: ' . &shiftwidth
-            else
-                return 'Tabs: ' . &shiftwidth
-            endif
-        endfunction
-
-        function! LightlineFileFormat()
-            " only show the file format if it's not 'unix'
-            let format = &fileformat == 'unix' ? '' : &fileformat . ' '
-            return winwidth(0) > 70? format . WebDevIconsGetFileFormatSymbol() : ''
-        endfunction
-
-        function! LightlineFileEncoding()
-            " only show the file encoding if it's not 'utf-8'
-            return &fileencoding == 'utf-8'? '' : &fileencoding
-        endfunction
     " }}}
 " }}}
 
