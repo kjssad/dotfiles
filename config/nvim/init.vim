@@ -167,9 +167,6 @@ call plug#begin('~/.config/nvim/plugged')
                 \ 'active': [ 'filename', 'modified' ],
                 \ 'inactive': [ 'filename', 'modified' ],
             \ },
-            \ 'tab_component_function': {
-                \ 'filename': 'helpers#lightline#fileName'
-            \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' }
         \ }
