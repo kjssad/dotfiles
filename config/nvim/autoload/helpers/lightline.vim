@@ -40,7 +40,7 @@ function! helpers#lightline#fileName() abort
     return WebDevIconsGetFileTypeSymbol() . ' ' . fnamemodify(filename, ":~:.") . modified
 endfunction
 
-function! helpers#lightline#ShiftWidth()
+function! helpers#lightline#shiftWidth()
     if &filetype == 'defx' || &diff
         return ''
     endif
