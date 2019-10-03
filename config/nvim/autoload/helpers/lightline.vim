@@ -2,7 +2,7 @@ function! helpers#lightline#gitBranch()
     return &filetype == 'defx'? '' : get(g:, 'coc_git_status', '')
 endfunction
 
-function! helpers#lightline#languageDiagnostic() abort
+function! helpers#lightline#cocDiagnostics() abort
     if &filetype == 'defx' || &diff
         return
     endif
@@ -23,11 +23,15 @@ function! helpers#lightline#languageDiagnostic() abort
         call add(msgs, '⚠ ' . 0)
     endif
 
-    return get(g:, 'coc_status', '') . '  ' . join(msgs, ' ')
+    return join(msgs, ' ')
+endfunction
+
+function! helpers#lightline#cocStatus() abort
+    return &filetype == 'defx' || &diff? '' : get(g:, 'coc_status', '')
 endfunction
 
 function! helpers#lightline#fileName() abort
-    if &filetype == 'defx'
+    if &filetype == 'defx' || &filetype == ''
         return ''
     endif
 

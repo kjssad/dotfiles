@@ -139,12 +139,12 @@ call plug#begin('~/.config/nvim/plugged')
                 \ 'left': [
                     \ [ 'mode', 'paste' ],
                     \ [ 'gitbranch' ],
-                    \ [ 'readonly', 'filename' ]
+                    \ [ 'cocdiagnostics', 'readonly', 'filename' ]
                 \ ],
                 \ 'right': [
                     \ [ 'fileformat', 'fileencoding' ],
                     \ [ 'percent', 'lineinfo' ],
-                    \ [ 'diagnostic', 'shiftwidth' ]
+                    \ [ 'cocstatus', 'shiftwidth' ]
                 \ ]
             \   },
             \ 'component_function': {
@@ -153,7 +153,8 @@ call plug#begin('~/.config/nvim/plugged')
                 \ 'fileformat': 'helpers#lightline#fileFormat',
                 \ 'shiftwidth':  'helpers#lightline#shiftWidth',
                 \ 'gitbranch': 'helpers#lightline#gitBranch',
-                \ 'diagnostic': 'helpers#lightline#languageDiagnostic'
+                \ 'cocdiagnostics': 'helpers#lightline#cocDiagnostics',
+                \ 'cocstatus': 'helpers#lightline#cocStatus'
             \ },
             \ 'tabline': {
                 \ 'left': [ [ 'tabs' ] ],
