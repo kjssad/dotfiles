@@ -41,3 +41,7 @@ function! functions#SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
+
+function! functions#FoldText()
+  return getline(v:foldstart) . ''
+endfunction

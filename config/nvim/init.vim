@@ -46,6 +46,7 @@ call plug#begin('~/.config/nvim/plugged')
     set nofoldenable " don't fold by default
     set foldlevelstart=99
     set foldmethod=marker
+    set foldtext=functions#FoldText()
 
     " Searching
     set ignorecase
@@ -109,11 +110,6 @@ call plug#begin('~/.config/nvim/plugged')
     if (has("termguicolors"))
         set termguicolors
     endif
-
-    function! Fold()
-      return getline(v:foldstart) . ''
-    endfunction
-    set foldtext=Fold()
 
     set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
     set ttyfast " faster redrawing
