@@ -215,6 +215,12 @@ call plug#begin('~/.config/nvim/plugged')
     nnoremap <C-e> 3<C-e>
     nnoremap <C-y> 3<C-y>
 
+    " move cursor by display line
+    nnoremap <silent> j gj
+    nnoremap <silent> k gk
+    nnoremap <silent> ^ g^
+    nnoremap <silent> $ g$
+
     " don't exit visual mode after pressing > and <
     vnoremap > >gv
     vnoremap < <gv
