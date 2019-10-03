@@ -16,6 +16,10 @@ git config --global github.user "${github:-$defaultGithub}"
 
 if [[ "$( uname )" == "Darwin" ]]; then
     git config --global credential.helper "osxkeychain"
+elif  [[ "$( uname )" == "Linux" ]]; then
+    if type dnf > /dev/null 2>&1; then
+        git config --global credential.helper "/usr/libexec/git-core/git-credential-libsecret"
+    fi
 else
     read -rn 1 -p "Save user and password to an unencrypted file to avoid writing? [y/N] " save
     if [[ $save =~ ^([Yy])$ ]]; then
