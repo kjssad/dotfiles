@@ -432,120 +432,20 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'kristijanhusak/defx-git'
         Plug 'ryanoasis/vim-devicons'
 
-        let s:defxIsOpen = 0
+        let g:defx_opened = 0
 
+        " toggle defx
+        nnoremap <silent><Leader>k :call helpers#defx#open()<CR>
+        " find the current file in defx
+        nnoremap <silent><Leader>y :call helpers#defx#open({ 'find_current_file': v:true })<CR>
+ 
         augroup defx.nvim
             autocmd!
             autocmd BufEnter,FocusGained * if &filetype == "defx" | match Defx_indent /│/ | endif
             autocmd FileType defx match Defx_indent /│/
-            autocmd FileType defx call s:defx_mappings()
-            autocmd VimEnter * call s:setup_defx()
+            autocmd FileType defx call helpers#defx#mappings()
+            autocmd VimEnter * call helpers#defx#setup()
         augroup END
-
-        " toggle defx
-        nnoremap <silent><Leader>k :call <sid>defx_open()<CR>
-        " find the current file in defx
-        nnoremap <silent><Leader>y :call <sid>defx_open({ 'find_current_file': v:true })<CR>
-
-        function! Root(path) abort
-          return fnamemodify(a:path, ':t')
-        endfunction
-
-        function! s:setup_defx() abort
-            call defx#custom#source('file', {
-                \ 'root': 'Root',
-                \})
-
-            call defx#custom#option('_', {
-                \ 'columns': 'mark:indent:icons:filename:git',
-                \ 'root_marker': ' ',
-                \ })
-
-            call defx#custom#column('git', 'indicators', {
-                \ 'Modified'  : 'M',
-                \ 'Staged'    : 'S',
-                \ 'Untracked' : 'U',
-                \ 'Renamed'   : 'R',
-                \ 'Unmerged'  : 'G',
-                \ 'Deleted'   : 'D',
-                \ 'Ignored'   : 'I',
-                \ 'Unknown'   : '?',
-                \ 'Dirty'     : '●'
-                \ })
-
-            call defx#custom#column('indent', {
-                \ 'indent': '│',
-                \ })
-
-            call defx#custom#column('filename', {
-                \ 'min_width': 33,
-                \ 'max_width': 33,
-                \ 'root_marker_highlight': 'Ignore',
-                \ })
-
-            call defx#custom#column('mark', {
-                \ 'readonly_icon': '',
-                \ })
-        endfunction
-
-        function! s:defx_open(...) abort
-            let l:opts = get(a:, 1, {})
-            let l:path = getcwd()
-
-            let l:args = " -direction=topleft -winwidth=37 -split=vertical -show-ignored-files -listed -resume"
-
-            if has_key(l:opts, 'find_current_file')
-                if &filetype ==? 'defx'
-                    return
-                endif
-
-                let s:defxIsOpen = 1
-
-                call execute(printf('Defx %s -search=%s %s', l:args, expand('%:p'), l:path))
-
-                return
-            endif
-
-            if @% != "" && @% !~ "Startify" && &filetype != 'defx' && s:defxIsOpen != 1
-                let s:defxIsOpen = 1
-
-                call execute(printf('Defx %s -search=%s %s', l:args, expand('%:p'), l:path))
-            else
-                let s:defxIsOpen = s:defxIsOpen ==# 0? 1 : 0
-
-                call execute(printf('Defx -toggle %s %s', l:args, l:path))
-            endif
-        endfunction
-
-        function! s:DefxMenu() abort
-            let l:actions = ['new_multiple_files', 'move', 'remove', 'rename', 'copy', 'paste', 'redraw']
-            let l:selection = confirm('Action?', "&New file/directory\nMove\n&Delete\n&Rename\n&Copy\n&Paste")
-            silent exe 'redraw'
-
-            return feedkeys(defx#do_action(l:actions[l:selection - 1]))
-        endfunction
-
-        function s:ToggleDefx() abort
-            if defx#is_directory()
-                return defx#do_action('open_or_close_tree')
-            endif
-            return defx#do_action('drop')
-        endfunction
-
-        function! s:defx_mappings() abort
-            nnoremap <silent><buffer>m :call <sid>DefxMenu()<CR>
-            nnoremap <silent><buffer><expr> o <sid>ToggleDefx()
-            nnoremap <silent><buffer><expr> O defx#do_action('open_tree_recursive')
-            nnoremap <silent><buffer><expr> <CR> <sid>ToggleDefx()
-            nnoremap <silent><buffer><expr> C defx#is_directory() ? defx#do_action('multi', ['open', 'change_vim_cwd']) : 'C'
-            nnoremap <silent><buffer><expr> s defx#do_action('open', 'botright vsplit')
-            nnoremap <silent><buffer><expr> R defx#do_action('redraw')
-            nnoremap <silent><buffer><expr> U defx#do_action('multi', [['cd', '..'], 'change_vim_cwd'])
-            nnoremap <silent><buffer><expr> H defx#do_action('toggle_ignored_files')
-            nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-            nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
-            nnoremap <silent><buffer><expr> q defx#do_action('quit')
-        endfunction
     " }}}"
 
     " Snippets {{{
