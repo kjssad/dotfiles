@@ -250,7 +250,10 @@ call plug#begin('~/.config/nvim/plugged')
 
     augroup focusedwindow
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * if &filetype != "defx" && &filetype != "help" && &filetype != "qf" | set relativenumber | endif
+        autocmd BufEnter,FocusGained,InsertLeave *
+            \ if &filetype != "defx" && &filetype != "help" && &filetype != "qf" && !goyo_entered |
+                \ set relativenumber |
+            \ endif
         autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
     augroup END
 " }}}
@@ -413,6 +416,15 @@ call plug#begin('~/.config/nvim/plugged')
 
         command! -bang -nargs=? -complete=dir GitFiles
             \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+    " }}}
+
+    " Writing in vim {{{{
+        Plug 'junegunn/goyo.vim'
+
+        let g:goyo_entered = 0
+
+        autocmd! User GoyoEnter nested call helpers#goyo#enter()
+        autocmd! User GoyoLeave nested call helpers#goyo#leave()
     " }}}
 
     " IndentLine {{{
