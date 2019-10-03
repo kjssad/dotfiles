@@ -363,6 +363,10 @@ call plug#begin('~/.config/nvim/plugged')
         endfunction
 
         let g:coc_snippet_next = '<tab>'
+
+        let g:coc_filetype_map = {
+            \ 'eelixir': 'elixir'
+            \ }
     " }}}
 
     " FZF {{{
