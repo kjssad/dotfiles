@@ -294,15 +294,15 @@ call plug#begin('~/.config/nvim/plugged')
         inoremap <silent><expr> <c-space> coc#refresh()
 
         " coc-git keymappings
-        nmap [g <Plug>(coc-git-prevchunk)
-        nmap ]g <Plug>(coc-git-nextchunk)
+        nmap [c <Plug>(coc-git-prevchunk)
+        nmap ]c <Plug>(coc-git-nextchunk)
         nmap gb <Plug>(coc-git-chunkinfo)
         nmap gs :CocCommand git.chunkStage<CR>
         nmap gu :CocCommand git.chunkUndo<CR>
 
-        " Use `[c` and `]c` to navigate diagnostics
-        nmap <silent> [c <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]c <Plug>(coc-diagnostic-next)
+        " Use `[g` and `]g` to navigate diagnostics
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
         " Remap keys for gotos
         nmap <silent> gf <Plug>(coc-definition)
