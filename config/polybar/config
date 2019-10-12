@@ -1,0 +1,138 @@
+[colors]
+background = #202020
+foreground = #DFDFDF
+accent = #4285F4
+urgent = #EA4335
+
+[bar/top]
+width = 100%
+height = 28
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = ${colors.accent}
+
+border-size = 0
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 8
+
+font-0 = "Roboto:style=Bold:size=11;2"
+font-1 = "FuraMono Nerd Font Mono:size=10.8;2"
+font-2 = "Material Icons:size=12;4"
+font-3 = "Roboto:style=Bold:size=9;2"
+
+modules-left = i3
+modules-center = date
+modules-right = xkeyboard battery
+
+tray-position = right
+tray-padding = 3
+
+cursor-click = pointer
+; cursor-scroll = ns-resize
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/i3]
+type = internal/i3
+strip-wsnumbers = true
+wrapping-scroll = false
+
+label-focused =%name%
+;label-focused-background = #282828
+label-focused-padding = 1
+label-focused-margin-left = 1
+label-focused-underline = ${colors.foreground}
+
+label-unfocused =%name%
+label-unfocused-padding = 1
+label-unfocused-margin-left = 1
+
+label-visible =%name%
+label-visible-padding = 1
+label-visible-margin-left = 1
+
+label-urgent =%name%
+label-urgent-foreground = ${colors.accent}
+label-urgent-padding = 1
+label-urgent-margin-left = 1
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+
+label-empty = Desktop
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format = <label-indicator>
+
+blacklist-0 = num lock
+
+label-indicator = ""
+
+[module/date]
+type = internal/date
+interval = 5
+
+label = %date% %time%
+
+date = "%a %b %d"
+date-alt =
+
+time = %H:%M
+time-alt =
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+
+format-charging = <label-charging>
+format-charging-prefix = "  "
+label-charging-font = 4
+
+format-discharging = <ramp-capacity>  <label-discharging>
+label-discharging-font = 4
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+ramp-capacity-0-foreground = ${colors.accent}
+ramp-capacity-1-foreground = ${colors.accent}
+ramp-capacity-2-foreground = ${colors.accent}
+ramp-capacity-3-foreground = ${colors.accent}
+ramp-capacity-4-foreground = ${colors.accent}
+
+[module/cpu]
+type = internal/cpu
+label = %percentage%%
+interval = 2
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = %mb_used%
+
+[module/temperature]
+type = internal/temperature
+
+thermal-zone = 3
+
+warn-temperature = 60
