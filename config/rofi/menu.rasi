@@ -1,0 +1,127 @@
+configuration {
+  disable-history: true;
+  display-drun: "";
+  display-run: "";
+  display-window: "";
+  modi: "window,run,drun";
+  show-icons: true;	
+  sort: true;
+  levenshtein-sort: true;
+}
+
+* {
+  font: "Roboto Regular 11";
+  spacing: 0;
+
+  text-color: #FFFFFF;
+  background-color: #424242;
+
+  border-color: #00000033;
+
+  accent: #4285F4;
+  urgent: #EA4335;
+
+  handle-color: #ffffff80;
+
+  active-foreground: @accent;
+
+  urgent-foreground: @urgent;
+
+  selected-active-foreground: #FFFFFF;
+  selected-active-background: @accent;
+
+  selected-normal-foreground: @foreground;
+  selected-normal-background: #FFFFFF1E;
+
+  selected-urgent-foreground: #FFFFFF;
+  selected-urgent-background: @urgent;
+
+
+  alternate-active-foreground: @accent;
+
+  alternate-urgent-foreground: @urgent;
+}
+
+window {
+  location: north west;
+  anchor: north west;
+  y-offset: 36;
+  x-offset: 8;
+  text-color: @text-color;
+  width: 21%;
+  border-radius: 5;
+  transparency: "screenshot";
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+}
+
+inputbar {
+  children: [ prompt, entry ];
+  padding: 6 4 2 8;
+  border: 0 0 2 0;
+  border-color: @border-color;
+  background: #fff;
+}
+
+prompt {
+  font: "FuraMono Nerd Font Mono 16";
+}
+
+entry {
+  padding: 4 4 0 8;
+}
+
+textbox {
+  text-color: @urgent;
+  padding: 8;
+  str: "Application not found.";
+}
+
+listview {
+  scrollbar: true;
+  lines: 13;
+}
+
+scrollbar {
+  handle-width: 4;
+  border-color: @border-color;
+  handle-color: #A1A1A1;
+}
+
+#element {
+  padding: 7 7 7 12;
+}
+
+#element.normal.urgent {
+  text-color: @urgent-foreground;
+}
+
+#element.normal.active {
+  text-color: @active-foreground;
+}
+
+#element.selected.normal {
+  text-color: @selected-normal-foreground;
+  background-color: @selected-normal-background;
+}
+
+#element.selected.urgent {
+  text-color: @selected-urgent-foreground;
+  background-color: @selected-urgent-background;
+}
+
+#element.selected.active {
+  text-color: @selected-active-foreground;
+  background-color: @selected-active-background;
+}
+
+#element.alternate.urgent {
+  text-color: @alternate-urgent-foreground;
+}
+
+#element.alternate.active {
+  text-color: @alternate-active-foreground;
+}
+
