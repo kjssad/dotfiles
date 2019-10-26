@@ -24,8 +24,8 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-7 "['<Super>7']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-8 "['<Super>8']"
 
-gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>L']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Super>H']"
 
 
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "[]"
@@ -55,4 +55,4 @@ gsettings set org.gnome.shell.keybindings switch-to-application-9 "['<Super>F9']
 gsettings set org.gnome.shell.window-switcher app-icon-mode 'app-icon-only'
 
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys logout '<Super>0'
+gsettings set org.gnome.settings-daemon.plugins.media-keys logout "['<Super>0']"
