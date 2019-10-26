@@ -2,9 +2,10 @@
 
 # echo -e "\\nInstalling base desktop environment."
 # echo "=============================="
-dnf group install base-x "Hardware Support" "Common NetworkManager Submodules" "Firefox Web Browser"
-dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-software,gnome-weather,gnome-photos,gnome-documents,gnome-contacts,gnome-maps,gnome-user-docs,simple-scan,yelp,PackageKit-command-not-found,PackageKit-gtk3-module,cheese,gnome-characters,gnome-classic-session,gnome-clocks,gnome-font-viewer,gnome-getting-started-docs,gnome-initial-setup,gnome-logs,gnome-screenshot,baobab,orca,chrome-gnome-shell,totem" --setopt=install_weak_deps=False
+dnf group install base-x "Hardware Support" "Common NetworkManager Submodules"
+dnf group install "Firefox Web Browser"
 dnf group install Standard --exclude="ed,irqbalance,opensc,rsyslog,smartmontools,abrt-cli,sssd,nano"
+dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-software,gnome-weather,gnome-photos,gnome-documents,gnome-contacts,gnome-maps,gnome-user-docs,simple-scan,yelp,PackageKit-command-not-found,PackageKit-gtk3-module,cheese,gnome-characters,gnome-classic-session,gnome-clocks,gnome-font-viewer,gnome-getting-started-docs,gnome-initial-setup,gnome-logs,gnome-screenshot,baobab,orca,chrome-gnome-shell" --setopt=install_weak_deps=False
 
 echo -e "\\nInstalling RPM Fusion."
 echo "=============================="
@@ -26,11 +27,14 @@ echo "=============================="
 dnf install \
     ShellCheck \
     git \
+    gnome-tweaks \
     highlight \
+    menulibre \
     ngrep \
     neovim \
     python3-neovim \
     ripgrep \
+    sqlite \
     tmux \
     util-linux-user \
     zsh
