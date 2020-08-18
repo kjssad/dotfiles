@@ -2,9 +2,6 @@
 
 echo "Installing dotfiles."
 
-source install/link.sh
-source install/git.sh
-
 if [ "$(uname)" == "Linux" ]; then
     echo -e "\\n\\nRunning on Linux"
     if type apt > /dev/null 2>&1; then
@@ -20,6 +17,10 @@ if [ "$(uname)" == "Linux" ]; then
         sudo install/pacman.sh
     fi
 fi
+
+source install/link.sh
+source install/git.sh
+source install/asdf.sh
 
 if ! type zsh > /dev/null 2>&1; then
     echo "zsh not found. Please install and then re-run installation scripts"
