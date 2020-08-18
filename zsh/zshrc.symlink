@@ -30,11 +30,10 @@ if type rbenv > /dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
 
-
 # asdf support
 if [[ -d $HOME/.asdf ]]; then
   . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
+  fpath=(${ASDF_DIR}/completions $fpath)
 fi
 
 # adding path directory for custom scripts
