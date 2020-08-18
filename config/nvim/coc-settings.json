@@ -14,7 +14,12 @@
     "vue": "html"
   },
   "emmet.showExpandedAbbreviation": "always",
-  "git.addGlameToVirtualText": true,
+  "explorer.width": 40,
+  "explorer.previewAction.onHover": false,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [diagnosticError | 1] [indent][icon | 1] [filename omitCenter 1][modified][readonly]",
+  "explorer.file.column.indent.indentLine": true,
+  "git.addGBlameToVirtualText": true,
   "git.addedSign.text": "┃",
   "git.branchCharacter": "\uE725",
   "git.changeRemovedSign.text": "┃",

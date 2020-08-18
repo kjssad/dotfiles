@@ -218,8 +218,8 @@ call plug#begin('~/.config/nvim/plugged')
     " move cursor by display line
     nnoremap <silent> j gj
     nnoremap <silent> k gk
-    nnoremap <silent> ^ g^
-    nnoremap <silent> $ g$
+    " nnoremap <silent> ^ g^
+    " nnoremap <silent> $ g$
 
     " don't exit visual mode after pressing > and <
     vnoremap > >gv
@@ -257,7 +257,7 @@ call plug#begin('~/.config/nvim/plugged')
     augroup focusedwindow
         autocmd!
         autocmd BufEnter,FocusGained,InsertLeave *
-            \ if &filetype != "defx" && &filetype != "help" && &filetype != "qf" && !goyo_entered |
+            \ if &filetype != "coc-explorer" && &filetype != "help" && &filetype != "qf" && !goyo_entered |
                 \ set relativenumber |
             \ endif
         autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
@@ -283,7 +283,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:coc_global_extensions = [
             \ 'coc-pairs',
-            \ 'coc-elixir',
+            \ 'coc-explorer',
             \ 'coc-git',
             \ 'coc-highlight',
             \ 'coc-snippets',
@@ -367,10 +367,13 @@ call plug#begin('~/.config/nvim/plugged')
         let g:coc_filetype_map = {
             \ 'eelixir': 'elixir'
             \ }
+
+        " open coc-explorer
+        nmap <leader>k :CocCommand explorer<CR>
     " }}}
 
     " FZF {{{
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-bash --no-fish' }
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
 
         let g:fzf_layout = { 'down': '~25%' }
@@ -443,33 +446,11 @@ call plug#begin('~/.config/nvim/plugged')
         let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
         let g:indentLine_bufTypeExclude = ['help', 'terminal']
         let g:indentLine_char = '│'
-        let g:indentLine_fileTypeExclude = ['markdown', 'json', 'defx']
+        let g:indentLine_fileTypeExclude = ['markdown', 'json', 'coc-explorer']
         let g:indentLine_first_char = '│'
         let g:indentLine_setColors = 0
         let g:indentLine_showFirstIndentLevel=1
     " }}}
-
-    " Defx {{{
-        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'kristijanhusak/defx-icons'
-        Plug 'kristijanhusak/defx-git'
-        Plug 'ryanoasis/vim-devicons'
-
-        let g:defx_opened = 0
-
-        " toggle defx
-        nnoremap <silent><Leader>k :call helpers#defx#open()<CR>
-        " find the current file in defx
-        nnoremap <silent><Leader>y :call helpers#defx#open({ 'find_current_file': v:true })<CR>
- 
-        augroup defx.nvim
-            autocmd!
-            autocmd BufEnter,FocusGained * if &filetype == "defx" | match Defx_indent /│/ | endif
-            autocmd FileType defx match Defx_indent /│/
-            autocmd FileType defx call helpers#defx#mappings()
-            autocmd VimEnter * call helpers#defx#setup()
-        augroup END
-    " }}}"
 
     " Snippets {{{
         Plug 'honza/vim-snippets'
@@ -504,6 +485,8 @@ call plug#begin('~/.config/nvim/plugged')
             " Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
         " }}}
     " }}}
+
+    Plug 'ryanoasis/vim-devicons'
 " }}}
 
 call plug#end()
@@ -516,18 +499,7 @@ call plug#end()
 
     colorscheme quantum
 
-    hi def link Defx_filename_3_root Structure
-    hi def link Defx_filename_3_parent_directory Constant
-    hi def link Defx_git_4_Dirty Comment
-    hi link DefxIconsOpenedTreeIcon Structure
-    hi link DefxIconsNestedTreeIcon Structure
-    hi link DefxIconsClosedTreeIcon Structure
-    hi link DefxIconsParentDirectory Keyword
-    hi link Defx_indent Conceal
-    hi Defx_git_4_Untracked guifg=#87DE74 gui=bold
-    hi Defx_git_4_Renamed guifg=#FFD866 gui=bold
-    hi Defx_git_4_Modified guifg=#FFD866 gui=bold
-    hi Defx_git_4_Unmerged guifg=#EB5368 gui=bold
-    hi Defx_git_4_Deleted guifg=#EB5368 gui=bold
-    hi Defx_git_4_Staged guifg=#75BFFF gui=bold
+    hi link CocExplorerIndentLine Conceal
+    hi CocExplorerFileGitUnstage guifg=#FFD866 gui=bold
+    hi CocExplorerFileGitStage guifg=#75BFFF gui=bold
 " }}}

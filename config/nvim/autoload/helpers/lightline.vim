@@ -1,9 +1,9 @@
 function! helpers#lightline#gitBranch()
-    return &filetype == 'defx'? '' : get(g:, 'coc_git_status', '')
+    return &filetype == 'coc-explorer'? '' : get(g:, 'coc_git_status', '')
 endfunction
 
 function! helpers#lightline#cocDiagnostics() abort
-    if &filetype == 'defx' || &diff
+    if &filetype == 'coc-explorer' || &diff
         return
     endif
 
@@ -27,25 +27,26 @@ function! helpers#lightline#cocDiagnostics() abort
 endfunction
 
 function! helpers#lightline#cocStatus() abort
-    return &filetype == 'defx' || &diff? '' : get(g:, 'coc_status', '')
+    return &filetype == 'coc-explorer' || &diff? '' : get(g:, 'coc_status', '')
 endfunction
 
 function! helpers#lightline#fileName() abort
-    if &filetype == 'defx' || &filetype == ''
+    if &filetype == 'coc-explorer'
         return ''
     endif
 
-    if &diff
-        return expand('%')
-    end
-
     let filename = winwidth(0) > 84? expand('%') : expand('%:t')
     let modified = &modified ? ' +' : ''
+
+    if &diff
+        return filename . modified
+    end
+
     return WebDevIconsGetFileTypeSymbol() . ' ' . fnamemodify(filename, ":~:.") . modified
 endfunction
 
 function! helpers#lightline#shiftWidth()
-    if &filetype == 'defx' || &diff
+    if &filetype == 'coc-explorer' || &diff
         return ''
     endif
 
