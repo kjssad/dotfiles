@@ -21,6 +21,7 @@ fi
 source install/link.sh
 source install/git.sh
 source install/asdf.sh
+source install/fzf.sh
 
 if ! type zsh > /dev/null 2>&1; then
     echo "zsh not found. Please install and then re-run installation scripts"
