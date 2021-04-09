@@ -1,23 +1,20 @@
 # General {{{
-    font xft: Noto Sans Bold 10
+    font xft: Roboto Bold 10
 
     set $mod Mod4
 
     focus_follows_mouse no
 
-    new_window pixel 2
-    new_float pixel 2
+    new_window pixel 1
+    new_float pixel 1
 
-    hide_edge_borders none
+    hide_edge_borders smart
 
     bindsym $mod+u border none
-    bindsym $mod+y border pixel 2
+    bindsym $mod+y border pixel 1
     bindsym $mod+n border normal
 
     floating_modifier $mod
-
-    # switch to workspace with urgent window automatically
-    for_window [urgent=latest] focus
 
     # reload the configuration file
     bindsym $mod+Shift+c reload
@@ -29,7 +26,7 @@
     bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes' 'i3-msg exit'"
 
     # Set shut down, restart and locking features
-    bindsym $mod+0 mode "$mode_system"
+    # bindsym $mod+0 mode "$mode_system"
     set $mode_system (l)ock, (e)xit, (s)uspend, (r)eboot, (Shift+s)hutdown
     mode "$mode_system" {
         bindsym l exec --no-startup-id i3exit lock, mode "default"
@@ -59,60 +56,6 @@
 
 # }}}
 
-# Appearance {{{
-    # class                 border  backgr. text    indic.   child_border
-    client.focused          #424242 #424242 #ffffff #424242
-    client.focused_inactive #282828 #282828 #ffffff #282828
-    client.unfocused        #282828 #282828 #ffffff #282828
-    client.urgent           #4285F4 #4285F4 #ffffff #4285F4
-    client.placeholder      #000000 #0c0c0c #ffffff #000000
-
-    client.background       #2B2C2B
-
-# }}}
-
-# Bar {{{
-    # bar {
-    #     tray_output primary
-    #     status_command i3status -c ~/.config/i3status/config
-
-    #     position top
-    #     strip_workspace_numbers yes
-    #     font xft: Roboto Bold 10
-
-        # Plata Nior
-        # colors {
-        #     background #000000
-        #     statusline #F9FAF9
-        #     separator  #454947
-
-        #     #                  border  backgr. text
-        #     focused_workspace  #3f51b5 #3f51b5 #ffffff
-        #     active_workspace   #595B5B #000000 #FDF6E3
-        #     inactive_workspace #000000 #000000 #EEE8D5
-        #     binding_mode       #16a085 #2C2C2C #F9FAF9
-        #     urgent_workspace   #f44336 #f44336 #ffffff
-        # }
-
-        # colors {
-        #     background #13191C
-        #     statusline #BBC5C9
-        #     separator  #454947
-
-        #     #                  border  backgr. text
-        #     focused_workspace  #13191c #13191C #00BCD4
-        #     active_workspace   #13191C #13191C #BBC5C9
-        #     inactive_workspace #13191C #13191C #BBC5C9
-        #     binding_mode       #16a085 #2C2C2C #BBC5C9
-        #     urgent_workspace   #13191C #13191C #f44336
-        # }
-    # }
-
-    # # hide/unhide i3status bar
-    # bindsym $mod+m bar mode toggle
-
-# }}}
-
 # Movements {{{
     # move focus
     bindsym $mod+h focus left
@@ -132,17 +75,17 @@
     bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
     # split orientation
-    bindsym $mod+equal split h;exec notify-send 'tile horizontally'
-    bindsym $mod+backslash split v;exec notify-send 'tile vertically'
-    bindsym $mod+q split toggle; exec notify-send 'toggle split'
+    bindsym $mod+equal split h;exec notify-send 'Tiling horizontally' -t 1000 -u low
+    bindsym $mod+backslash split v;exec notify-send 'Tiling vertically' -t 1000 -u low
+    bindsym $mod+q split toggle; exec notify-send 'Toggle split' -t 1000 -u low
 
     # toggle fullscreen mode for the focused container
     bindsym $mod+f fullscreen toggle
 
     # change container layout (stacked, tabbed, toggle split)
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+s layout stacking;exec notify-send 'Toggling stacking layout' -t 1000 -u low
+    bindsym $mod+w layout tabbed;exec notify-send 'Toggling tabbed layout' -t 1000 -u low
+    bindsym $mod+e layout toggle split;exec notify-send 'Toggling split layout' -t 1000 -u low
 
     # toggle tiling / floating
     bindsym $mod+Shift+space floating toggle
@@ -209,7 +152,8 @@
 # }}}
 
 # Shortcuts {{{
-    bindsym $mod+Return exec termite
+    bindsym $mod+Return exec kitty
+    bindsym $mod+Shift+Return exec kitty --name=kitty-floating
 
     bindsym $mod+Shift+q kill
 
@@ -220,95 +164,106 @@
     bindsym $mod+Shift+F1 exec chromium --incognito
     bindsym $mod+F2 exec firefox
     bindsym $mod+Shift+F2 exec firefox --private-window
-    bindsym $mod+F3 exec pcmanfm
-    bindsym $mod+t exec --no-startup-id pkill compton
-    bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+    bindsym $mod+F3 exec nautilus
+    bindsym $mod+F4 exec telegram-desktop
+    bindsym $mod+F5 exec discord
     bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-    # bindsym Print exec --no-startup-id i3-scrot
-    # bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
-    # bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
     bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
     # Open specific applications in floating mode
-    for_window [class="GParted"] floating enable border pixel 2
-    for_window [class="Lightdm-settings"] floating enable
-    for_window [class="Lxappearance"] floating enable sticky enable border pixel 2
-    for_window [class="Nitrogen"] floating enable sticky enable border pixel 2
-    for_window [class="Gnome-control-center"] floating enable enable border pixel 2
-    for_window [class="Gcolor3"] floating enable enable border pixel 2
-    for_window [class="Pavucontrol"] floating enable
-    for_window [class="Pamac-manager"] floating enable
+    for_window [class="Bluetooth-sendto"] floating enable
+    for_window [class="Gnome-control-center"] floating enable
+    for_window [class="Gnome-system-monitor"] floating enable
+    for_window [class="Gnome-calculator"] floating enable
+    for_window [class="mGBA"] floating enable border pixel 1
+    for_window [class="Nm-connection-editor"] floating enable border pixel 1
+    for_window [class="Pavucontrol"] floating enable border pixel 1
+    for_window [class="qt5ct"] floating enable border pixel 1
+    for_window [class="TelegramDesktop"] floating enable border pixel 1
+    for_window [instance="kitty-floating"] floating enable border pixel 1
+
+    # Open specific applications in designated workspace
+    assign [class="discord"] $ws7
+    for_window [class="Spotify"] move to workspace $ws8, focus
 
     # Lock screen
     bindsym $mod+9 exec --no-startup-id i3lock
 
     # Autostart applications
     exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-    exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-    exec --no-startup-id pa-applet
     exec --no-startup-id nm-applet
-    exec --no-startup-id xfce4-power-manager
-    exec --no-startup-id clipit
-    exec --no-startup-id xss-lock -- i3lock
-    # exec --no-startup-id pamac-tray
-    # exec --no-startup-id xautolock -time 04 -locker i3lock
-    # exec_always --no-startup-id ff-theme-util
-    # exec_always --no-startup-id fix_xcursor
-    # exec --no-startup-id blueman-applet
     exec --no-startup-id picom -b
 # }}}
 
-# i3-gaps {{{
-    # Set inner/outer gaps
-    gaps inner 0
-    gaps outer 0
+# Appearance {{{
+    set_from_resource $accent       i3wm.accent
+    set_from_resource $accent-alt   i3wm.accent-alt
+    set_from_resource $background   i3wm.background
+    set_from_resource $border       i3wm.border
+    set_from_resource $foreground   i3wm.foreground
 
-    # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-    # gaps inner|outer current|all set|plus|minus <px>
-    # gaps inner all set 10
-    # gaps outer all plus 5
+    # class                 border      backgr.     text        indic.  child_border
+    client.focused          $accent-alt $accent-alt $accent
+    client.focused_inactive $border     $background $foreground
+    client.unfocused        $border     $background $foreground
+    client.urgent           $accent     $accent     $background
+    client.placeholder      $background $background $foreground
 
-    # Smart gaps (gaps used if only more than one container on the workspace)
-    smart_gaps on
+    client.background       $background
 
-    # Smart borders (draw borders around container only if it is not the only container on this workspace)
-    # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-    smart_borders on
-
-    # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-    set $mode_gaps Gaps: (o) outer, (i) inner
-    set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-    set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-    bindsym $mod+Shift+g mode "$mode_gaps"
-
-    mode "$mode_gaps" {
-            bindsym o      mode "$mode_gaps_outer"
-            bindsym i      mode "$mode_gaps_inner"
-            bindsym Return mode "default"
-            bindsym Escape mode "default"
-    }
-    mode "$mode_gaps_inner" {
-            bindsym plus  gaps inner current plus 5
-            bindsym minus gaps inner current minus 5
-            bindsym 0     gaps inner current set 0
-
-            bindsym Shift+plus  gaps inner all plus 5
-            bindsym Shift+minus gaps inner all minus 5
-            bindsym Shift+0     gaps inner all set 0
-
-            bindsym Return mode "default"
-            bindsym Escape mode "default"
-    }
-    mode "$mode_gaps_outer" {
-            bindsym plus  gaps outer current plus 5
-            bindsym minus gaps outer current minus 5
-            bindsym 0     gaps outer current set 0
-
-            bindsym Shift+plus  gaps outer all plus 5
-            bindsym Shift+minus gaps outer all minus 5
-            bindsym Shift+0     gaps outer all set 0
-
-            bindsym Return mode "default"
-            bindsym Escape mode "default"
-    }
 # }}}
+
+# # i3-gaps {{{
+#     # Set inner/outer gaps
+#     gaps inner 0
+#     gaps outer 0
+
+#     # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+#     # gaps inner|outer current|all set|plus|minus <px>
+#     # gaps inner all set 10
+#     # gaps outer all plus 5
+
+#     # Smart gaps (gaps used if only more than one container on the workspace)
+#     smart_gaps on
+
+#     # Smart borders (draw borders around container only if it is not the only container on this workspace)
+#     # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+#     smart_borders on
+
+#     # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+#     set $mode_gaps Gaps: (o) outer, (i) inner
+#     set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+#     set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+#     bindsym $mod+Shift+g mode "$mode_gaps"
+
+#     mode "$mode_gaps" {
+#             bindsym o      mode "$mode_gaps_outer"
+#             bindsym i      mode "$mode_gaps_inner"
+#             bindsym Return mode "default"
+#             bindsym Escape mode "default"
+#     }
+#     mode "$mode_gaps_inner" {
+#             bindsym plus  gaps inner current plus 5
+#             bindsym minus gaps inner current minus 5
+#             bindsym 0     gaps inner current set 0
+
+#             bindsym Shift+plus  gaps inner all plus 5
+#             bindsym Shift+minus gaps inner all minus 5
+#             bindsym Shift+0     gaps inner all set 0
+
+#             bindsym Return mode "default"
+#             bindsym Escape mode "default"
+#     }
+#     mode "$mode_gaps_outer" {
+#             bindsym plus  gaps outer current plus 5
+#             bindsym minus gaps outer current minus 5
+#             bindsym 0     gaps outer current set 0
+
+#             bindsym Shift+plus  gaps outer all plus 5
+#             bindsym Shift+minus gaps outer all minus 5
+#             bindsym Shift+0     gaps outer all set 0
+
+#             bindsym Return mode "default"
+#             bindsym Escape mode "default"
+#     }
+# # }}}

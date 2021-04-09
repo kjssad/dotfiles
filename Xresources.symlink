@@ -1,0 +1,39 @@
+i3wm.accent: #8ab4f8
+i3wm.accent-alt: #343b46
+i3wm.background: #1F1F1F
+i3wm.background-alt: #343434
+i3wm.background-sec: #444444
+
+i3wm.border: #4a4a4a
+i3wm.foreground: #DFDFDF
+i3wm.urgent: #EA4335
+
+
+*.foreground: #D7D7DB
+*.background: #2a2a2e
+
+*.cursorColor: #75BFFF
+
+*.color0:  #2a2a2e
+*.color8:  #737373
+
+*.color1:  #EB5368
+*.color9:  #FF7DE9
+
+*.color2:  #87DE74
+*.color10: #87DE74
+
+*.color3:  #FFD866
+*.color11: #FFD866
+
+*.color4:  #6B89FF
+*.color12: #6B89FF
+
+*.color5:  #B98EFF
+*.color13: #B98EFF
+
+*.color6:  #75BFFF
+*.color14: #75BFFF
+
+*.color7:  #D7D7DB
+*.color15: #939295

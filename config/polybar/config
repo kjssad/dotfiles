@@ -1,8 +1,8 @@
 [colors]
-background = #202020
-foreground = #DFDFDF
-accent = #4285F4
-urgent = #EA4335
+accent = ${xrdb:i3wm.accent}
+background = ${xrdb:i3wm.background}
+border = ${xrdb:i3wm.border}
+foreground = ${xrdb:i3wm.foreground}
 
 [bar/top]
 width = 100%
@@ -14,94 +14,138 @@ foreground = ${colors.foreground}
 line-size = 2
 line-color = ${colors.accent}
 
-border-size = 0
-
-padding-left = 0
+padding-left = 5
 padding-right = 0
 
 module-margin-left = 0
-module-margin-right = 8
+module-margin-right = 5
 
-font-0 = "Roboto:style=Bold:size=11;2"
-font-1 = "FuraMono Nerd Font Mono:size=10.8;2"
-font-2 = "Material Icons:size=12;4"
-font-3 = "Roboto:style=Bold:size=9;2"
+font-0 = "Roboto:style=Bold:size=10;2"
+font-1 = "FiraCode Nerd Font:size=13.5;2"
+font-2 = "FiraCode Nerd Font:size=11;2"
+# font-1 = "JetBrainsMono Nerd Font Mono:size=11;3"
 
-modules-left = i3
+modules-left = launcher i3
 modules-center = date
-modules-right = xkeyboard battery
+modules-right = xkeyboard cpu memory swap temperature upspeed downspeed battery pulseaudio
 
 tray-position = right
-tray-padding = 3
 
-cursor-click = pointer
-; cursor-scroll = ns-resize
+tray-padding = 10
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
+cursor-click = pointer
+
+[module/launcher]
+type = custom/text
+
+content = 綠
+content-font = 3
+
+click-left = rofi -show drun -config $HOME/.config/rofi/menu.rasi
+
 [module/i3]
 type = internal/i3
+
 strip-wsnumbers = true
+
 wrapping-scroll = false
 
 label-focused =%name%
-;label-focused-background = #282828
-label-focused-padding = 1
-label-focused-margin-left = 1
+label-focused-padding = 2
+label-focused-margin-right = 2
 label-focused-underline = ${colors.foreground}
 
 label-unfocused =%name%
-label-unfocused-padding = 1
-label-unfocused-margin-left = 1
+label-unfocused-padding = 2
+label-unfocused-margin-right = 2
 
 label-visible =%name%
-label-visible-padding = 1
-label-visible-margin-left = 1
+label-visible-padding = 2
+label-visible-margin-right = 2
 
 label-urgent =%name%
 label-urgent-foreground = ${colors.accent}
-label-urgent-padding = 1
-label-urgent-margin-left = 1
+label-urgent-padding = 2
+label-urgent-margin-right = 2
 
-[module/xwindow]
-type = internal/xwindow
-label = %title%
+[module/date]
+type = internal/date
 
-label-empty = Desktop
+interval = 5
+
+label = %date%  %time%
+
+date = "%a %b %d"
+
+time = %H:%M
 
 [module/xkeyboard]
 type = internal/xkeyboard
 
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
 format = <label-indicator>
 
-blacklist-0 = num lock
+label-indicator-on-capslock = ""
+label-indicator-on-capslock-padding-right = 3
 
-label-indicator = ""
+[module/cpu]
+type = internal/cpu
 
-[module/date]
-type = internal/date
-interval = 5
+label = %percentage%%
+label-padding-right = 3
 
-label = %date% %time%
+[module/memory]
+type = internal/memory
 
-date = "%a %b %d"
-date-alt =
+label = %percentage_used%%
+label-padding-right = 3
 
-time = %H:%M
-time-alt =
+[module/swap]
+type = internal/memory
+
+label = %percentage_swap_used%%
+label-padding-right = 3
+
+[module/temperature]
+type = internal/temperature
+
+thermal-zone = 3
+
+warn-temperature = 60
+
+label-padding-right = 3
+label-warn-foreground = ${colors.accent}
+
+[module/upspeed]
+type = internal/network
+
+interface = wlp2s0
+
+label-connected = %upspeed%
+label-connected-padding-right = 3
+
+[module/downspeed]
+type = internal/network
+
+interface = wlp2s0
+
+label-connected = %downspeed%
+label-connected-padding-right = 3
 
 [module/battery]
 type = internal/battery
+
 battery = BAT0
 adapter = AC0
 
-format-charging = <label-charging>
-format-charging-prefix = "  "
-label-charging-font = 4
+format-charging = <label-charging>  
 
-format-discharging = <ramp-capacity>  <label-discharging>
-label-discharging-font = 4
+format-discharging = <label-discharging>  <ramp-capacity>
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -120,19 +164,24 @@ ramp-capacity-2-foreground = ${colors.accent}
 ramp-capacity-3-foreground = ${colors.accent}
 ramp-capacity-4-foreground = ${colors.accent}
 
-[module/cpu]
-type = internal/cpu
-label = %percentage%%
-interval = 2
+[module/pulseaudio]
+type = internal/pulseaudio
 
-[module/memory]
-type = internal/memory
-interval = 2
-label = %mb_used%
+sink = 1
 
-[module/temperature]
-type = internal/temperature
+use-ui-max = false
 
-thermal-zone = 3
+format-volume = <ramp-volume>
 
-warn-temperature = 60
+format-muted = <label-muted>
+
+label-muted = 婢
+label-muted-foreground = ${colors.border}
+label-muted-padding-right = 1
+
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+ramp-volume-padding-right = 1
+
+click-right = pavucontrol

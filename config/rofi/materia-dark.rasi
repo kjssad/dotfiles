@@ -1,0 +1,65 @@
+* {
+  font: "Roboto Regular 10";
+  text-color: #DFDFDF;
+  background-color: #343434;
+  background-color-alt: #444444;
+
+  border-color: #4a4a4a;
+
+  handle-color: #808080;
+
+  accent: #8ab4f8;
+  accent-alt: #343b46;
+  accent-alt-sec: #3e4a5b;
+
+  active-foreground: @accent;
+  active-background: @accent-alt;
+
+  urgent-foreground: @accent;
+
+  selected-active-foreground: @accent;
+  selected-active-background: @accent-alt-sec;
+
+  selected-normal-foreground: @text-color;
+  selected-normal-background: @background-color-alt;
+
+  selected-urgent-foreground: @text-color;
+  selected-urgent-background: @accent;
+
+
+  alternate-active-foreground: @accent;
+
+  alternate-urgent-foreground: @accent;
+}
+
+#element.normal.urgent {
+  text-color: @urgent-foreground;
+}
+
+#element.normal.active {
+  text-color: @active-foreground;
+  background-color: @active-background;
+}
+
+#element.selected.normal {
+  text-color: @selected-normal-foreground;
+  background-color: @selected-normal-background;
+}
+
+#element.selected.urgent {
+  text-color: @selected-urgent-foreground;
+  background-color: @selected-urgent-background;
+}
+
+#element.selected.active {
+  text-color: @selected-active-foreground;
+  background-color: @selected-active-background;
+}
+
+#element.alternate.urgent {
+  text-color: @alternate-urgent-foreground;
+}
+
+#element.alternate.active {
+  text-color: @alternate-active-foreground;
+}
