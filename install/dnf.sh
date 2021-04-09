@@ -10,8 +10,8 @@ dnf group install "Gnome Desktop Environment" --exclude="gnome-boxes,gnome-softw
 echo -e "\\nInstalling RPM Fusion."
 echo "=============================="
 dnf install \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 echo -e "\\nInstalling Multimedia codecs."
 echo "=============================="
@@ -20,16 +20,14 @@ dnf install libva-intel-driver gstreamer1-vaapi libva-utils
 
 echo -e "\\nInstalling Fonts."
 echo "=============================="
-dnf install mozilla-fira-mono-fonts google-noto-cjk-fonts google-noto-emoji-color-fonts
+dnf install jetbrains-mono-fonts
 
 echo -e "\\nInstalling RPM packages."
 echo "=============================="
 dnf install \
     ShellCheck \
+    bat \
     git \
-    gnome-tweaks \
-    highlight \
-    menulibre \
     ngrep \
     neovim \
     python3-neovim \

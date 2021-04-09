@@ -2,4 +2,4 @@
 
 echo -e "\\nInstalling apt packages."
 echo "=============================="
-apt install curl gawk git highlight neovim ripgrep shellcheck tmux zsh
+apt install curl gawk git highlight kitty neovim ripgrep shellcheck tmux zsh
