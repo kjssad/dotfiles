@@ -468,7 +468,7 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug 'sodapopcan/vim-twiggy'
         " Plug 'christoomey/vim-conflicted'
 
-        nmap <silent> <leader>gs :Gstatus<CR>
+        nmap <silent> <leader>gs :Git<CR>
         nmap <leader>ge :Gedit<CR>
         nmap <silent><leader>gr :Gread<CR>
         nmap <silent><leader>gb :Gblame<CR>
