@@ -1,6 +1,15 @@
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh
 
+fpath=(
+    $DOTFILES/zsh/functions
+    $fpath
+)
+
+if [[ -d $ZSH/functions ]]; then
+    for func in $ZSH/functions/*(:t); autoload -U $func
+fi
+
 # display how long all tasks over 10 seconds take
 export REPORTTIME=10
 
@@ -19,6 +28,10 @@ compinit
 
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
+
+if [[ -d ~/Development/codes ]]; then
+    export CODE_DIR=~/Development/codes
+fi
 
 # add rbenv to path
 if [[ -d $HOME/.rbenv/bin ]]; then
