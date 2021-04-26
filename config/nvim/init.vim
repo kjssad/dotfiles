@@ -380,12 +380,12 @@ call plug#begin('~/.config/nvim/plugged')
             nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<CR>
         else
             " otherwise, use :FZF
-            nmap <silent> <leader>t :FZF<CR>
+            nmap <silent> <leader>t :Files<CR>
         endif
 
         nmap <silent> <leader>s :GFiles?<CR>
         nmap <silent> <leader>r :Buffers<CR>
-        nmap <silent> <leader>e :FZF<CR>
+        nmap <silent> <leader>e :Files<CR>
         nmap <silent> <leader>rg :RG<CR>
 
         nmap <leader><tab> <plug>(fzf-maps-n)
