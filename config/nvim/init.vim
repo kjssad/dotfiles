@@ -343,12 +343,28 @@ call plug#begin('~/.config/nvim/plugged')
         " Fix autofix problem of current line
         nmap <leader>qf  <Plug>(coc-fix-current)
 
+        " map function and class text objects
+        " note: requires 'textdocument.documentsymbol' support from the language server.
+        xmap if <plug>(coc-funcobj-i)
+        omap if <plug>(coc-funcobj-i)
+        xmap af <plug>(coc-funcobj-a)
+        omap af <plug>(coc-funcobj-a)
+        xmap ic <plug>(coc-classobj-i)
+        omap ic <plug>(coc-classobj-i)
+        xmap ac <plug>(coc-classobj-a)
+        omap ac <plug>(coc-classobj-a)
+
         nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
         nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
         inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
         inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
         vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
         vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+        " Use CTRL-S for selections ranges.
+        " Requires 'textDocument/selectionRange' support of language server.
+        nmap <silent> <C-s> <Plug>(coc-range-select)
+        xmap <silent> <C-s> <Plug>(coc-range-select)
 
         let g:coc_global_extensions = [
             \ 'coc-emmet',
