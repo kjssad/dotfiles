@@ -230,9 +230,6 @@ call plug#begin('~/.config/nvim/plugged')
     nmap \s :set ts=4 sts=4 sw=4 et<CR>
     nmap \2t :set ts=2 sts=2 sw=2 noet<CR>
     nmap \2s :set ts=2 sts=2 sw=2 et<CR>
-
-    " check the highlight group used for words under cursor
-    nmap <F2> :call functions#SynStack()<CR>
 " }}}
 
 " AutoGroups {{{
@@ -269,7 +266,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'sickill/vim-pasta' " context-aware paste
     Plug 'tpope/vim-abolish' " substitute, search, and abbreviate multiple variants of a word
     Plug 'tpope/vim-commentary' " easy commenting motions
-    Plug 'tpope/vim-eunuch' " eunuch.vim: Helpers for UNIX 
+    Plug 'tpope/vim-eunuch' " eunuch.vim: Helpers for UNIX
     Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
     Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
     Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
@@ -415,11 +412,6 @@ call plug#begin('~/.config/nvim/plugged')
             \| autocmd BufLeave <buffer> set laststatus=2 ruler
         augroup END
 
-        command! FZFMru call fzf#run({
-            \ 'source':  v:oldfiles,
-            \ 'sink':    'e',
-            \ 'options': '-m -x +s', \  'down':    '40%'})
-
         command! -bang -nargs=* Find call fzf#vim#grep(
             \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
             \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
@@ -476,14 +468,6 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Language-specific plugins {{{
         Plug 'sheerun/vim-polyglot'
-
-        " Elixir {{{
-            " Plug 'elixir-editors/vim-elixir'
-        " }}}
-
-        " Markdown support {{{
-            " Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-        " }}}
     " }}}
 
     Plug 'ryanoasis/vim-devicons'
@@ -498,8 +482,4 @@ call plug#end()
     filetype plugin indent on
 
     colorscheme quantum
-
-    hi link CocExplorerIndentLine Conceal
-    hi CocExplorerFileGitUnstage guifg=#FFD866 gui=bold
-    hi CocExplorerFileGitStage guifg=#75BFFF gui=bold
 " }}}

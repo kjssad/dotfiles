@@ -32,16 +32,6 @@ function! functions#WinMove(key)
     endif
 endfunction
 
-
-" Check the highlight group used for words under cursor
-" https://stackoverflow.com/questions/7893445
-function! functions#SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
-
 function! functions#FoldText()
   return getline(v:foldstart) . ''
 endfunction
