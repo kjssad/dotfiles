@@ -278,30 +278,21 @@ call plug#begin('~/.config/nvim/plugged')
     " coc {{{
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-        let g:coc_global_extensions = [
-            \ 'coc-pairs',
-            \ 'coc-explorer',
-            \ 'coc-git',
-            \ 'coc-highlight',
-            \ 'coc-snippets',
-            \ 'coc-emmet',
-            \ 'coc-json'
-            \ ]
+        inoremap <silent><expr> <TAB>
+            \ pumvisible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 
-        augroup coc
-            autocmd CursorHold * silent call CocActionAsync('highlight')
-            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-        augroup END
+        inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+        function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction
 
         " trigger completion
         inoremap <silent><expr> <c-space> coc#refresh()
-
-        " coc-git keymappings
-        nmap [c <Plug>(coc-git-prevchunk)
-        nmap ]c <Plug>(coc-git-nextchunk)
-        nmap gb <Plug>(coc-git-chunkinfo)
-        nmap gs :CocCommand git.chunkStage<CR>
-        nmap gu :CocCommand git.chunkUndo<CR>
 
         " Use `[g` and `]g` to navigate diagnostics
         nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -313,6 +304,26 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> gt <Plug>(coc-type-definition)
         nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> gr <Plug>(coc-references)
+
+        " Use K to show documentation in preview window
+        nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+        function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            elseif (coc#rpc#ready())
+                call CocAction('doHover')
+            else
+                execute '!' . &keywordprg . " " . expand('<cword>')
+            endif
+        endfunction
+
+        autocmd CursorHold * silent call CocActionAsync('highlight')
+
+        augroup coc
+            autocmd!
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup END
 
         " rename
         nmap <silent> <leader>rn <Plug>(coc-rename)
@@ -332,32 +343,25 @@ call plug#begin('~/.config/nvim/plugged')
         " Fix autofix problem of current line
         nmap <leader>qf  <Plug>(coc-fix-current)
 
-        " Use K to show documentation in preview window
-        nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-        function! s:show_documentation()
-            if (index(['vim','help'], &filetype) >= 0)
-                execute 'h '.expand('<cword>')
-            else
-                call CocAction('doHover')
-            endif
-        endfunction
-
         nnoremap <expr><C-n> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-n>"
         nnoremap <expr><C-p> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-p>"
 
-        inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+        let g:coc_global_extensions = [
+            \ 'coc-emmet',
+            \ 'coc-explorer',
+            \ 'coc-git',
+            \ 'coc-highlight',
+            \ 'coc-json',
+            \ 'coc-pairs',
+            \ 'coc-snippets',
+            \ ]
 
-        inoremap <silent><expr> <CR> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-        function! s:check_back_space() abort
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~# '\s'
-        endfunction
+        " coc-git keymappings
+        nmap [c <Plug>(coc-git-prevchunk)
+        nmap ]c <Plug>(coc-git-nextchunk)
+        nmap gb <Plug>(coc-git-chunkinfo)
+        nmap gs :CocCommand git.chunkStage<CR>
+        nmap gu :CocCommand git.chunkUndo<CR>
 
         let g:coc_snippet_next = '<tab>'
 
