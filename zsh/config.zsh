@@ -17,11 +17,4 @@ setopt HIST_IGNORE_ALL_DUPS
 
 setopt COMPLETE_ALIASES
 
-bindkey '^[b' backward-word
-bindkey '^B' backward-char
-bindkey '^[f' forward-word
-bindkey '^F' forward-char
-bindkey '^[e' beginning-of-line
-bindkey '^E' end-of-line
-bindkey '^D' delete-char
-bindkey '^[d' delete-word
+bindkey -e
