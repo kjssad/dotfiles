@@ -386,6 +386,7 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> <leader>s :GFiles?<CR>
         nmap <silent> <leader>r :Buffers<CR>
         nmap <silent> <leader>e :FZF<CR>
+        nmap <silent> <leader>rg :RG<CR>
 
         nmap <leader><tab> <plug>(fzf-maps-n)
         xmap <leader><tab> <plug>(fzf-maps-x)
@@ -411,6 +412,8 @@ call plug#begin('~/.config/nvim/plugged')
             autocmd  FileType fzf set laststatus=0 noruler
             \| autocmd BufLeave <buffer> set laststatus=2 ruler
         augroup END
+
+        command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
         command! -bang -nargs=* Find call fzf#vim#grep(
             \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
