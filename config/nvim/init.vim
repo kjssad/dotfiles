@@ -396,6 +396,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:coc_global_extensions = [
             \ 'coc-emmet',
             \ 'coc-explorer',
+            \ 'coc-flutter',
             \ 'coc-git',
             \ 'coc-highlight',
             \ 'coc-json',

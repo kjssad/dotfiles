@@ -1,5 +1,9 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "dart"
+  ],
+  "coc.preferences.formatOnType": true,
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.snippetStatusText": "\uf64d",
   "codeLens.enable": true,
