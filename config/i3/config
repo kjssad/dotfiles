@@ -1,12 +1,12 @@
 # General {{{
-    font xft: Roboto Bold 10
+    font Roboto Bold 10
 
     set $mod Mod4
 
     focus_follows_mouse no
 
-    new_window pixel 1
-    new_float pixel 1
+    default_border pixel 1
+    default_floating_border pixel 1
 
     hide_edge_borders smart
 
