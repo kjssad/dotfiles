@@ -17,4 +17,6 @@ setopt HIST_IGNORE_ALL_DUPS
 
 setopt COMPLETE_ALIASES
 
+setopt AUTO_CD
+
 bindkey -e
