@@ -402,6 +402,7 @@ call plug#begin('~/.config/nvim/plugged')
             \ 'coc-json',
             \ 'coc-pairs',
             \ 'coc-snippets',
+            \ 'coc-diagnostic'
             \ ]
 
         " coc-git keymappings

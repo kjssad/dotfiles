@@ -7,6 +7,9 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.snippetStatusText": "\uf64d",
   "codeLens.enable": true,
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck"
+  },
   "diagnostic.errorSign": "✖",
   "diagnostic.hintSign": "○",
   "diagnostic.infoSign": "●",
