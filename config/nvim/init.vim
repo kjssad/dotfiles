@@ -461,23 +461,25 @@ call plug#begin('~/.config/nvim/plugged')
         \   'left':    30
         \ })<CR>
 
-        augroup fzf
-            autocmd!
-            autocmd  FileType fzf set laststatus=0 noruler
-            \| autocmd BufLeave <buffer> set laststatus=2 ruler
-        augroup END
-
         command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
         command! -bang -nargs=* Find call fzf#vim#grep(
             \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
-            \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+            \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview(), <bang>0)
 
         command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
         command! -bang -nargs=? -complete=dir GitFiles
-            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+        let $FZF_DEFAULT_OPTS= $FZF_DEFAULT_OPTS
+            \ . " --layout reverse"
+            \ . " --pointer ' '"
+            \ . " --color 'bg+:0'"
+
+        let g:fzf_preview_window = ['right:50%', '?']
+        let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'border': 'sharp', 'highlight': 'VertSplit' } }
     " }}}
 
     " Writing in vim {{{{
