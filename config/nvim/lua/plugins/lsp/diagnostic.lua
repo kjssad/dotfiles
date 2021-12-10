@@ -29,7 +29,7 @@ local config = {
 }
 
 function M.show_position_diagnostics()
-  vim.diagnostic.open_float(0, { scope = "cursor" })
+  vim.diagnostic.open_float({ scope = "cursor" })
 end
 
 M.border = config.float.border
