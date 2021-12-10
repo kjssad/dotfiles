@@ -1,51 +1,40 @@
 local M = {}
 
--- local border = {
---   { "▁", "FloatBorder" },
---   { "▁", "FloatBorder" },
---   { "▁", "FloatBorder" },
---   { "▕", "FloatBorder" },
---   { "▔", "FloatBorder" },
---   { "▔", "FloatBorder" },
---   { "▔", "FloatBorder" },
---   { "▏", "FloatBorder" },
--- -- }
+local config = {
+  virtual_text = false,
+  float = {
+    header = "",
+    format = function(diagnostic)
+      if diagnostic.code then
+        return string.format("%s %s (%s)", diagnostic.message, diagnostic.source, diagnostic.code)
+      end
 
--- local border = "single"
-
-local function diagnostic_format(diagnostic)
-  return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-end
+      return string.format("%s %s", diagnostic.message, diagnostic.source)
+    end,
+    border = {
+      { "🭽", "FloatBorder" },
+      { "▔", "FloatBorder" },
+      { "🭾", "FloatBorder" },
+      { "▕", "FloatBorder" },
+      { "🭿", "FloatBorder" },
+      { "▁", "FloatBorder" },
+      { "🭼", "FloatBorder" },
+      { "▏", "FloatBorder" },
+    },
+    prefix = "",
+    focusable = false,
+  },
+  update_in_insert = false,
+  severity_sort = true,
+}
 
 function M.show_position_diagnostics()
   vim.diagnostic.open_float(0, { scope = "cursor" })
 end
 
-M.border = {
-  { "🭽", "FloatBorder" },
-  { "▔", "FloatBorder" },
-  { "🭾", "FloatBorder" },
-  { "▕", "FloatBorder" },
-  { "🭿", "FloatBorder" },
-  { "▁", "FloatBorder" },
-  { "🭼", "FloatBorder" },
-  { "▏", "FloatBorder" },
-}
+M.border = config.float.border
 
 function M.setup()
-  local config = {
-    virtual_text = false,
-    float = {
-      header = "",
-      format = diagnostic_format,
-      border = M.border,
-      prefix = "",
-      focusable = false,
-    },
-    update_in_insert = false,
-    severity_sort = true,
-  }
-
   local signs = { Error = "", Warn = "", Info = "", Hint = "" }
 
   for type, icon in pairs(signs) do
