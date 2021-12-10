@@ -6,10 +6,10 @@ local config = {
     header = "",
     format = function(diagnostic)
       if diagnostic.code then
-        return string.format("%s %s (%s)", diagnostic.message, diagnostic.source, diagnostic.code)
+        return string.format("%s (%s) [%s]", diagnostic.message, diagnostic.source, diagnostic.code)
       end
 
-      return string.format("%s %s", diagnostic.message, diagnostic.source)
+      return string.format("%s (%s)", diagnostic.message, diagnostic.source)
     end,
     border = {
       { "🭽", "FloatBorder" },
