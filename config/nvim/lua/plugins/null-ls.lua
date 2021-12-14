@@ -2,6 +2,8 @@ local M = {}
 local null_ls = require("null-ls")
 
 local config = {
+  diagnostic_format = "#{m} (#{s}) [#{c}]",
+  on_attach = require("plugins.lsp").common_on_attach,
   sources = {
     null_ls.builtins.diagnostics.luacheck,
     null_ls.builtins.diagnostics.shellcheck,
@@ -10,11 +12,8 @@ local config = {
   },
 }
 
-function M.setup(options)
-  null_ls.config(config)
-
-  require("lspconfig")["null-ls"].setup(options)
+function M.setup()
+  null_ls.setup(config)
 end
 
 return M
-
