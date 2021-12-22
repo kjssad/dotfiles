@@ -78,7 +78,6 @@ return require("packer").startup({
     use({
       "neovim/nvim-lspconfig",
       "williamboman/nvim-lsp-installer",
-      "tamago324/nlsp-settings.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     })
 
@@ -130,8 +129,6 @@ return require("packer").startup({
     use("tpope/vim-sleuth") -- detect indent style (tabs vs. spaces)
 
     use("~/Development/codes/repos/quantum.vim")
-    use("joshdick/onedark.vim")
-    use("Luxed/ayu-vim")
 
     use("antoinemadec/FixCursorHold.nvim") -- Needed while issue https://github.com/neovim/neovim/issues/12587 is open
     use("lewis6991/impatient.nvim") -- Speed up loading Lua modules in Neovim to improve startup time
