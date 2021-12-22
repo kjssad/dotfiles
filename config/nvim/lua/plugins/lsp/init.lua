@@ -96,7 +96,7 @@ end
 
 function M.setup()
   local config = M.common_options()
-  require("plugins.null-ls").setup(config)
+  require("plugins.null-ls").setup()
   require("plugins.lsp.diagnostic").setup()
 
   local installer = require("nvim-lsp-installer")
