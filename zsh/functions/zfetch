@@ -1,0 +1,69 @@
+#!/bin/zsh
+# This code was originally from
+# https://github.com/jason0x43/dotfiles/blob/eff04270c4d8074db36d3e3bf85f64d3ccbeafe9/zsh/functions/zfetch
+# with changes incorporated from
+# https://github.com/nicknisi/dotfiles/blob/1c4b420fadbc7ddefcafc9bfce703706e77fc608/zsh/functions/zfetch
+
+git_clone_error_msg() {
+  echo -e "  [ERROR] git clone errored: ${1}. Aborting..."
+}
+
+# Simplest dependency fetcher known to mankind
+# TODO: create checks for for positional parameters, list new commits of updated plugins
+if [[ $1 == "update" ]]; then
+  for name in ${(@k)plugins}; do
+    local cwd=$(pwd)
+    local dest=$plugins[$name]
+    cd $dest
+    echo -e "Updating ${name}..."
+    git pull --quiet --recurse-submodules
+    cd $cwd
+  done
+elif [[ $1 == "list" ]]; then
+  for name in ${(@k)plugins}; do
+    echo -e "${name}: $plugins[$name]"
+  done
+else
+  # the short name of the repo (org/repo)
+  local name="$1"
+
+  local plugin_name="${2:-"${name##*/}.plugin.zsh"}"
+
+  # where the repo is going
+  local dest="${4:-"$ZPLUGDIR"}"
+
+  # if the dest dir ends with /, append the name to it to get the real dest dir
+  if [[ $dest == */ ]]; then
+    dest=$dest$name
+  else
+    dest=$dest/$name
+  fi
+
+  plugins[$name]=$dest
+
+  if [[ ! -d $dest ]]; then
+    local url=https://github.com/$name
+    local ref=$3
+    echo -e "Missing plugin ${name}"
+    echo -e "  Cloning from ${url}..."
+    if [[ -n $ref ]]; then
+      git clone --quiet --branch $ref --single-branch --depth 1 $url $dest
+      if [[ $? != 0 ]]; then
+        git_clone_error_msg $?
+        return $?
+      fi
+      echo -e "  Checked out branch ${ref}"
+    else
+      git clone --quiet --depth 1 $url $dest
+      if [[ $? != 0 ]]; then
+        git_clone_error_msg $?
+        return $?
+      fi
+      echo -e "  Checked out default branch"
+    fi
+  fi
+  plugin="$dest/$plugin_name"
+  if [ -f "$plugin" ]; then
+      source "$plugin"
+  fi
+fi

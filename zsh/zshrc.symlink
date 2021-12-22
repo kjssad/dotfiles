@@ -64,27 +64,15 @@ export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
+# plugins
+export ZPLUGDIR="$HOME/.cache/zsh/plugins"
+[[ -d "$ZPLUGDIR" ]] || mkdir -p "$ZPLUGDIR"
 
-source ~/.zplug/init.zsh
+typeset -A plugins
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-zplug 'zsh-users/zsh-autosuggestions'
-zplug 'mafredri/zsh-async'
-zplug 'sindresorhus/pure', use:pure.zsh, as:theme
-
-if ! zplug check; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
+zfetch zsh-users/zsh-autosuggestions
+zfetch mafredri/zsh-async async.plugin.zsh
+zfetch sindresorhus/pure
 
 # add color to man pages
 export MANROFFOPT='-c'
@@ -98,4 +86,5 @@ export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 
-
+# source zsh-syntax-highlighting at the end
+zfetch zsh-users/zsh-syntax-highlighting
