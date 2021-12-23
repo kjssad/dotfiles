@@ -1,3 +1,5 @@
+local M = {}
+
 local config = {
   ensure_installed = {
     "bash",
@@ -55,4 +57,8 @@ local config = {
   },
 }
 
-require("nvim-treesitter.configs").setup(config)
+function M.setup()
+  require("nvim-treesitter.configs").setup(config)
+end
+
+return M

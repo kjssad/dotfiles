@@ -32,7 +32,7 @@ return require("packer").startup({
     use({
       "nvim-treesitter/nvim-treesitter",
       config = function()
-        require("plugins.treesitter")
+        require("plugins.treesitter").setup()
       end,
     })
 
