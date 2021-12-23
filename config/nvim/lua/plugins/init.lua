@@ -31,11 +31,16 @@ return require("packer").startup({
     -- language parser
     use({
       "nvim-treesitter/nvim-treesitter",
-      -- "nvim-treesitter/playground",
       config = function()
         require("plugins.treesitter")
       end,
     })
+
+    -- syntax-aware textobjects with treesitter
+    use("nvim-treesitter/nvim-treesitter-textobjects")
+
+    -- query treesitter information
+    use("nvim-treesitter/playground")
 
     -- fuzzy finder
     use({
