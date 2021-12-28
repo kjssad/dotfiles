@@ -61,7 +61,7 @@ function M.setup()
   local map = require("utils").map
 
   map("n", "<leader>t", "<cmd>lua require('plugins.telescope').project_files()<CR>")
-  map("n", "<leader>r", "<cmd>Telescope buffers()<CR>")
+  map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
   map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
   map("n", "<leader>s", "<cmd>lua pcall(require('telescope.builtin').git_status)<CR>")
   map("n", "<leader>rg", "<cmd>Telescope live_grep<CR>")
