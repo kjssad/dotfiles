@@ -6,6 +6,7 @@ augroup("configgroup", {
   -- when there are multiple windows open
   "FileType help,qf wincmd J",
   "FileType help,qf nmap <buffer> q :q<CR>",
+  "TermOpen * setlocal nonumber norelativenumber signcolumn=no",
   "BufReadPost * lua require('utils').last_cursor()",
   "TextYankPost * silent! lua vim.highlight.on_yank({ timeout=250 })",
 })
