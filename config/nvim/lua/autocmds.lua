@@ -12,13 +12,8 @@ augroup("configgroup", {
 })
 
 augroup("linenumbers", {
-  [[
-    BufEnter,FocusGained,InsertLeave,WinEnter *
-      \ if &filetype != "NvimTree" && &filetype != "help" |
-        \ set relativenumber cursorline |
-      \endif
-  ]],
-  "BufLeave,FocusLost,InsertEnter,WinLeave * set norelativenumber",
+  "BufEnter,FocusGained,InsertLeave,WinEnter * lua require('utils').set_relative_number(true)",
+  "BufLeave,FocusLost,InsertEnter,WinLeave * lua require('utils').set_relative_number(false)",
 })
 
 augroup("packer_reload", {

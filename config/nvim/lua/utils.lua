@@ -50,6 +50,24 @@ function utils.last_cursor()
   end
 end
 
+function utils.set_relative_number(ok)
+  if not ok and vim.wo.number then
+    vim.cmd("set norelativenumber")
+    return
+  end
+
+  local filetype = vim.bo.filetype
+  local buftype = vim.bo.buftype
+
+  if buftype == "help" or buftype == "nofile" or filetype == "NvimTree" then
+    return
+  end
+
+  if vim.wo.number and vim.api.nvim_get_mode().mode ~= "i" then
+    vim.cmd("set relativenumber")
+  end
+end
+
 function utils.get_mode()
   local mode_map = {
     ["n"] = "N",
