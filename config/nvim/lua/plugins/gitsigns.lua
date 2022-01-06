@@ -2,9 +2,11 @@ local M = {}
 
 local config = {
   signs = {
-    delete = { text = "" },
-    topdelete = { text = "" },
-    changedelete = { text = "│" },
+    add = { text = "▌" },
+    change = { text = "▌" },
+    delete = { text = "▶" },
+    topdelete = { text = "▶" },
+    changedelete = { text = "▌" },
   },
   current_line_blame = true,
   current_line_blame_opts = {
