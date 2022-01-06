@@ -30,29 +30,30 @@ return require("packer").startup({
 
     -- language parser
     use({
-      "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require("plugins.treesitter").setup()
-      end,
+      "nvim-treesitter/nvim-treesitter-textobjects", -- syntax-aware textobjects with treesitter
+      "nvim-treesitter/playground", -- query treesitter information
+      {
+        "nvim-treesitter/nvim-treesitter", -- treesitter configuration
+        config = function()
+          require("plugins.treesitter").setup()
+        end,
+      },
     })
-
-    -- syntax-aware textobjects with treesitter
-    use("nvim-treesitter/nvim-treesitter-textobjects")
-
-    -- query treesitter information
-    use("nvim-treesitter/playground")
 
     -- fuzzy finder
     use({
-      "nvim-telescope/telescope.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("plugins.telescope").setup()
-      end,
+      {
+        "nvim-telescope/telescope-fzf-native.nvim", -- telescope sorter
+        run = "make",
+      },
+      {
+        "nvim-telescope/telescope.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+          require("plugins.telescope").setup()
+        end,
+      },
     })
-
-    -- telescope sorter
-    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
     -- indent guides
     use({
@@ -81,20 +82,24 @@ return require("packer").startup({
 
     -- LSP
     use({
-      "neovim/nvim-lspconfig",
-      "williamboman/nvim-lsp-installer",
-      "jose-elias-alvarez/null-ls.nvim",
+      "neovim/nvim-lspconfig", -- server configurations
+      "williamboman/nvim-lsp-installer", -- server installer
+      {
+        "jose-elias-alvarez/null-ls.nvim", -- general-purpose language server
+        requires = "nvim-lua/plenary.nvim",
+      },
     })
 
     -- Git decorations
     use({
       "lewis6991/gitsigns.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
+      requires = "nvim-lua/plenary.nvim",
       config = function()
         require("plugins.gitsigns").setup()
       end,
     })
 
+    -- autopair plugin
     use({
       "windwp/nvim-autopairs",
       config = function()
@@ -102,21 +107,23 @@ return require("packer").startup({
       end,
     })
 
+    -- completion framework
     use({
-      "hrsh7th/nvim-cmp",
-      requires = {
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lua",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      {
+        "hrsh7th/nvim-cmp",
+        config = function()
+          require("plugins.cmp").setup()
+        end,
       },
-      config = function()
-        require("plugins.cmp").setup()
-      end,
     })
 
+    -- statusline
     use({
       "nvim-lualine/lualine.nvim",
       config = function()
@@ -127,7 +134,7 @@ return require("packer").startup({
     -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     use({ "AndrewRadev/splitjoin.vim", branch = "main" })
 
-    use("tpope/vim-fugitive")
+    use("tpope/vim-fugitive") -- git wrapper
     use("tpope/vim-repeat") -- enables repeating other supported plugins with the . command
     use("tpope/vim-surround") -- mappings to easily delete, change and add such surroundings in pairs
     use("tpope/vim-unimpaired") -- mappings which are simply short normal mode aliases for commonly used ex commands
