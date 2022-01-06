@@ -23,6 +23,7 @@ function M.setup()
   vim.g.nvim_tree_indent_markers = 1
 
   require("nvim-tree").setup(config)
+  require("nvim-tree.lib").toggle_ignored()
 end
 
 return M
