@@ -4,6 +4,8 @@
     email = kimsadomia@protonmail.com
 [github]
 	user = kjssad
+[init]
+     defaultBranch = main
 [alias]
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
