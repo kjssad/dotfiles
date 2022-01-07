@@ -57,4 +57,4 @@ map("n", "\\s", ":set ts=4 sts=4 sw=4 et<CR>", options)
 map("n", "\\2t", ":set ts=2 sts=2 sw=2 noet<CR>", options)
 map("n", "\\2s", ":set ts=2 sts=2 sw=2 et<CR>", options)
 
-map("n", "<F2>", ":call functions#SynStack()<CR>", options)
+map("n", "<F2>", ":TSHighlightCapturesUnderCursor<CR>", options)
