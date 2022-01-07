@@ -33,6 +33,9 @@
     # enable mouse support for switching panes/windows
     setw -g mouse on
 
+    # support for vim autoread
+    set-option -g focus-event on
+
     set-option -g set-titles on
     set-option -g set-titles-string "#T - #W"
 # }}}
