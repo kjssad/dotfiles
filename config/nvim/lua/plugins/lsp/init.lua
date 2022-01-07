@@ -31,21 +31,22 @@ local function codelens_refresh(client)
 end
 
 local function keymappings()
-  local map = require("utils").map
+  local map = vim.keymap.set
+  local options = { buffer = true }
 
-  map("n", "gl", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-  map("n", "gf", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("i", "<C-x><C-x>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-  map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", "<space>a", "<cmd>lua vim.diagnostic.open_float()<CR>")
-  map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-  map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-  map("n", "<leader>fb", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  map("n", "gl", vim.lsp.buf.declaration, options)
+  map("n", "gf", vim.lsp.buf.definition, options)
+  map("n", "K", vim.lsp.buf.hover, options)
+  map("n", "gi", vim.lsp.buf.implementation, options)
+  map("i", "<C-x><C-x>", vim.lsp.buf.signature_help, options)
+  map("n", "gy", vim.lsp.buf.type_definition, options)
+  map("n", "<leader>rn", vim.lsp.buf.rename, options)
+  map("n", "<leader>ca", vim.lsp.buf.code_action, options)
+  map("n", "gr", vim.lsp.buf.references, options)
+  map("n", "<space>a", vim.diagnostic.open_float, options)
+  map("n", "[d", vim.diagnostic.goto_prev, options)
+  map("n", "]d", vim.diagnostic.goto_next, options)
+  map("n", "<leader>fb", vim.lsp.buf.formatting, options)
 end
 
 local function install_servers(installer, servers)

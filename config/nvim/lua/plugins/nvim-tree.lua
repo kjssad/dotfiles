@@ -16,10 +16,11 @@ local config = {
 }
 
 function M.setup()
-  local map = require("utils").map
+  local map = vim.keymap.set
 
-  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>", { silent = false })
-  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>", { silent = false })
+  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>")
+  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
+
   vim.g.nvim_tree_indent_markers = 1
 
   require("nvim-tree").setup(config)

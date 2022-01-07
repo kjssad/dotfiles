@@ -1,19 +1,5 @@
 local utils = {}
 
-function utils.map(modes, lhs, rhs, opts)
-  opts = opts or {}
-  opts.noremap = opts.noremap == nil and true or opts.noremap
-  opts.silent = opts.silent == nil and true or opts.silent
-
-  if type(modes) == "string" then
-    modes = { modes }
-  end
-
-  for _, mode in ipairs(modes) do
-    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-  end
-end
-
 function utils.augroup(group, cmds)
   vim.cmd("augroup " .. group)
   vim.cmd("autocmd!")
