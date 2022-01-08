@@ -1,0 +1,89 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": ["custom/launcher", "sway/workspaces", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["temperature", "tray", "pulseaudio", "idle_inhibitor", "battery"],
+    "custom/launcher": {
+        "format": "",
+        "on-click": "nwggrid",
+        "tooltip": false
+    },
+    "sway/workspaces": {
+		"disable-scroll": true
+	},
+    "clock": {
+        "format": "{:%a %b %d  %H:%M  %Z}",
+        "timezones": ["Asia/Manila", "US/Pacific", "Etc/UTC"],
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+        "interval": 1,
+        "on-click": "gnome-system-monitor --show-processes-tab"
+    },
+    "memory": {
+        "interval": 1,
+        "on-click": "gnome-system-monitor --show-processes-tab"
+    },
+    "network": {
+        "interval": 1,
+        "format": "{bandwidthUpOctets}         {bandwidthDownOctets}",
+        "format-disconnected": "",
+        "on-click": "gnome-system-monitor --show-resources-tab",
+        "tooltip": false
+    },
+    "temperature": {
+        "thermal-zone": 4,   
+        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "interval": 1,
+        "critical-threshold": 60,
+        "format": "{temperatureC}°C",
+        "on-click": "gnome-system-monitor",
+        "tooltip": false
+    },
+    "custom/pomodoro": {
+        "exec": "~/Development/tools/i3-gnome-pomodoro/pomodoro-client.py status --format=waybar --show-seconds --always --icon-text ",
+        "return-type": "json",
+        "interval": 1,
+        "format": "{}",
+        "on-click": "~/Development/tools/i3-gnome-pomodoro/pomodoro-client.py start",
+        "on-click-middle": "~/Development/tools/i3-gnome-pomodoro/pomodoro-client.py toggle",
+        "on-click-right": "~/Development/tools/i3-gnome-pomodoro/pomodoro-client.py stop"
+    },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 12
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-bluetooth": "﫽",
+        "format-muted": "婢",
+        "format-icons": {
+            "headphone": "",
+            "default": ["奄", "奔", "墳"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-right": "rhythmbox",
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "﯈"
+        }
+    },
+    "battery": {
+        "states": {
+            "warning": 42,
+            "threshold": 77
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-icons": ["","","","","","","","","",""],
+        "on-scroll-up": "light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob",
+        "on-scroll-down": "light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob"
+    }
+}

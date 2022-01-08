@@ -1,0 +1,24 @@
+@define-color background #2E2E2E;
+@define-color foreground #E2E2E2;
+@define-color foreground-alt #ABABAB;
+@define-color urgent #F28B82;
+@define-color accent #8ab4f8;
+@define-color border rgba(255, 255, 255, 0.12);
+
+#window {
+  background-color: @background;
+  border-radius: 3px;
+  border: 1px solid @border;
+}
+
+#entry {
+  border-radius: 0;
+}
+expander .entry {
+  margin-left: -15px;
+}
+
+#img {
+  margin-right: 6px;
+}
+

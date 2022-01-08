@@ -1,5 +1,5 @@
 # General {{{
-    font Roboto Bold 10
+    font Roboto Regular 10
 
     set $mod Mod4
 
@@ -153,117 +153,148 @@
 
 # Shortcuts {{{
     bindsym $mod+Return exec kitty
-    bindsym $mod+Shift+Return exec kitty --name=kitty-floating
+    bindsym $mod+Shift+Return exec kitty --class kitty-floating
 
     bindsym $mod+Shift+q kill
 
-    bindsym $mod+d exec --no-startup-id rofi -show drun -config $HOME/.config/rofi/menu.rasi
+    bindsym $mod+d exec --no-startup-id nwggrid
 
     # Applications
     bindsym $mod+F1 exec chromium
     bindsym $mod+Shift+F1 exec chromium --incognito
     bindsym $mod+F2 exec firefox
     bindsym $mod+Shift+F2 exec firefox --private-window
-    bindsym $mod+F3 exec nautilus
+    bindsym $mod+F3 exec pcmanfm-qt
     bindsym $mod+F4 exec telegram-desktop
     bindsym $mod+F5 exec discord
     bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
     bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+    # bindsym $mod+Shift+Return [app_id="kitty-scratchpad"] scratchpad show
+    bindsym $mod+Ctrl+n exec dunstctl history-pop
+    bindsym Mod1+space exec dunstctl close
+    bindsym Mod1+Ctrl+space exec dunstctl close-all
+    bindsym Mod1+Ctrl+c exec dunstctl context
 
     # Open specific applications in floating mode
+    for_window [app_id="blueman-assistant"] floating enable
+    for_window [app_id="blueman-manager"] floating enable
+    for_window [app_id="blueman-sendto"] floating enable
+    for_window [app_id="gnome-calculator"] floating enable
+    for_window [app_id="gnome-calendar"] floating enable
+    for_window [app_id="gnome-system-monitor"] floating enable
+    for_window [app_id="kitty-scratchpad"] move to scratchpad
+    for_window [app_id="kitty-floating"] floating enable
+    for_window [app_id="lxqt-policykit-agent"] floating enable
+    for_window [app_id="lxqt-sudo"] floating enable
+    for_window [app_id="telegramdesktop"] floating enable
+    for_window [app_id="zenity"] floating enable
+    for_window [app_id="nm-connection-editor"] floating enable
+    for_window [app_id="org.gnome.clocks"] floating enable
+    for_window [app_id="org.kde.kdeconnect-indicator"] floating enable
+    for_window [app_id="org.kde.kdeconnect-settings"] floating enable
+    for_window [app_id="org.kde.kdeconnect.app"] floating enable
+    for_window [app_id="org.kde.kdeconnect.sms"] floating enable
+    for_window [app_id="pavucontrol"] floating enable
     for_window [class="Bluetooth-sendto"] floating enable
+    for_window [class="Gnome-calculator"] floating enable
     for_window [class="Gnome-control-center"] floating enable
     for_window [class="Gnome-system-monitor"] floating enable
-    for_window [class="Gnome-calculator"] floating enable
-    for_window [class="mGBA"] floating enable border pixel 1
     for_window [class="Nm-connection-editor"] floating enable border pixel 1
     for_window [class="Pavucontrol"] floating enable border pixel 1
-    for_window [class="qt5ct"] floating enable border pixel 1
     for_window [class="TelegramDesktop"] floating enable border pixel 1
-    for_window [instance="kitty-floating"] floating enable border pixel 1
+    for_window [class="mGBA"] floating enable border pixel 1
+    for_window [class="qt5ct"] floating enable border pixel 1
 
     # Open specific applications in designated workspace
+    assign [app_id="firefox"] $ws2
+    for_window [app_id="firefox"] focus
+    assign [app_id=".*Nautilus"] $ws3
+    for_window [app_id=".*Nautilus"] focus
+    assign [app_id="pcmanfm-qt"] $ws3
+    for_window [app_id="pcmanfm-qt"] focus
+    assign [app_id="libreoffice-.*"] $ws4
+    for_window [app_id="libreoffice-.*"] focus
+    assign [app_id="rhythmbox"] $ws8
+    for_window [app_id="rhythmbox"] focus
+    assign [class="Gimp-.*"] $ws5
+    for_window [class="Gimp-.*"] focus
+    assign [class="kdenlive"] $ws6
+    for_window [class="kdenlive"] focus
     assign [class="discord"] $ws7
-    for_window [class="Spotify"] move to workspace $ws8, focus
-
-    # Lock screen
-    bindsym $mod+9 exec --no-startup-id i3lock
+    assign [class="Spotify"] $ws8
+    for_window [class="Spotify"] focus
 
     # Autostart applications
     exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-    exec --no-startup-id nm-applet
-    exec --no-startup-id picom -b
+    exec --no-startup-id pcmanfm-qt -d
+    exec --no-startup-id /usr/libexec/lxqt-policykit-agent
+    exec --no-startup-id blueman-applet
+    # exec --no-startup-id dunst
+    exec --no-startup-id kdeconnect-indicator
+    # exec --no-startup-id kitty --class kitty-scratchpad --session ~/.config/kitty/sessions/scratchpad
+    exec --no-startup-id nm-applet --indicator
+
 # }}}
 
 # Appearance {{{
-    set_from_resource $accent       i3wm.accent
-    set_from_resource $accent-alt   i3wm.accent-alt
-    set_from_resource $background   i3wm.background
-    set_from_resource $border       i3wm.border
-    set_from_resource $foreground   i3wm.foreground
+    set $accent         #8AB4F8
+    set $accent-alt     #343b46
+    set $background     #1F1F1F
+    set $background-alt #272727
+    set $border         #4a4a4a
+    set $foreground     #E2E2E2
 
-    # class                 border      backgr.     text        indic.  child_border
-    client.focused          $accent-alt $accent-alt $accent
-    client.focused_inactive $border     $background $foreground
-    client.unfocused        $border     $background $foreground
-    client.urgent           $accent     $accent     $background
-    client.placeholder      $background $background $foreground
+    # class                 border      backgr.         text        indic.  child_border
+    client.focused          $accent-alt $background-alt $accent     $accent $accent-alt
+    client.focused_inactive $background $background     $foreground $accent $background
+    client.unfocused        $background $background     $foreground $accent $background
+    client.urgent           $accent     $accent         $background $accent $accent
+    client.placeholder      $background $background     $foreground $accent $background
 
     client.background       $background
 
 # }}}
 
-# # i3-gaps {{{
-#     # Set inner/outer gaps
-#     gaps inner 0
-#     gaps outer 0
+# sway-specific options {{{
+    # xwayland disable
 
-#     # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-#     # gaps inner|outer current|all set|plus|minus <px>
-#     # gaps inner all set 10
-#     # gaps outer all plus 5
+    bindsym $mod+9 exec swaylock -f
+    bindsym $mod+0 exec nwgbar
 
-#     # Smart gaps (gaps used if only more than one container on the workspace)
-#     smart_gaps on
+    bindsym Shift+Print exec grimshot save area ~/Pictures/$(zenity --entry --text "Save as:" --entry-text ".png") | wl-copy -p
+    bindsym Control+Print exec grimshot save window ~/Pictures/$(zenity --entry --text "Save as:" --entry-text ".png") | wl-copy -p
+    bindsym Print exec grimshot save output ~/Pictures/$(zenity --entry --text "Save as:" --entry-text ".png") | wl-copy -p
 
-#     # Smart borders (draw borders around container only if it is not the only container on this workspace)
-#     # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-#     smart_borders on
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && ~/.dotfiles/bin/volume.sway > $SWAYSOCK.wob
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && ~/.dotfiles/bin/volume.sway > $SWAYSOCK.wob
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.dotfiles/bin/volume.sway > $SWAYSOCK.wob
+    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioNext exec playerctl next
+    bindsym --locked XF86AudioPrev exec playerctl previous
 
-#     # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-#     set $mode_gaps Gaps: (o) outer, (i) inner
-#     set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-#     set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-#     bindsym $mod+Shift+g mode "$mode_gaps"
+    bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+    bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
 
-#     mode "$mode_gaps" {
-#             bindsym o      mode "$mode_gaps_outer"
-#             bindsym i      mode "$mode_gaps_inner"
-#             bindsym Return mode "default"
-#             bindsym Escape mode "default"
-#     }
-#     mode "$mode_gaps_inner" {
-#             bindsym plus  gaps inner current plus 5
-#             bindsym minus gaps inner current minus 5
-#             bindsym 0     gaps inner current set 0
+    exec --no-startup-id swaybg -i /usr/share/backgrounds/f26/default/f26-04-night.jpg
+    exec --no-startup-id gammastep-indicator
 
-#             bindsym Shift+plus  gaps inner all plus 5
-#             bindsym Shift+minus gaps inner all minus 5
-#             bindsym Shift+0     gaps inner all set 0
+    exec swayidle -w \
+        timeout 150 'swaylock -f' \
+        timeout 300 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+        before-sleep 'swaylock -f'
 
-#             bindsym Return mode "default"
-#             bindsym Escape mode "default"
-#     }
-#     mode "$mode_gaps_outer" {
-#             bindsym plus  gaps outer current plus 5
-#             bindsym minus gaps outer current minus 5
-#             bindsym 0     gaps outer current set 0
+    exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob -W 150 -H 5 -o 0 -b 0 -p 0 -a top --bar-color '#FF8AB4F8' --background-color '#FF474747'
 
-#             bindsym Shift+plus  gaps outer all plus 5
-#             bindsym Shift+minus gaps outer all minus 5
-#             bindsym Shift+0     gaps outer all set 0
+    input 1267:12357:ELAN1200:00_04F3:3045_Touchpad {
+        dwt enabled
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+    }
+# }}}
 
-#             bindsym Return mode "default"
-#             bindsym Escape mode "default"
-#     }
-# # }}}
+# include /etc/sway/config.d/*
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway

@@ -1,0 +1,12 @@
+width=21%
+height=50%
+prompt=Search
+yoffset=5
+xoffset=5
+allow_images=true
+term=kitty
+location=1
+image_size=24
+key_up=Control_L-p
+key_down=Control_L-n
+layer=overlay
