@@ -81,11 +81,6 @@
     # notification height to avoid clipping text and/or icons.
     corner_radius = 3
 
-    # The height of the entire notification.  If the height is smaller
-    # than the font height and padding combined, it will be raised
-    # to the font height and padding.
-    notification_height = 58
-
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
     # Set to 0 to disable.
@@ -143,14 +138,8 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = #263238
+    separator_color = "#263238"
 
-    # Print a notification on startup.
-    # This is mainly for error detection, since dbus (re-)starts dunst
-    # automatically after a crash.
-    startup_notification = false
-
-    # dmenu path.
     dmenu = wofi -dmenu
 
     # Browser for opening urls in context menu.
@@ -164,28 +153,6 @@
 
     # Limit icons size.
     max_icon_size=16
-
-[shortcuts]
-
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification.
-    close = mod1+space
-
-    # Close all notifications.
-    # close_all = ctrl+shift+space
-    close_all = ctrl+mod1+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1".
-    history = ctrl+mod4+n
-
-    # Context menu.
-    context = ctrl+mod1+c
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
