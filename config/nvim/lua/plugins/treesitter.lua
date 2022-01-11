@@ -58,7 +58,11 @@ local config = {
 }
 
 function M.setup()
-  require("nvim-treesitter.configs").setup(config)
+  local loaded, ts_config = pcall(require, "nvim-treesitter.configs")
+
+  if loaded then
+    ts_config.setup(config)
+  end
 end
 
 return M

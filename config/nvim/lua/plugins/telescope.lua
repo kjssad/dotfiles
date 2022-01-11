@@ -1,6 +1,6 @@
 local M = {}
-local actions = require("telescope.actions")
-local action_set = require("telescope.actions.set")
+local _, actions = pcall(require, "telescope.actions")
+local _, action_set = pcall(require, "telescope.actions.set")
 
 -- workaround to fix folds
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-934727312
@@ -50,34 +50,36 @@ local config = {
 }
 
 function M.project_files()
-  local status_ok = pcall(require("telescope.builtin").git_files)
+  local loaded = pcall(require("telescope.builtin").git_files)
 
-  if not status_ok then
+  if not loaded then
     require("telescope.builtin").find_files()
   end
 end
 
 function M.git_status()
-  local status_ok = pcall(require("telescope.builtin").git_status)
+  local loaded = pcall(require("telescope.builtin").git_status)
 
-  if not status_ok then
+  if not loaded then
     vim.notify("telescope: working directory does not belong to a Git repository", 4)
   end
 end
 
 function M.setup()
-  local map = vim.keymap.set
+  local loaded, telescope = pcall(require, "telescope")
 
-  map("n", "<leader>t", require("plugins.telescope").project_files)
-  map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
-  map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
-  map("n", "<leader>s", require('plugins.telescope').git_status)
-  map("n", "<leader>rg", "<cmd>Telescope live_grep<CR>")
+  if loaded then
+    local map = vim.keymap.set
 
-  local telescope = require("telescope")
+    map("n", "<leader>t", require("plugins.telescope").project_files)
+    map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
+    map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
+    map("n", "<leader>s", require("plugins.telescope").git_status)
+    map("n", "<leader>rg", "<cmd>Telescope live_grep<CR>")
 
-  telescope.setup(config)
-  telescope.load_extension("fzf")
+    telescope.setup(config)
+    telescope.load_extension("fzf")
+  end
 end
 
 return M

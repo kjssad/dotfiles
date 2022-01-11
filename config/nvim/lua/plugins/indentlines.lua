@@ -13,7 +13,11 @@ local config = {
 }
 
 function M.setup()
-  require("indent_blankline").setup(config)
+  local loaded, indentlines = pcall(require, "indent_blankline")
+
+  if loaded then
+    indentlines.setup(config)
+  end
 end
 
 return M

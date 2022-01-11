@@ -21,11 +21,15 @@ local config = {
   preview_config = {
     border = require("plugins.lsp.diagnostic").border,
     row = 1,
-  }
+  },
 }
 
 function M.setup()
-  require("gitsigns").setup(config)
+  local loaded, gitsigns = pcall(require, "gitsigns")
+
+  if loaded then
+    gitsigns.setup(config)
+  end
 end
 
 return M

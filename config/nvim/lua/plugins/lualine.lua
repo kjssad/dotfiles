@@ -117,7 +117,11 @@ local config = {
 }
 
 function M.setup()
-  require("lualine").setup(config)
+  local loaded, lualine = pcall(require, "lualine")
+
+  if loaded then
+    lualine.setup(config)
+  end
 end
 
 return M

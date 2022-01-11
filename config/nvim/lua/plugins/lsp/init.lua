@@ -79,9 +79,9 @@ function M.common_capabilities()
     },
   }
 
-  local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  local cmp_lsp_loaded, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
-  if status_ok then
+  if cmp_lsp_loaded then
     capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   end
 
@@ -96,14 +96,20 @@ function M.common_options()
 end
 
 function M.setup()
-  local config = M.common_options()
-  require("plugins.null-ls").setup()
-  require("plugins.lsp.diagnostic").setup()
+  local installer_loaded, installer = pcall(require, "nvim-lsp-installer")
 
-  local installer = require("nvim-lsp-installer")
+  if not installer_loaded then
+    return
+  end
+
   local servers = require("plugins.lsp.servers")
 
   install_servers(installer, servers)
+
+  local config = M.common_options()
+
+  require("plugins.null-ls").setup()
+  require("plugins.lsp.diagnostic").setup()
 
   installer.on_server_ready(function(server)
     if servers[server.name] then

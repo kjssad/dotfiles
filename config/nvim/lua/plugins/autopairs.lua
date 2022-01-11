@@ -12,25 +12,37 @@ local config = {
 }
 
 function M.setup()
-  local autopairs = require("nvim-autopairs")
+  local autopairs_loaded, autopairs = pcall(require, "nvim-autopairs")
+
+  if not autopairs_loaded then
+    return
+  end
+
   local Rule = require("nvim-autopairs.rule")
 
   autopairs.setup(config)
 
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local cmp = require("cmp")
+  local cmp_loaded, cmp = pcall(require, "cmp")
 
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+  if cmp_loaded then
+    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-  require("nvim-treesitter.configs").setup({ autopairs = { enable = true } })
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+  end
 
-  local ts_conds = require("nvim-autopairs.ts-conds")
+  local ts_loaded, ts_config = pcall(require, "nvim-treesitter.configs")
 
-  -- press % => %% is only inside comment or string
-  autopairs.add_rules({
-    Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node({ "string", "comment" })),
-    Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node({ "function" })),
-  })
+  if ts_loaded then
+    ts_config.setup({ autopairs = { enable = true } })
+
+    local ts_conds = require("nvim-autopairs.ts-conds")
+
+    -- press % => %% is only inside comment or string
+    autopairs.add_rules({
+      Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node({ "string", "comment" })),
+      Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node({ "function" })),
+    })
+  end
 end
 
 return M

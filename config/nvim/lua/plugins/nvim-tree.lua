@@ -16,15 +16,14 @@ local config = {
 }
 
 function M.setup()
-  local map = vim.keymap.set
+  local loaded, nvim_tree = pcall(require, "nvim-tree")
 
-  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>")
-  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
+  if loaded then
+    vim.g.nvim_tree_indent_markers = 1
 
-  vim.g.nvim_tree_indent_markers = 1
-
-  require("nvim-tree").setup(config)
-  require("nvim-tree.lib").toggle_ignored()
+    nvim_tree.setup(config)
+    require("nvim-tree.lib").toggle_ignored()
+  end
 end
 
 return M
