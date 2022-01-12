@@ -15,6 +15,13 @@ local config = {
   },
 }
 
+function M.keymaps()
+  local map = vim.keymap.set
+
+  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>")
+  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
+end
+
 function M.setup()
   local loaded, nvim_tree = pcall(require, "nvim-tree")
 

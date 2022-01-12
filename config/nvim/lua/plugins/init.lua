@@ -52,6 +52,9 @@ return require("packer").startup({
         config = function()
           require("plugins.telescope").setup()
         end,
+        setup = function()
+          require("plugins.telescope").keymaps()
+        end,
       },
     })
 
@@ -69,6 +72,9 @@ return require("packer").startup({
       requires = "kyazdani42/nvim-web-devicons",
       config = function()
         require("plugins.nvim-tree").setup()
+      end,
+      setup = function()
+        require("plugins.nvim-tree").keymaps()
       end,
     })
 
