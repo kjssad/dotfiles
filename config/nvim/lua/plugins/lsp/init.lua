@@ -96,29 +96,26 @@ function M.common_options()
 end
 
 function M.setup()
-  local installer_loaded, installer = pcall(require, "nvim-lsp-installer")
-
-  if not installer_loaded then
-    return
-  end
-
-  local servers = require("plugins.lsp.servers")
-
-  install_servers(installer, servers)
-
-  local config = M.common_options()
-
-  require("plugins.null-ls").setup()
   require("plugins.lsp.diagnostic").setup()
 
-  installer.on_server_ready(function(server)
-    if servers[server.name] then
-      config = vim.tbl_deep_extend("force", config, servers[server.name].config)
-    end
+  local loaded, installer = pcall(require, "nvim-lsp-installer")
 
-    server:setup(config)
-    vim.cmd([[ do User LspAttachBuffers ]])
-  end)
+  if loaded then
+    local servers = require("plugins.lsp.servers")
+
+    install_servers(installer, servers)
+
+    local config = M.common_options()
+
+    installer.on_server_ready(function(server)
+      if servers[server.name] then
+        config = vim.tbl_deep_extend("force", config, servers[server.name].config)
+      end
+
+      server:setup(config)
+      vim.cmd([[ do User LspAttachBuffers ]])
+    end)
+  end
 end
 
 return M
