@@ -1,10 +1,8 @@
 local fn = vim.fn
-local packer_bootstrap
-
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
+  fn.system({
     "git",
     "clone",
     "--depth",
@@ -18,7 +16,7 @@ end
 return require("packer").startup({
   function(use)
     -- Packer can manage itself
-    use("wbthomason/packer.nvim")
+    use({ "wbthomason/packer.nvim", opt = true })
 
     -- color code highlights
     use({
@@ -189,10 +187,6 @@ return require("packer").startup({
 
     use("antoinemadec/FixCursorHold.nvim") -- Needed while issue https://github.com/neovim/neovim/issues/12587 is open
     use("lewis6991/impatient.nvim") -- Speed up loading Lua modules in Neovim to improve startup time
-
-    if packer_bootstrap then
-      require("packer").sync()
-    end
   end,
   config = {
     compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
