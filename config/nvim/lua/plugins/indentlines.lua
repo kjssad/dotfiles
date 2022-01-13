@@ -9,7 +9,7 @@ local config = {
   filetype_exclude = { "NvimTree", "help" },
   buftype_exclude = { "terminal" },
   show_current_context = true,
-  show_current_context_start = true,
+  context_char = "▏",
 }
 
 function M.setup()
