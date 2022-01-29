@@ -131,6 +131,12 @@ return require("packer").startup({
       event = "BufRead",
     })
 
+    -- snippets
+    use({
+      { "rafamadriz/friendly-snippets", event = "InsertEnter" },
+      { "L3MON4D3/LuaSnip", after = "friendly-snippets" },
+    })
+
     -- completion framework
     use({
       {
@@ -138,9 +144,8 @@ return require("packer").startup({
         config = function()
           require("plugins.cmp").setup()
         end,
-        event = "InsertEnter",
+        after = "LuaSnip",
       },
-      { "L3MON4D3/LuaSnip", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
