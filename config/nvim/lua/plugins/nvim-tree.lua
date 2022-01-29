@@ -1,4 +1,8 @@
-local M = {}
+local loaded, nvim_tree = pcall(require, "nvim-tree")
+
+if not loaded then
+  return
+end
 
 local config = {
   diagnostics = {
@@ -15,6 +19,8 @@ local config = {
   },
 }
 
+local M = {}
+
 function M.keymaps()
   local map = vim.keymap.set
 
@@ -23,14 +29,10 @@ function M.keymaps()
 end
 
 function M.setup()
-  local loaded, nvim_tree = pcall(require, "nvim-tree")
+  vim.g.nvim_tree_indent_markers = 1
 
-  if loaded then
-    vim.g.nvim_tree_indent_markers = 1
-
-    nvim_tree.setup(config)
-    require("nvim-tree.lib").toggle_ignored()
-  end
+  nvim_tree.setup(config)
+  require("nvim-tree.lib").toggle_ignored()
 end
 
 return M

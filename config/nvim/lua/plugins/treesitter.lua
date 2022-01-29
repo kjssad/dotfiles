@@ -1,4 +1,8 @@
-local M = {}
+local loaded, ts_config = pcall(require, "nvim-treesitter.configs")
+
+if not loaded then
+  return
+end
 
 local config = {
   ensure_installed = {
@@ -57,12 +61,10 @@ local config = {
   },
 }
 
-function M.setup()
-  local loaded, ts_config = pcall(require, "nvim-treesitter.configs")
+local M = {}
 
-  if loaded then
-    ts_config.setup(config)
-  end
+function M.setup()
+  ts_config.setup(config)
 end
 
 return M

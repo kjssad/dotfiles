@@ -1,5 +1,8 @@
-local M = {}
 local loaded, null_ls = pcall(require, "null-ls")
+
+if not loaded then
+  return
+end
 
 local config = {
   diagnostic_format = "#{m} (#{s}) [#{c}]",
@@ -12,10 +15,10 @@ local config = {
   },
 }
 
+local M = {}
+
 function M.setup()
-  if loaded then
-    null_ls.setup(config)
-  end
+  null_ls.setup(config)
 end
 
 return M

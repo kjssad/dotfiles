@@ -1,6 +1,11 @@
-local M = {}
-local _, actions = pcall(require, "telescope.actions")
-local _, action_set = pcall(require, "telescope.actions.set")
+local loaded, telescope = pcall(require, "telescope")
+
+if not loaded then
+  return
+end
+
+local actions = require("telescope.actions")
+local action_set = require("telescope.actions.set")
 
 -- workaround to fix folds
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-934727312
@@ -49,18 +54,20 @@ local config = {
   },
 }
 
-function M.project_files()
-  local loaded = pcall(require("telescope.builtin").git_files)
+local M = {}
 
-  if not loaded then
+function M.project_files()
+  local in_git_repo = pcall(require("telescope.builtin").git_files)
+
+  if not in_git_repo then
     require("telescope.builtin").find_files()
   end
 end
 
 function M.git_status()
-  local loaded = pcall(require("telescope.builtin").git_status)
+  local in_git_repo = pcall(require("telescope.builtin").git_status)
 
-  if not loaded then
+  if not in_git_repo then
     vim.notify("telescope: working directory does not belong to a Git repository", 4)
   end
 end
@@ -76,12 +83,8 @@ function M.keymaps()
 end
 
 function M.setup()
-  local loaded, telescope = pcall(require, "telescope")
-
-  if loaded then
-    telescope.setup(config)
-    telescope.load_extension("fzf")
-  end
+  telescope.setup(config)
+  telescope.load_extension("fzf")
 end
 
 return M

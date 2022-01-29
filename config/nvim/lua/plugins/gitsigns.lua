@@ -1,4 +1,8 @@
-local M = {}
+local loaded, gitsigns = pcall(require, "gitsigns")
+
+if not loaded then
+  return
+end
 
 local config = {
   signs = {
@@ -24,12 +28,10 @@ local config = {
   },
 }
 
-function M.setup()
-  local loaded, gitsigns = pcall(require, "gitsigns")
+local M = {}
 
-  if loaded then
-    gitsigns.setup(config)
-  end
+function M.setup()
+  gitsigns.setup(config)
 end
 
 return M

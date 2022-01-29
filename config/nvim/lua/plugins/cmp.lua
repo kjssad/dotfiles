@@ -1,6 +1,10 @@
-local M = {}
-local cmp_loaded, cmp = pcall(require, "cmp")
-local luasnip_loaded, luasnip = pcall(require, "luasnip")
+local loaded, cmp = pcall(require, "cmp")
+
+if not loaded then
+  return
+end
+
+local luasnip = require("luasnip")
 
 local kind_icons = {
   Class = " ",
@@ -106,15 +110,10 @@ local config = {
   },
 }
 
+local M = {}
+
 function M.setup()
-  if cmp_loaded and luasnip_loaded then
-    luasnip.config.setup({
-      region_check_events = "InsertEnter",
-      delete_check_events = "TextChanged,InsertLeave",
-    })
-    require("luasnip/loaders/from_vscode").lazy_load()
-    cmp.setup(config)
-  end
+  cmp.setup(config)
 end
 
 return M

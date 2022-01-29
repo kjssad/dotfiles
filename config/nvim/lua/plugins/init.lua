@@ -134,7 +134,17 @@ return require("packer").startup({
     -- snippets
     use({
       { "rafamadriz/friendly-snippets", event = "InsertEnter" },
-      { "L3MON4D3/LuaSnip", after = "friendly-snippets" },
+      {
+        "L3MON4D3/LuaSnip",
+        config = function()
+          require("luasnip").config.setup({
+            region_check_events = "InsertEnter",
+            delete_check_events = "TextChanged,InsertLeave",
+          })
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+        after = "friendly-snippets",
+      },
     })
 
     -- completion framework
@@ -156,7 +166,7 @@ return require("packer").startup({
     -- autopair plugin
     use({
       "windwp/nvim-autopairs",
-      after = "nvim-cmp",
+      after = { "nvim-treesitter", "nvim-cmp" },
       config = function()
         require("plugins.autopairs").setup()
       end,

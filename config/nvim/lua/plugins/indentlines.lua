@@ -1,4 +1,8 @@
-local M = {}
+local loaded, indentlines = pcall(require, "indent_blankline")
+
+if not loaded then
+  return
+end
 
 local config = {
   char = "▏",
@@ -12,12 +16,10 @@ local config = {
   context_char = "▏",
 }
 
-function M.setup()
-  local loaded, indentlines = pcall(require, "indent_blankline")
+local M = {}
 
-  if loaded then
-    indentlines.setup(config)
-  end
+function M.setup()
+  indentlines.setup(config)
 end
 
 return M

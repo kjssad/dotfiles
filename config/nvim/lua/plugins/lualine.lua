@@ -1,4 +1,8 @@
-local M = {}
+local loaded, lualine = pcall(require, "lualine")
+
+if not loaded then
+  return
+end
 
 local conditions = {
   buffer_not_empty = function()
@@ -116,9 +120,9 @@ local config = {
   },
 }
 
-function M.setup()
-  local loaded, lualine = pcall(require, "lualine")
+local M = {}
 
+function M.setup()
   if loaded then
     lualine.setup(config)
   end
