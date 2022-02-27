@@ -8,6 +8,7 @@ local config = {
   ensure_installed = {
     "bash",
     "lua",
+    "latex"
   },
   highlight = {
     enable = true,

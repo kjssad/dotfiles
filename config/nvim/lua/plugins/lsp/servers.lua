@@ -22,4 +22,16 @@ return {
     formatters = {},
     linters = {},
   },
+  ["texlab"] = {
+    config = {
+      settings = {
+        texlab = {
+          chktex = {
+            onOpenAndSave = true,
+            onEdit = true,
+          },
+        },
+      },
+    },
+  },
 }

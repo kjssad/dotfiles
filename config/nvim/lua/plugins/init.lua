@@ -180,6 +180,13 @@ return require("packer").startup({
       end,
     })
 
+    use({
+      "lervag/vimtex",
+      config = function()
+        require("plugins.vimtex").setup()
+      end,
+    })
+
     -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     use({ "AndrewRadev/splitjoin.vim", branch = "main", event = "BufRead" })
 
