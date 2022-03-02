@@ -17,6 +17,13 @@ local config = {
   update_focused_file = {
     enable = true,
   },
+  view = {
+    mappings = {
+      list = {
+        { key = "<C-e>", action = "" },
+      },
+    },
+  },
 }
 
 local M = {}
@@ -32,7 +39,6 @@ function M.setup()
   vim.g.nvim_tree_indent_markers = 1
 
   nvim_tree.setup(config)
-  require("nvim-tree.lib").toggle_ignored()
 end
 
 return M
