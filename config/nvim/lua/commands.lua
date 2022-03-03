@@ -1,29 +1,31 @@
-vim.api.nvim_add_user_command("PackerClean", function()
+local command = vim.api.nvim_add_user_command
+
+command("PackerClean", function()
   require("plugins")
   require("packer").clean()
 end, {})
 
-vim.api.nvim_add_user_command("PackerCompile", function()
+command("PackerCompile", function()
   require("plugins")
   require("packer").compile()
 end, {})
 
-vim.api.nvim_add_user_command("PackerInstall", function()
+command("PackerInstall", function()
   require("plugins")
   require("packer").install()
 end, {})
 
-vim.api.nvim_add_user_command("PackerStatus", function()
+command("PackerStatus", function()
   require("plugins")
   require("packer").status()
 end, {})
 
-vim.api.nvim_add_user_command("PackerSync", function()
+command("PackerSync", function()
   require("plugins")
   require("packer").sync()
 end, {})
 
-vim.api.nvim_add_user_command("PackerUpdate", function()
+command("PackerUpdate", function()
   require("plugins")
   require("packer").update()
 end, {})
