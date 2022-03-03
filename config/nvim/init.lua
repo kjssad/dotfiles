@@ -2,7 +2,7 @@ pcall(require, "impatient")
 
 require("settings")
 require("keymaps")
-require("autocmds")
+require("autocmds").defaults()
 require("commands")
 
 pcall(require, "packer_compiled")

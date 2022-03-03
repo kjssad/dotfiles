@@ -2,31 +2,13 @@ local M = {}
 
 local function document_highlight(client)
   if client.resolved_capabilities.document_highlight then
-    vim.cmd(
-      [[
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]],
-      false
-    )
+    require("autocmds").lsp_document_highlight()
   end
 end
 
-local function codelens_refresh(client)
+local function codelens(client)
   if client.resolved_capabilities.code_lens then
-    vim.cmd(
-      [[
-        augroup lsp_code_lens_refresh
-          autocmd! * <buffer>
-          autocmd InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-          autocmd InsertLeave <buffer> lua vim.lsp.codelens.display()
-        augroup END
-      ]],
-      false
-    )
+    require("autocmds").lsp_codelens()
   end
 end
 
@@ -64,7 +46,7 @@ end
 
 function M.common_on_attach(client, _)
   document_highlight(client)
-  codelens_refresh(client)
+  codelens(client)
   keymappings()
 end
 

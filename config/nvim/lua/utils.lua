@@ -1,14 +1,5 @@
 local utils = {}
 
-function utils.augroup(group, cmds)
-  vim.cmd("augroup " .. group)
-  vim.cmd("autocmd!")
-  for _, cmd in ipairs(cmds) do
-    vim.cmd("autocmd " .. cmd)
-  end
-  vim.cmd("augroup END")
-end
-
 function utils.move_win(key)
   local old_win = vim.api.nvim_get_current_win()
   vim.cmd("wincmd " .. key)
