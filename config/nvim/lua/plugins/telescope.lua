@@ -72,16 +72,6 @@ function M.git_status()
   end
 end
 
-function M.keymaps()
-  local map = vim.keymap.set
-
-  map("n", "<leader>t", require("plugins.telescope").project_files)
-  map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
-  map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
-  map("n", "<leader>s", require("plugins.telescope").git_status)
-  map("n", "<leader>rg", "<cmd>Telescope live_grep<CR>")
-end
-
 function M.setup()
   telescope.setup(config)
   telescope.load_extension("fzf")

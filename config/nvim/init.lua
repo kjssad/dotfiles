@@ -1,9 +1,9 @@
 pcall(require, "impatient")
 
 require("settings")
-require("keymaps")
-require("autocmds").defaults()
 require("commands")
+require("keymaps").defaults()
+require("autocmds").defaults()
 
 pcall(require, "packer_compiled")
 

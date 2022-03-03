@@ -63,7 +63,7 @@ return require("packer").startup({
           require("plugins.telescope").setup()
         end,
         setup = function()
-          require("plugins.telescope").keymaps()
+          require("keymaps").telescope()
         end,
       },
     })
@@ -85,7 +85,7 @@ return require("packer").startup({
         require("plugins.nvim-tree").setup()
       end,
       setup = function()
-        require("plugins.nvim-tree").keymaps()
+        require("keymaps").nvim_tree()
       end,
       cmd = { "NvimTreeFindFileToggle", "NvimTreeFindFile" },
     })

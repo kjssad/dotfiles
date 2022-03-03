@@ -13,22 +13,7 @@ local function codelens(client)
 end
 
 local function keymappings()
-  local map = vim.keymap.set
-  local options = { buffer = true }
-
-  map("n", "gl", vim.lsp.buf.declaration, options)
-  map("n", "gf", vim.lsp.buf.definition, options)
-  map("n", "K", vim.lsp.buf.hover, options)
-  map("n", "gi", vim.lsp.buf.implementation, options)
-  map("i", "<C-x><C-x>", vim.lsp.buf.signature_help, options)
-  map("n", "gy", vim.lsp.buf.type_definition, options)
-  map("n", "<leader>rn", vim.lsp.buf.rename, options)
-  map("n", "<leader>ca", vim.lsp.buf.code_action, options)
-  map("n", "gr", vim.lsp.buf.references, options)
-  map("n", "<space>a", vim.diagnostic.open_float, options)
-  map("n", "[d", vim.diagnostic.goto_prev, options)
-  map("n", "]d", vim.diagnostic.goto_next, options)
-  map("n", "<leader>fb", vim.lsp.buf.formatting, options)
+  require("keymaps").lsp()
 end
 
 local function install_servers(installer, servers)

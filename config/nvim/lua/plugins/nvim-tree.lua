@@ -28,13 +28,6 @@ local config = {
 
 local M = {}
 
-function M.keymaps()
-  local map = vim.keymap.set
-
-  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>")
-  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
-end
-
 function M.setup()
   vim.g.nvim_tree_indent_markers = 1
 
