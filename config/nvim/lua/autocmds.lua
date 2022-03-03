@@ -57,6 +57,7 @@ function M.defaults()
   augroup("packer_reload", {})
   autocmd("BufWritePost", {
     group = "packer_reload",
+    pattern = "*/lua/plugins/init.lua",
     command = "source <afile> | PackerCompile",
   })
 end
