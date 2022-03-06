@@ -36,8 +36,8 @@
     # support for vim autoread
     set-option -g focus-event on
 
-    set-option -g set-titles on
-    set-option -g set-titles-string "#T - #W"
+    # use pane path and current command as window name
+    set-option -g automatic-rename-format '#{b:pane_current_path}: #{pane_current_command} #{window_zoomed_flag}'
 # }}}
 
 # Keybindings {{{
