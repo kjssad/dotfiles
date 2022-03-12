@@ -94,11 +94,7 @@ return require("packer").startup({
     use({
       "numToStr/Comment.nvim",
       config = function()
-        local loaded, comment = pcall(require, "Comment")
-
-        if loaded then
-          comment.setup()
-        end
+        require("plugins.comment").setup()
       end,
       event = "BufRead",
     })
