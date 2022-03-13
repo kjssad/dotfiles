@@ -23,7 +23,7 @@ if [[ -a ~/.localrc ]]; then
 fi
 
 # initialize autocomplete
-autoload -U compinit add-zsh-hook
+autoload -U compinit
 compinit
 
 export EDITOR='nvim'
