@@ -119,10 +119,14 @@ function M.gitsigns(bufnr)
 end
 
 function M.telescope()
-  map("n", "<leader>t", require("plugins.telescope").project_files)
+  map("n", "<leader>t", function()
+    pcall(require("plugins.telescope").project_files)
+  end)
   map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
   map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
-  map("n", "<leader>s", require("plugins.telescope").git_status)
+  map("n", "<leader>s", function ()
+    pcall(require("plugins.telescope").git_status)
+  end)
   map("n", "<leader>rg", "<cmd>Telescope live_grep<CR>")
 end
 
