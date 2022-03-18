@@ -34,12 +34,12 @@ local status = {
 
 local filename = {
   "filename",
+  path = 1,
   cond = conditions.buffer_not_empty,
 }
 
 local diagnostics = {
   "diagnostics",
-  cond = conditions.hide_in_width,
   symbols = { error = " ", warn = " ", info = " ", hint = " " },
   colored = false,
 }
@@ -99,7 +99,6 @@ local config = {
     theme = "quantum",
     component_separators = "",
     section_separators = "",
-    disabled_filetypes = { "NvimTree", "dashboard", "Trouble", "qf", "help" },
     globalstatus = true,
   },
   sections = {
