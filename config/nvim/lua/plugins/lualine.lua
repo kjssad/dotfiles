@@ -9,7 +9,7 @@ local conditions = {
     return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
   end,
   hide_in_width = function()
-    return vim.fn.winwidth(0) > 85
+    return vim.o.columns > 97
   end,
 }
 
@@ -100,6 +100,7 @@ local config = {
     component_separators = "",
     section_separators = "",
     disabled_filetypes = { "NvimTree", "dashboard", "Trouble", "qf", "help" },
+    globalstatus = true,
   },
   sections = {
     lualine_a = { mode },

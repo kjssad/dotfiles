@@ -43,7 +43,7 @@ vim.g.cursorhold_updatetime = 100
 opt.timeoutlen = 500
 
 opt.cursorline = true
-
+opt.laststatus = 3
 opt.showmode = false
 opt.number = true
 opt.relativenumber = true
@@ -61,7 +61,13 @@ opt.listchars = {
   precedes = "❮",
 }
 opt.fillchars = {
+  horiz = "▁",
+  horizup = "🭼",
+  horizdown = "▁",
   vert = "▏",
+  vertleft = "▏",
+  vertright = "🭼",
+  verthoriz = "🭼",
   fold = " ",
   diff = "╱",
   eob = " ",
