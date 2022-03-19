@@ -6,6 +6,7 @@ end
 
 local actions = require("telescope.actions")
 local action_set = require("telescope.actions.set")
+local action_layout = require("telescope.actions.layout")
 
 -- workaround to fix folds
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-934727312
@@ -26,13 +27,14 @@ local config = {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
+        ["<C-space>"] = action_layout.toggle_preview,
       },
     },
     sorting_strategy = "ascending",
     layout_strategy = "flex",
     layout_config = {
       horizontal = {
-        preview_width = 80,
+        preview_width = 90,
         prompt_position = "top",
       },
       vertical = {
@@ -41,7 +43,21 @@ local config = {
         prompt_position = "top",
       },
     },
-    borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    borderchars = {
+      { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+      prompt = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+      results = { " ", "▕", "▁", "▏", "▏", "▕", "🭿", "🭼" },
+    },
+    vim_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim",
+    },
   },
   pickers = {
     buffers = fixfolds,
@@ -65,11 +81,17 @@ function M.project_files()
 end
 
 function M.git_status()
-  local in_git_repo = pcall(require("telescope.builtin").git_status)
-
-  if not in_git_repo then
-    vim.notify("telescope: working directory does not belong to a Git repository", 4)
-  end
+  require("telescope.builtin").git_status({
+    git_icons = {
+      added = "A",
+      changed = "M",
+      copied = "C",
+      deleted = "D",
+      renamed = "R",
+      unmerged = "U",
+      untracked = "?",
+    },
+  })
 end
 
 function M.setup()
