@@ -18,6 +18,7 @@ local config = {
     enable = true,
   },
   view = {
+    width = 40,
     mappings = {
       list = {
         { key = "<C-e>", action = "" },
@@ -30,6 +31,16 @@ local M = {}
 
 function M.setup()
   vim.g.nvim_tree_indent_markers = 1
+  vim.g.nvim_tree_icons = {
+    git = {
+      unstaged = "M",
+      staged = "S",
+      unmerged = "U",
+      renamed = "R",
+      untracked = "?",
+      deleted = "D",
+    },
+  }
 
   nvim_tree.setup(config)
 end
