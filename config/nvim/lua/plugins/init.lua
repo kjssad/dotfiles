@@ -28,7 +28,7 @@ return require("packer").startup({
           colorizer.setup(nil, { css = "true" })
         end
       end,
-      event = "BufRead",
+      cmd = "ColorizerToggle",
     })
 
     -- language parser
