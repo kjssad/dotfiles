@@ -1,0 +1,40 @@
+# Open document in fit-width by default
+set adjust-open "width"
+
+set font "Roboto Regular 10"
+set default-bg "#1B1B1B"
+set default-fg "#D7D7DB"
+
+set statusbar-fg "#939293"
+set statusbar-bg "#1B1B1B"
+
+set inputbar-bg "#38383D"
+set inputbar-fg "#C1C0C0"
+
+set notification-error-bg "#38383D"
+set notification-error-fg "#EB5368"
+
+set notification-warning-bg "#38383D"
+set notification-warning-fg "#FFD866"
+
+set highlight-color "#87DE74"
+set highlight-active-color "#6B89FF"
+set highlight-transparency "0.5"
+
+set completion-highlight-fg "#D7D7DB"
+set completion-highlight-bg "#737373"
+
+set completion-bg "#38383D"
+set completion-fg "#C1C0C0"
+
+set notification-bg "#38383D"
+set notification-fg "#C1C0C0"
+
+set recolor "true"
+set recolor-lightcolor "#2a2a2e"
+set recolor-darkcolor "#D7D7DB"
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set render-loading "false"
+set guioptions ""
