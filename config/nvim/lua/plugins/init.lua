@@ -187,7 +187,13 @@ return require("packer").startup({
     use({ "AndrewRadev/splitjoin.vim", branch = "main", event = "BufRead" })
 
     -- git wrapper
-    use({ "tpope/vim-fugitive", cmd = { "Git", "Gclog" } })
+    use({
+      "tpope/vim-fugitive",
+      setup = function()
+        require("keymaps").fugitive()
+      end,
+      cmd = { "Git", "Gclog" },
+    })
 
     -- enables repeating other supported plugins with the . command
     use({ "tpope/vim-repeat", event = "BufRead" })

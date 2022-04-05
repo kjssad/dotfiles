@@ -135,4 +135,9 @@ function M.nvim_tree()
   map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
 end
 
+function M.fugitive()
+  map("n", "<leader>gs", "<cmd>Git<CR>")
+  map("n", "<leader>gl", "<cmd>Gclog<CR>")
+end
+
 return M
