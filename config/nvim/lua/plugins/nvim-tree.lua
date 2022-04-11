@@ -25,12 +25,16 @@ local config = {
       },
     },
   },
+  renderer = {
+    indent_markers = {
+      enable = true,
+    },
+  },
 }
 
 local M = {}
 
 function M.setup()
-  vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_icons = {
     git = {
       unstaged = "M",
