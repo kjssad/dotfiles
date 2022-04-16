@@ -34,14 +34,6 @@ local kind_icons = {
   Variable = " ",
 }
 
-local source_names = {
-  nvim_lsp = "(lsp)",
-  path = "(path)",
-  luasnip = "(snippet)",
-  buffer = "(buffer)",
-  vsnip = "(snippet)",
-}
-
 local config = {
   completion = {
     completeopt = "menu,menuone,noinsert",
@@ -51,14 +43,11 @@ local config = {
       luasnip.lsp_expand(args.body)
     end,
   },
-  documentation = {
-    border = require("plugins.lsp.diagnostic").border,
-  },
   confirmation = {
     -- default_behavior = cmp.ConfirmBehavior.Replace,
   },
-  mapping = {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+  mapping = cmp.mapping.preset.insert({
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -87,12 +76,11 @@ local config = {
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
     }),
-  },
+  }),
   formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
+    fields = { "kind", "abbr" },
+    format = function(_, vim_item)
       vim_item.kind = kind_icons[vim_item.kind]
-      vim_item.menu = source_names[entry.source.name]
       return vim_item
     end,
   },
@@ -107,6 +95,14 @@ local config = {
     { name = "luasnip" },
     { name = "nvim_lua" },
     { name = "buffer" },
+  },
+  window = {
+    completion = {
+      border = require("plugins.lsp.diagnostic").border,
+    },
+    documentation = {
+      border = require("plugins.lsp.diagnostic").border,
+    },
   },
 }
 
