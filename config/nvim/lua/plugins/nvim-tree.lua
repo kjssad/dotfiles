@@ -9,7 +9,7 @@ local config = {
     enable = true,
     icons = {
       error = "",
-      warn = "",
+      warning = "",
       info = "",
       hint = "",
     },
