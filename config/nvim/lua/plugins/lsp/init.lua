@@ -1,19 +1,15 @@
 local M = {}
 
-local function document_highlight(client)
-  if client.resolved_capabilities.document_highlight then
-    require("autocmds").lsp_document_highlight()
+local function document_highlight(client, bufnr)
+  if client.supports_method("textDocument/documentHighlight") then
+    require("autocmds").lsp_document_highlight(bufnr)
   end
 end
 
-local function codelens(client)
-  if client.resolved_capabilities.code_lens then
-    require("autocmds").lsp_codelens()
+local function codelens(client, bufnr)
+  if client.supports_method("textDocument/codeLens") then
+    require("autocmds").lsp_codelens(bufnr)
   end
-end
-
-local function keymappings()
-  require("keymaps").lsp()
 end
 
 local function install_servers(installer, servers)
@@ -29,10 +25,10 @@ local function install_servers(installer, servers)
   end
 end
 
-function M.common_on_attach(client, _)
-  document_highlight(client)
-  codelens(client)
-  keymappings()
+function M.common_on_attach(client, bufnr)
+  document_highlight(client, bufnr)
+  codelens(client, bufnr)
+  require("keymaps").lsp(bufnr)
 end
 
 function M.common_capabilities()

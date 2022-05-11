@@ -69,8 +69,8 @@ function M.defaults()
   map("n", "<F2>", ":TSHighlightCapturesUnderCursor<CR>")
 end
 
-function M.lsp()
-  local options = { buffer = true }
+function M.lsp(bufnr)
+  local options = { buffer = bufnr }
 
   map("n", "gl", vim.lsp.buf.declaration, options)
   map("n", "gf", vim.lsp.buf.definition, options)

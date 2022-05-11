@@ -62,25 +62,25 @@ function M.defaults()
   })
 end
 
-function M.lsp_document_highlight()
+function M.lsp_document_highlight(bufnr)
   augroup("lsp_document_highlight", {})
   autocmd("CursorHold", {
     group = "lsp_document_highlight",
-    pattern = "<buffer>",
+    buffer = bufnr,
     callback = vim.lsp.buf.document_highlight,
   })
   autocmd("CursorMoved", {
     group = "lsp_document_highlight",
-    pattern = "<buffer>",
+    buffer = bufnr,
     callback = vim.lsp.buf.clear_references,
   })
 end
 
-function M.lsp_codelens()
+function M.lsp_codelens(bufnr)
   augroup("lsp_codelens", {})
-  autocmd("InsertLeave", {
+  autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
     group = "lsp_codelens",
-    pattern = "<buffer>",
+    buffer = bufnr,
     callback = function()
       vim.lsp.codelens.refresh()
       vim.lsp.codelens.display()
