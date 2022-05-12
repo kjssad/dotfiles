@@ -32,19 +32,19 @@ function M.defaults()
   -- enable . command in visual mode
   map("v", ".", ":normal .<CR>")
 
-  -- window navigation
-  map("n", "<C-h>", function()
-    require("utils").move_win("h")
-  end)
-  map("n", "<C-j>", function()
-    require("utils").move_win("j")
-  end)
-  map("n", "<C-k>", function()
-    require("utils").move_win("k")
-  end)
-  map("n", "<C-l>", function()
-    require("utils").move_win("l")
-  end)
+  -- -- window navigation
+  -- map("n", "<C-h>", function()
+  --   require("utils").move_win("h")
+  -- end)
+  -- map("n", "<C-j>", function()
+  --   require("utils").move_win("j")
+  -- end)
+  -- map("n", "<C-k>", function()
+  --   require("utils").move_win("k")
+  -- end)
+  -- map("n", "<C-l>", function()
+  --   require("utils").move_win("l")
+  -- end)
 
   -- scroll the viewport faster
   map("n", "<C-e>", "3<C-e>")

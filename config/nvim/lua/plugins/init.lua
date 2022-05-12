@@ -183,6 +183,13 @@ return require("packer").startup({
       end,
     })
 
+    use({
+      "aserowy/tmux.nvim",
+      config = function()
+        require("plugins.tmux").setup()
+      end,
+    })
+
     -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
     use({ "AndrewRadev/splitjoin.vim", branch = "main", event = "BufRead" })
 
