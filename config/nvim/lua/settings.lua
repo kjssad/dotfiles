@@ -44,6 +44,7 @@ opt.timeoutlen = 500
 
 opt.cursorline = true
 opt.laststatus = 3
+opt.winbar = "%f"
 opt.showmode = false
 opt.number = true
 opt.relativenumber = true
