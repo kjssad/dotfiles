@@ -69,4 +69,58 @@ function utils.get_mode()
   return mode_code
 end
 
+function utils.in_table(table, val)
+  for _, value in ipairs(table) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
+end
+
+function utils.set_winbar()
+  local filename = vim.api.nvim_buf_get_name(0)
+
+  if filename == "" then
+    return ""
+  end
+
+  local head = vim.fn.fnamemodify(filename, ":.:h")
+
+  if head == "." or (vim.fn.winwidth(0) <= 97 and string.len(filename) > 90) then
+    head = " "
+  else
+    head = " " .. head .. "/ "
+  end
+
+  local loaded, devicons = pcall(require, "nvim-web-devicons")
+  local icon, color_code
+
+  local extension = vim.fn.fnamemodify(filename, ":.:e")
+
+  if loaded then
+    icon, color_code = devicons.get_icon_color(filename, extension, { default = true })
+  end
+
+  if icon then
+    icon = "%#WinBarFileTypeIcon#" .. icon .. "%* "
+    vim.api.nvim_set_hl(0, "WinBarFileTypeIcon", { fg = color_code })
+  else
+    icon = ""
+  end
+
+  local winbar = head .. icon .. vim.fn.fnamemodify(filename, ":t")
+
+  if vim.bo.modified then
+    winbar = winbar .. "[+]"
+  end
+
+  if vim.bo.modifiable == false or vim.bo.readonly == true then
+    winbar = winbar .. "[-]"
+  end
+
+  return winbar
+end
+
 return utils

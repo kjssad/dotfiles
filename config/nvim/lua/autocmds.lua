@@ -1,5 +1,6 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local utils = require("utils")
 
 local M = {}
 
@@ -27,11 +28,12 @@ function M.defaults()
       vim.opt_local.number = false
       vim.opt_local.relativenumber = false
       vim.opt_local.signcolumn = "no"
+      vim.opt_local.winbar = nil
     end,
   })
   autocmd("BufReadPost", {
     group = "config_group",
-    callback = require("utils").last_cursor,
+    callback = utils.last_cursor,
   })
   autocmd("TextYankPost", {
     group = "config_group",
@@ -44,13 +46,13 @@ function M.defaults()
   autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
     group = "line_numbers",
     callback = function()
-      require("utils").set_relative_number(true)
+      utils.set_relative_number(true)
     end,
   })
   autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
     group = "line_numbers",
     callback = function()
-      require("utils").set_relative_number(false)
+      utils.set_relative_number(false)
     end,
   })
 
@@ -59,6 +61,22 @@ function M.defaults()
     group = "packer_reload",
     pattern = "*/lua/plugins/init.lua",
     command = "source <afile> | PackerCompile",
+  })
+
+  augroup("winbar_filetypes", {})
+  autocmd({ "BufWinEnter", "BufFilePost" }, {
+    group = "winbar_filetypes",
+    callback = function()
+      local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree" }
+      local buftype_exclude = { "nofile" }
+
+      if utils.in_table(filetype_exclude, vim.bo.filetype) or utils.in_table(buftype_exclude, vim.bo.buftype) then
+        vim.opt_local.winbar = nil
+        return
+      end
+
+      vim.opt_local.winbar = "%{%v:lua.require('utils').set_winbar()%}"
+    end,
   })
 end
 
