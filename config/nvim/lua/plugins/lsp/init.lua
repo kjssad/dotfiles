@@ -42,9 +42,9 @@ function M.common_capabilities()
     },
   }
 
-  local cmp_lsp_loaded, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  local loaded, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
-  if cmp_lsp_loaded then
+  if loaded then
     capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   end
 
@@ -63,22 +63,24 @@ function M.setup()
 
   local loaded, installer = pcall(require, "nvim-lsp-installer")
 
-  if loaded then
-    local servers = require("plugins.lsp.servers")
-
-    install_servers(installer, servers)
-
-    local config = M.common_options()
-
-    installer.on_server_ready(function(server)
-      if servers[server.name] then
-        config = vim.tbl_deep_extend("force", config, servers[server.name].config)
-      end
-
-      server:setup(config)
-      vim.cmd([[ do User LspAttachBuffers ]])
-    end)
+  if not loaded then
+    return
   end
+
+  local servers = require("plugins.lsp.servers")
+
+  install_servers(installer, servers)
+
+  local config = M.common_options()
+
+  installer.on_server_ready(function(server)
+    if servers[server.name] then
+      config = vim.tbl_deep_extend("force", config, servers[server.name].config)
+    end
+
+    server:setup(config)
+    vim.cmd([[ do User LspAttachBuffers ]])
+  end)
 end
 
 return M
