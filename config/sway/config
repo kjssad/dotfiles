@@ -225,13 +225,11 @@
     for_window [class="Spotify"] focus
 
     # Autostart applications
-    exec_always --no-startup-id $HOME/.config/polybar/launch.sh
     exec --no-startup-id pcmanfm-qt -d
     exec --no-startup-id /usr/libexec/lxqt-policykit-agent
     exec --no-startup-id blueman-applet
     # exec --no-startup-id dunst
     exec --no-startup-id kdeconnect-indicator
-    # exec --no-startup-id kitty --class kitty-scratchpad --session ~/.config/kitty/sessions/scratchpad
     exec --no-startup-id nm-applet --indicator
 
 # }}}
@@ -258,6 +256,8 @@
 # sway-specific options {{{
     # xwayland disable
 
+    bar swaybar_command waybar
+
     bindsym $mod+9 exec swaylock -f
     bindsym $mod+0 exec nwgbar
 
@@ -275,7 +275,7 @@
     bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
     bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob
 
-    exec --no-startup-id swaybg -i ~/.dotfiles/wallpapers/dark.png
+    exec --no-startup-id swaybg -c #2e2e2e
     exec --no-startup-id gammastep-indicator
 
     exec swayidle -w \
