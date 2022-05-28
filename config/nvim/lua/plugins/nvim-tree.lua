@@ -22,6 +22,7 @@ local config = {
     mappings = {
       list = {
         { key = "<C-e>", action = "" },
+        { key = "<C-k>", action = "" },
       },
     },
   },
@@ -29,23 +30,25 @@ local config = {
     indent_markers = {
       enable = true,
     },
+    icons = {
+      git_placement = "signcolumn",
+      glyphs = {
+        git = {
+          unstaged = "M",
+          staged = "S",
+          unmerged = "U",
+          renamed = "R",
+          untracked = "?",
+          deleted = "D",
+        },
+      },
+    },
   },
 }
 
 local M = {}
 
 function M.setup()
-  vim.g.nvim_tree_icons = {
-    git = {
-      unstaged = "M",
-      staged = "S",
-      unmerged = "U",
-      renamed = "R",
-      untracked = "?",
-      deleted = "D",
-    },
-  }
-
   nvim_tree.setup(config)
 end
 
