@@ -127,7 +127,7 @@ function M.telescope()
   map("n", "<leader>s", function ()
     pcall(require("plugins.telescope").git_status)
   end)
-  map("n", "<leader>rg", "<cmd>Telescope live_grep_raw<CR>")
+  map("n", "<leader>rg", "<cmd>Telescope live_grep_args<CR>")
 end
 
 function M.nvim_tree()

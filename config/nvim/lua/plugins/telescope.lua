@@ -66,6 +66,7 @@ local config = {
     git_files = fixfolds,
     grep_string = fixfolds,
     live_grep = fixfolds,
+    live_grep_args = fixfolds,
     oldfiles = fixfolds,
   },
 }
@@ -97,7 +98,7 @@ end
 function M.setup()
   telescope.setup(config)
   telescope.load_extension("fzf")
-  telescope.load_extension("live_grep_raw")
+  telescope.load_extension("live_grep_args")
 end
 
 return M

@@ -51,14 +51,14 @@ return require("packer").startup({
 
     -- fuzzy finder
     use({
-      "nvim-telescope/telescope-rg.nvim", -- live grep raw picker
+      "nvim-telescope/telescope-live-grep-args.nvim", -- live grep raw picker
       {
         "nvim-telescope/telescope-fzf-native.nvim", -- telescope sorter
         run = "make",
       },
       {
         "nvim-telescope/telescope.nvim",
-        after = { "telescope-rg.nvim", "telescope-fzf-native.nvim" },
+        after = { "telescope-live-grep-args.nvim", "telescope-fzf-native.nvim" },
         requires = "nvim-lua/plenary.nvim",
         config = function()
           require("plugins.telescope").setup()
