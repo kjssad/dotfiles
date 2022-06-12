@@ -94,12 +94,12 @@ function utils.set_winbar()
     head = " " .. head .. "/ "
   end
 
-  local loaded, devicons = pcall(require, "nvim-web-devicons")
+  local devicons_loaded, devicons = pcall(require, "nvim-web-devicons")
   local icon, color_code
 
   local extension = vim.fn.fnamemodify(filename, ":.:e")
 
-  if loaded then
+  if devicons_loaded then
     icon, color_code = devicons.get_icon_color(filename, extension, { default = true })
   end
 
@@ -118,6 +118,16 @@ function utils.set_winbar()
 
   if vim.bo.modifiable == false or vim.bo.readonly == true then
     winbar = winbar .. "[-]"
+  end
+
+  local navic_loaded, navic = pcall(require, "nvim-navic")
+
+  if navic_loaded and navic.is_available() then
+    local context = navic.get_location()
+
+    if context ~= "" then
+      return winbar .. " ❯ " .. context
+    end
   end
 
   return winbar

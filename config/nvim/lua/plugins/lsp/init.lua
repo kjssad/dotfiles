@@ -29,6 +29,12 @@ function M.common_on_attach(client, bufnr)
   document_highlight(client, bufnr)
   codelens(client, bufnr)
   require("keymaps").lsp(bufnr)
+
+  local loaded, navic = pcall(require, "nvim-navic")
+
+  if loaded then
+    navic.attach(client, bufnr)
+  end
 end
 
 function M.common_capabilities()

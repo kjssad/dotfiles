@@ -115,6 +115,12 @@ return require("packer").startup({
           require("plugins.null-ls").setup()
         end,
       },
+      {
+        "SmiteshP/nvim-navic",
+        config = function()
+          require("plugins.nvim-navic").setup()
+        end,
+      },
       { "williamboman/nvim-lsp-installer", after = "nvim-lspconfig" }, -- server installer
     })
 
