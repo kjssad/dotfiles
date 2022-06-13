@@ -42,6 +42,7 @@ vim.g.cursorhold_updatetime = 100
 
 opt.timeoutlen = 500
 
+opt.cmdheight = 0
 opt.cursorline = true
 opt.laststatus = 3
 opt.showmode = false
