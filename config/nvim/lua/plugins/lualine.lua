@@ -44,6 +44,27 @@ local diagnostics = {
   colored = false,
 }
 
+local searchcount = {
+  function()
+    local result = vim.api.nvim_eval("searchcount()")
+
+    if result.incomplete == 1 then
+      return "[?/??]"
+    elseif result.incomplete == 2 then
+      if result.total > result.maxcount and result.current > result.maxcount then
+        return string.format(">%d of >%d", result.current, result.total)
+      elseif result.total > result.maxcount then
+        return string.format("%d of >%d", result.current, result.total)
+      end
+    end
+
+    return string.format("%d of %d", result.current, result.total)
+  end,
+  cond = function ()
+    return vim.v.hlsearch == 1 and true or false
+  end
+}
+
 local indentation = {
   function()
     if vim.bo.expandtab then
@@ -105,7 +126,7 @@ local config = {
     lualine_a = { mode },
     lualine_b = {},
     lualine_c = { branch, status, diagnostics },
-    lualine_x = { location, indentation, encoding, filetype, fileformat },
+    lualine_x = { searchcount, location, indentation, encoding, filetype, fileformat },
     lualine_y = {},
     lualine_z = {},
   },
