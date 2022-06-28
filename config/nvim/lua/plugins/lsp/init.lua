@@ -30,10 +30,12 @@ function M.common_on_attach(client, bufnr)
   codelens(client, bufnr)
   require("keymaps").lsp(bufnr)
 
-  local loaded, navic = pcall(require, "nvim-navic")
+  if client.supports_method("textDocument/documentSymbol") then
+    local loaded, navic = pcall(require, "nvim-navic")
 
-  if loaded then
-    navic.attach(client, bufnr)
+    if loaded then
+      navic.attach(client, bufnr)
+    end
   end
 end
 
