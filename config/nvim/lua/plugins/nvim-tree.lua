@@ -5,18 +5,6 @@ if not loaded then
 end
 
 local config = {
-  diagnostics = {
-    enable = true,
-    icons = {
-      error = "",
-      warning = "",
-      info = "",
-      hint = "",
-    },
-  },
-  update_focused_file = {
-    enable = true,
-  },
   view = {
     width = 40,
     mappings = {
@@ -43,6 +31,21 @@ local config = {
         },
       },
     },
+  },
+  update_focused_file = {
+    enable = true,
+  },
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  filesystem_watchers = {
+    enable = true,
   },
 }
 
