@@ -79,6 +79,3 @@ opt.completeopt = { "menu", "menuone", "noinsert" }
 opt.pumheight = 10
 
 opt.termguicolors = true
-
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
