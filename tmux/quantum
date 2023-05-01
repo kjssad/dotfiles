@@ -1,7 +1,7 @@
-bg="#2a2a2e"
-bg_black="#1b1b1b"
+bg="#303034"
+guides="#414145"
 fg_sec="#c3c3c6"
-fg_inactive="#58585c"
+fg_inactive="#737373"
 blue="#75bfff"
 red="#f25e72"
 green="#87de74"
@@ -14,14 +14,14 @@ set-window-option -g window-status-separator ""
 
 set-window-option -g window-status-style fg=$fg_inactive
 # set-window-option -g window-status-format "#[fg=$fg_inactive]▏ #[fg=$fg_alt]#I #W #[fg=$fg_alt]▕"
-set-window-option -g window-status-format "#I #W  "
+set-window-option -g window-status-format "  #I #W #[fg=$guides]▕"
 
 set-window-option -g window-status-current-style fg=$fg_sec,bg=$bg
 # set-window-option -g window-status-current-format "#[fg=$fg_sec]▏ #[fg=$fg_sec]#I #W #[fg=$fg_inactive]▕"
-set-window-option -g window-status-current-format "#I #W  "
+set-window-option -g window-status-current-format "  #I #W #[fg=$guides]▕"
 
 set-window-option -g pane-active-border-style fg=$fg_sec
-set-window-option -g pane-border-style fg=$bg_black
+set-window-option -g pane-border-style fg=$guides
 
 set-option -g message-style bg=$green,fg=$bg
 
@@ -34,8 +34,8 @@ set-option -g display-panes-colour $fg_sec
 date="#[bold,fg=$fg_sec]%R"
 battery="#(battery.tmux)"
 temperature="#(temperature.tmux)"
-host="#[bold,fg=$fg_sec] #h"
-session_name="#[bold,fg=$fg_sec] #S"
+host="#[bold,fg=$fg_sec]#h"
+session_name="#[bold,fg=$fg_sec]#S #[fg=$guides]▕"
 
-set -g status-left ""
-set -g status-right "$date  $battery  $temperature $session_name $host "
+set -g status-left " $session_name "
+set -g status-right "$date  $battery  $temperature  $host "
