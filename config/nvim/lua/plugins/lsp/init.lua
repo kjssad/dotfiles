@@ -1,5 +1,3 @@
-local M = {}
-
 local function document_highlight(client, bufnr)
   if client.supports_method("textDocument/documentHighlight") then
     require("autocmds").lsp_document_highlight(bufnr)
@@ -12,22 +10,9 @@ local function codelens(client, bufnr)
   end
 end
 
-local function install_servers(installer, servers)
-  for name, _ in pairs(servers) do
-    local ok, server = installer.get_server(name)
-
-    if ok then
-      if not server:is_installed() then
-        print("Installing " .. name)
-        server:install()
-      end
-    end
-  end
-end
-
-function M.common_on_attach(client, bufnr)
+local function common_on_attach(client, bufnr)
   document_highlight(client, bufnr)
-  codelens(client, bufnr)
+  -- codelens(client, bufnr)
   require("keymaps").lsp(bufnr)
 
   if client.supports_method("textDocument/documentSymbol") then
@@ -39,7 +24,7 @@ function M.common_on_attach(client, bufnr)
   end
 end
 
-function M.common_capabilities()
+local function common_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -53,42 +38,72 @@ function M.common_capabilities()
   local loaded, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
   if loaded then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
   end
 
   return capabilities
 end
 
-function M.common_options()
+local function common_options()
   return {
-    on_attach = M.common_on_attach,
-    capabilities = M.common_capabilities(),
+    on_attach = common_on_attach,
+    capabilities = common_capabilities(),
   }
 end
 
-function M.setup()
-  require("plugins.lsp.diagnostic").setup()
+return {
+  "neovim/nvim-lspconfig",
+  lazy = false,
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  },
+  config = function()
+    require("plugins.lsp.diagnostic").setup()
 
-  local loaded, installer = pcall(require, "nvim-lsp-installer")
+    local lspconfig = require("lspconfig")
+    local mason = require("mason")
+    local mason_lspconfig = require("mason-lspconfig")
 
-  if not loaded then
-    return
-  end
+    mason.setup()
+    mason_lspconfig.setup({
+      ensure_installed = {
+        "lua_ls",
+      },
+    })
 
-  local servers = require("plugins.lsp.servers")
+    local handlers = {
+      function(server_name)
+        lspconfig[server_name].setup(capabilities)
+      end,
+      ["lua_ls"] = function()
+        local config = {
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Both",
+              },
+              telemetry = { enable = false },
+              hint = { enable = true },
+              workspace = {
+                checkThirdParty = false,
+              },
+              codeLens = {
+                enable = true,
+              },
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          },
+        }
 
-  install_servers(installer, servers)
+        config = vim.tbl_deep_extend("force", config, common_options())
 
-  local config = M.common_options()
+        lspconfig.lua_ls.setup(config)
+      end,
+    }
 
-  installer.on_server_ready(function(server)
-    if servers[server.name] then
-      config = vim.tbl_deep_extend("force", config, servers[server.name].config)
-    end
-
-    server:setup(config)
-    vim.cmd([[ do User LspAttachBuffers ]])
-  end)
-end
-
-return M
+    mason_lspconfig.setup_handlers(handlers)
+  end,
+}

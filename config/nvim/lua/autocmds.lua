@@ -56,18 +56,11 @@ function M.defaults()
     end,
   })
 
-  augroup("packer_reload", {})
-  autocmd("BufWritePost", {
-    group = "packer_reload",
-    pattern = "*/lua/plugins/init.lua",
-    command = "source <afile> | PackerCompile",
-  })
-
   augroup("winbar_filetypes", {})
   autocmd({ "BufWinEnter", "BufFilePost" }, {
     group = "winbar_filetypes",
     callback = function()
-      local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree" }
+      local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree", "neo-tree-popup" }
       local buftype_exclude = { "nofile" }
 
       if utils.in_table(filetype_exclude, vim.bo.filetype) or utils.in_table(buftype_exclude, vim.bo.buftype) then

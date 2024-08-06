@@ -1,20 +1,15 @@
-local loaded, tmux = pcall(require, "tmux")
-
-if not loaded then
-  return
-end
-
-local M = {}
-
-local config = {
-  navigation = {
-    cycle_navigation = false,
-    enable_default_keybindings = true,
+return {
+  "aserowy/tmux.nvim",
+  opts = {
+    copy_sync = {
+      redirect_to_clipboard = true,
+    },
+    navigation = {
+      cycle_navigation = false,
+      enable_default_keybindings = true,
+    },
+    resize = {
+      enable_default_keybindings = false,
+    },
   },
 }
-
-function M.setup()
-  tmux.setup(config)
-end
-
-return M

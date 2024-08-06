@@ -84,7 +84,7 @@ function M.lsp(bufnr)
   map("n", "<space>a", vim.diagnostic.open_float, options)
   map("n", "[d", vim.diagnostic.goto_prev, options)
   map("n", "]d", vim.diagnostic.goto_next, options)
-  map("n", "<leader>fb", vim.lsp.buf.formatting, options)
+  map("n", "<leader>fb", function() vim.lsp.buf.format({ async = true }) end, options)
   map("n", "<leader>cc", vim.lsp.codelens.run)
 end
 
@@ -94,8 +94,8 @@ function M.gitsigns(bufnr)
   local gitsigns = require("gitsigns")
 
   -- Navigation
-  map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", expr)
-  map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", expr)
+  map("n", "]c", "&diff ? ']c' : ':Gitsigns next_hunk<CR>'", expr)
+  map("n", "[c", "&diff ? '[c' : ':Gitsigns prev_hunk<CR>'", expr)
 
   -- Actions
   map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", options)
@@ -116,28 +116,6 @@ function M.gitsigns(bufnr)
 
   -- Text object
   map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", options)
-end
-
-function M.telescope()
-  map("n", "<leader>t", function()
-    pcall(require("plugins.telescope").project_files)
-  end)
-  map("n", "<leader>r", "<cmd>Telescope buffers<CR>")
-  map("n", "<leader>e", "<cmd>Telescope find_files<CR>")
-  map("n", "<leader>s", function ()
-    pcall(require("plugins.telescope").git_status)
-  end)
-  map("n", "<leader>rg", "<cmd>Telescope live_grep_args<CR>")
-end
-
-function M.nvim_tree()
-  map("n", "<leader>k", "<cmd>NvimTreeFindFileToggle<CR>")
-  map("n", "<leader>y", "<cmd>NvimTreeFindFile<CR>")
-end
-
-function M.fugitive()
-  map("n", "<leader>gs", "<cmd>Git<CR>")
-  map("n", "<leader>gl", "<cmd>Gclog<CR>")
 end
 
 return M

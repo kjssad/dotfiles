@@ -1,104 +1,97 @@
-local loaded, telescope = pcall(require, "telescope")
+return {
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
+    cmd = "Telescope",
+    keys = {
+      { "<leader>r", "<cmd>Telescope buffers<CR>" },
+      { "<leader>e", "<cmd>Telescope find_files<CR>" },
+      { "<leader>rg", "<cmd>Telescope live_grep_args<CR>" },
+      {
+        "<leader>t",
+        function()
+          local in_git_repo = pcall(require("telescope.builtin").git_files)
 
-if not loaded then
-  return
-end
+          if not in_git_repo then
+            pcall(require("telescope.builtin").find_files)
+          end
+        end,
+      },
+      {
+        "<leader>s",
+        function()
+          local in_git_repo = pcall(function()
+            require("telescope.builtin").git_status({
+              git_icons = {
+                added = "A",
+                changed = "M",
+                copied = "C",
+                deleted = "D",
+                renamed = "R",
+                unmerged = "U",
+                untracked = "?",
+              },
+            })
+          end)
 
-local actions = require("telescope.actions")
-local action_set = require("telescope.actions.set")
-local action_layout = require("telescope.actions.layout")
-
--- workaround to fix folds
--- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-934727312
-local fixfolds = {
-  hidden = true,
-  attach_mappings = function(_)
-    action_set.select:enhance({
-      post = function()
-        vim.cmd(":normal! zx")
-      end,
-    })
-    return true
-  end,
-}
-
-local config = {
-  defaults = {
-    mappings = {
-      i = {
-        ["<esc>"] = actions.close,
-        ["<C-space>"] = action_layout.toggle_preview,
+          if not in_git_repo then
+            vim.print("Not a git repository")
+          end
+        end,
       },
     },
-    sorting_strategy = "ascending",
-    layout_strategy = "flex",
-    layout_config = {
-      horizontal = {
-        preview_width = 90,
-        prompt_position = "top",
-      },
-      vertical = {
-        mirror = true,
-        preview_cutoff = 30,
-        prompt_position = "top",
-      },
-    },
-    borderchars = {
-      { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
-      prompt = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
-      results = { " ", "▕", "▁", "▏", "▏", "▕", "🭿", "🭼" },
-    },
-    vim_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--trim",
-    },
+    opts = function()
+      local actions = require("telescope.actions")
+      local action_layout = require("telescope.actions.layout")
+
+      return {
+        defaults = {
+          mappings = {
+            i = {
+              ["<esc>"] = actions.close,
+              ["<C-space>"] = action_layout.toggle_preview,
+            },
+          },
+          sorting_strategy = "ascending",
+          layout_strategy = "flex",
+          layout_config = {
+            horizontal = {
+              preview_width = 90,
+              prompt_position = "top",
+            },
+            vertical = {
+              mirror = true,
+              preview_cutoff = 30,
+              prompt_position = "top",
+            },
+          },
+          borderchars = {
+            { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+            prompt = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+            results = { " ", "▕", "▁", "▏", "▏", "▕", "🭿", "🭼" },
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim",
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("telescope").setup(opts)
+
+      require("telescope").load_extension("fzf")
+      require("telescope").load_extension("live_grep_args")
+    end,
   },
-  pickers = {
-    buffers = fixfolds,
-    file_browser = fixfolds,
-    find_files = fixfolds,
-    git_files = fixfolds,
-    grep_string = fixfolds,
-    live_grep = fixfolds,
-    live_grep_args = fixfolds,
-    oldfiles = fixfolds,
-  },
 }
-
-local M = {}
-
-function M.project_files()
-  local in_git_repo = pcall(require("telescope.builtin").git_files)
-
-  if not in_git_repo then
-    require("telescope.builtin").find_files()
-  end
-end
-
-function M.git_status()
-  require("telescope.builtin").git_status({
-    git_icons = {
-      added = "A",
-      changed = "M",
-      copied = "C",
-      deleted = "D",
-      renamed = "R",
-      unmerged = "U",
-      untracked = "?",
-    },
-  })
-end
-
-function M.setup()
-  telescope.setup(config)
-  telescope.load_extension("fzf")
-  telescope.load_extension("live_grep_args")
-end
-
-return M
