@@ -37,8 +37,7 @@ opt.wrap = false
 opt.smartindent = true
 opt.breakindent = true
 
--- opt.updatetime=250
-vim.g.cursorhold_updatetime = 100
+opt.updatetime = 200
 
 opt.timeoutlen = 500
 
