@@ -152,8 +152,8 @@
 # }}}
 
 # Shortcuts {{{
-    bindsym $mod+Return exec kitty
-    bindsym $mod+Shift+Return exec kitty --class kitty-floating
+    bindsym $mod+Return exec wezterm
+    bindsym $mod+Shift+Return exec wezterm start --class wezterm-floating
 
     bindsym $mod+Shift+q kill
 
@@ -183,7 +183,7 @@
     for_window [app_id="gnome-calendar"] floating enable
     for_window [app_id="gnome-system-monitor"] floating enable
     for_window [app_id="kitty-scratchpad"] move to scratchpad
-    for_window [app_id="kitty-floating"] floating enable
+    for_window [app_id="wezterm-floating"] floating enable
     for_window [app_id="lxqt-policykit-agent"] floating enable
     for_window [app_id="lxqt-sudo"] floating enable
     for_window [app_id="telegramdesktop"] floating enable

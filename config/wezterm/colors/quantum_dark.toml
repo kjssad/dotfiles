@@ -1,0 +1,43 @@
+[colors]
+foreground = "#d7d7db"
+background = "#2a2a2e"
+cursor_bg = "#75bfff"
+cursor_border = "#75bfff"
+cursor_fg = "#2a2a2e"
+selection_bg = "#393f4c"
+selection_fg = "#d7d7db"
+split = "#1b1b1d"
+compose_cursor = "#fc9867"
+scrollbar_thumb = "#4a4a4f"
+
+ansi = ["#2a2a2e", "#f25e72", "#86de74", "#ffd866", "#6b89ff", "#B98EFf", "#75bfff", "#d7d7db"]
+brights = ["#737373", "#ff7de9", "#86de74", "#ffd866", "#6b89ff", "#B98EFf", "#75bfff", "#939295"]
+
+[colors.tab_bar]
+inactive_tab_edge = "#1b1b1d"
+background = "#303034"
+
+[colors.tab_bar.active_tab]
+fg_color = "#c3c3c6"
+bg_color = "#303034"
+
+[colors.tab_bar.inactive_tab]
+fg_color = "#737373"
+bg_color = "#303034"
+
+[colors.tab_bar.inactive_tab_hover]
+fg_color = "#d7d7db"
+bg_color = "#303034"
+
+[colors.tab_bar.new_tab_hover]
+fg_color = "#d7d7db"
+bg_color = "#303034"
+
+[colors.tab_bar.new_tab]
+fg_color = "#737373"
+bg_color = "#303034"
+
+[metadata]
+aliases = []
+author = "kjssad"
+name = "QuantumDark"
