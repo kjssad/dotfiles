@@ -74,28 +74,33 @@ function M.defaults()
 end
 
 function M.lsp_document_highlight(bufnr)
-  augroup("lsp_document_highlight", {})
+  local highlight_augroup = augroup("lsp_document_highlight", { clear = false })
+	vim.api.nvim_clear_autocmds({
+		buffer = bufnr,
+		group = highlight_augroup,
+	})
   autocmd("CursorHold", {
-    group = "lsp_document_highlight",
+    group = highlight_augroup,
     buffer = bufnr,
     callback = vim.lsp.buf.document_highlight,
   })
   autocmd("CursorMoved", {
-    group = "lsp_document_highlight",
+    group = highlight_augroup,
     buffer = bufnr,
     callback = vim.lsp.buf.clear_references,
   })
 end
 
 function M.lsp_codelens(bufnr)
-  augroup("lsp_codelens", {})
+  local lens_augroup = augroup("lsp_codelens", { clear = false })
+	vim.api.nvim_clear_autocmds({
+		buffer = bufnr,
+		group = lens_augroup,
+	})
   autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-    group = "lsp_codelens",
+    group = lens_augroup,
     buffer = bufnr,
-    callback = function()
-      vim.lsp.codelens.refresh()
-      vim.lsp.codelens.display()
-    end,
+    callback = vim.lsp.codelens.refresh,
   })
 end
 

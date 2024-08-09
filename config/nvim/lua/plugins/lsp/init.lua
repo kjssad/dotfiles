@@ -12,7 +12,7 @@ end
 
 local function common_on_attach(client, bufnr)
   document_highlight(client, bufnr)
-  -- codelens(client, bufnr)
+  codelens(client, bufnr)
   require("keymaps").lsp(bufnr)
 
   if client.supports_method("textDocument/documentSymbol") then
