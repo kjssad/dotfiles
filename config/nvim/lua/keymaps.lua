@@ -84,8 +84,11 @@ function M.lsp(bufnr)
   map("n", "<space>a", vim.diagnostic.open_float, options)
   map("n", "[d", vim.diagnostic.goto_prev, options)
   map("n", "]d", vim.diagnostic.goto_next, options)
-  map("n", "<leader>fb", function() vim.lsp.buf.format({ async = true }) end, options)
   map("n", "<leader>cc", vim.lsp.codelens.run)
+  map("n", "<leader>fb", function() vim.lsp.buf.format({ async = true }) end, options)
+  map("n", "<Leader>hh", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end, options)
 end
 
 function M.gitsigns(bufnr)

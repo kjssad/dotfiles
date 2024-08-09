@@ -10,9 +10,16 @@ local function codelens(client, bufnr)
   end
 end
 
+local function inlay_hints(client, bufnr)
+  if client.supports_method("textDocument/inlayHints") then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
+end
+
 local function common_on_attach(client, bufnr)
   document_highlight(client, bufnr)
   codelens(client, bufnr)
+  inlay_hints(client, bufnr)
   require("keymaps").lsp(bufnr)
 
   if client.supports_method("textDocument/documentSymbol") then
