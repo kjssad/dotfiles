@@ -18,14 +18,23 @@ end
 
 vim.opt.rtp:prepend(install_path)
 
-require("lazy").setup(
-  {
-    { import = "plugins" },
+require("lazy").setup({
+  { import = "plugins" },
+}, {
+  change_detection = {
+    enabled = false,
+    notify = false,
   },
-  {
-    change_detection = {
-      enabled = false,
-      notify = false,
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
     },
-  }
-)
+  },
+})
