@@ -2,6 +2,14 @@ local M = {}
 
 local config = {
   virtual_text = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+  },
   float = {
     header = "",
     format = function(diagnostic)
@@ -29,22 +37,12 @@ local config = {
   },
   update_in_insert = false,
   severity_sort = true,
+  jump = { float = true },
 }
-
-function M.show_position_diagnostics()
-  vim.diagnostic.open_float({ scope = "cursor" })
-end
 
 M.border = config.float.border
 
 function M.setup()
-  local signs = { Error = "", Warn = "", Info = "", Hint = "" }
-
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl })
-  end
-
   vim.diagnostic.config(config)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
