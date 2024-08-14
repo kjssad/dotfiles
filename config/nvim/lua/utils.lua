@@ -133,4 +133,10 @@ function utils.set_winbar()
   return winbar
 end
 
+function utils.map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
 return utils

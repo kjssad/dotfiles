@@ -1,4 +1,4 @@
-local map = vim.keymap.set
+local map = require("utils").map
 
 local M = {}
 

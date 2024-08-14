@@ -19,7 +19,7 @@ function M.defaults()
     group = "config_group",
     pattern = { "help", "qf" },
     callback = function()
-      vim.keymap.set("n", "q", ":q<CR>", { buffer = true })
+      utils.map("n", "q", ":q<CR>", { buffer = true })
     end,
   })
   autocmd("TermOpen", {
