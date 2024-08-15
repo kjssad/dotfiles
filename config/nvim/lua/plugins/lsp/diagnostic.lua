@@ -12,16 +12,6 @@ local config = {
   },
   float = {
     header = "",
-    format = function(diagnostic)
-      local code = diagnostic.code
-        or (diagnostic.user_data and diagnostic.user_data.lsp and diagnostic.user_data.lsp.code)
-
-      if code then
-        return string.format("%s %s (%s)", diagnostic.message, diagnostic.source, code)
-      end
-
-      return string.format("%s %s", diagnostic.message, diagnostic.source)
-    end,
     border = {
       { "🭽", "FloatBorder" },
       { "▔", "FloatBorder" },
@@ -33,6 +23,16 @@ local config = {
       { "▏", "FloatBorder" },
     },
     prefix = "",
+    suffix = function(diagnostic)
+      local code = diagnostic.code or
+      (diagnostic.user_data and diagnostic.user_data.lsp and diagnostic.user_data.lsp.code)
+
+      if code then
+        return string.format(" %s (%s)", diagnostic.source, diagnostic.code), "Comment"
+      end
+
+      return string.format(" %s", diagnostic.source), "Comment"
+    end,
     focusable = false,
   },
   update_in_insert = false,
