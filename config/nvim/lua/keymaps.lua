@@ -69,28 +69,6 @@ function M.defaults()
   map("n", "<F2>", ":TSHighlightCapturesUnderCursor<CR>")
 end
 
-function M.lsp(bufnr)
-  local options = { buffer = bufnr }
-
-  map("n", "gl", vim.lsp.buf.declaration, options)
-  map("n", "gf", vim.lsp.buf.definition, options)
-  map("n", "K", vim.lsp.buf.hover, options)
-  map("n", "gi", vim.lsp.buf.implementation, options)
-  map("i", "<C-x><C-x>", vim.lsp.buf.signature_help, options)
-  map("n", "gy", vim.lsp.buf.type_definition, options)
-  map("n", "<leader>rn", vim.lsp.buf.rename, options)
-  map("n", "<leader>ca", vim.lsp.buf.code_action, options)
-  map("n", "gr", vim.lsp.buf.references, options)
-  map("n", "<space>a", vim.diagnostic.open_float, options)
-  map("n", "<leader>cc", vim.lsp.codelens.run)
-  map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, options)
-  map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, options)
-  map("n", "<leader>fb", function() vim.lsp.buf.format({ async = true }) end, options)
-  map("n", "<Leader>hh", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  end, options)
-end
-
 function M.gitsigns(bufnr)
   local options = { buffer = bufnr }
   local expr = { buffer = bufnr, expr = true }

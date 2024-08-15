@@ -31,5 +31,8 @@ return {
     },
     highlight = true,
     separator = " ❯ ",
-  }
+    lsp = {
+      auto_attach = true,
+    },
+  },
 }
