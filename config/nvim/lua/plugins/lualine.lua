@@ -37,7 +37,7 @@ return {
 
     local diagnostics = {
       "diagnostics",
-      symbols = { error = " ", warn = " ", info = " ", hint = " " },
+      symbols = { error = " ", warn = " ", info = " ", hint = " " },
       colored = false,
     }
 
