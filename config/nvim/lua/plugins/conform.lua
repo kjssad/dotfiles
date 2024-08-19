@@ -12,7 +12,10 @@ return {
   },
   opts = {
     formatters_by_ft = {
-      sh = { "shellcheck", "shfmt" },
+      css = { "prettier" },
+      html = { "prettier" },
+      json = { "prettier" },
+      jsonc = { "prettier" },
       lua = { "stylua" },
     },
     format_on_save = true,
