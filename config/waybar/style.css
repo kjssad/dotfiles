@@ -20,6 +20,7 @@ window#waybar {
   background-color: @background;
   color: @foreground;
   font-size: 14px;
+  border-bottom: 1px solid @splitter;
 }
 
 tooltip {
@@ -63,16 +64,27 @@ tooltip label {
 
 #workspaces button.urgent {
   color: @accent;
-  font-size: 17px;
+}
+
+#mode,
+#window {
+  padding: 0px 14px;
 }
 
 #mode {
   color: @background;
   background: @foreground;
-  margin-left: 10px;
   border-radius: 20px;
-  padding: 0px 14px;
-  margin: 3px 12px;
+  margin: 3px 0px 3px 12px;
+}
+
+window#waybar.mode-invisible {
+  opacity: 0;
+}
+
+window#waybar.mode-invisible.empty,
+window#waybar.mode-invisible.floating {
+  opacity: 1;
 }
 
 #cpu,

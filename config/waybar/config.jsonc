@@ -1,8 +1,8 @@
 {
-  "layer": "top",
+  "ipc": true,
   "position": "top",
   "height": 24,
-  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
   "modules-center": ["clock"],
   "modules-right": [
     "network",
@@ -12,6 +12,16 @@
     "tray",
     "idle_inhibitor",
   ],
+  "modes": {
+    "invisible": {
+      "layer": "bottom",
+      "passthrough": false,
+      "visible": true,
+    },
+  },
+  "sway/window": {
+    "format": "",
+  },
   "sway/workspaces": {
     "disable-scroll": true,
     "format": "{icon}",

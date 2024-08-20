@@ -257,6 +257,7 @@
     # xwayland disable
 
     bar swaybar_command waybar
+    bar mode hide
 
     bindsym $mod+9 exec swaylock -f
     bindsym $mod+0 exec nwgbar
