@@ -66,6 +66,10 @@ tooltip label {
   color: @accent;
 }
 
+#workspaces button.empty {
+  color: @splitter;
+}
+
 #mode,
 #window {
   padding: 0px 14px;
