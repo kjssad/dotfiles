@@ -157,7 +157,7 @@
 
     bindsym $mod+Shift+q kill
 
-    bindsym $mod+d exec --no-startup-id wofi --show drun
+    bindsym $mod+d exec nwggrid -client
 
     # Applications
     bindsym $mod+F1 exec chromium
@@ -228,6 +228,7 @@
     exec --no-startup-id pcmanfm-qt -d
     exec --no-startup-id /usr/libexec/lxqt-policykit-agent
     exec --no-startup-id blueman-applet
+    exec --no-startup-id nwggrid-server -n 8 -s 92
     # exec --no-startup-id dunst
     exec --no-startup-id kdeconnect-indicator
     exec --no-startup-id nm-applet --indicator

@@ -1,0 +1,53 @@
+@define-color background #282828;
+@define-color background-alt #4c4c4c;
+@define-color foreground #ffffff;
+
+* {
+  color: @foreground;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+
+window > box {
+  background-color: @background;
+}
+
+button,
+label,
+image {
+  background: none;
+  border-style: none;
+  box-shadow: none;
+}
+
+button {
+  padding: 5px;
+  margin: 25px 5px;
+  text-shadow: none;
+}
+
+button > widget > box > label {
+  margin-top: 6px;
+}
+
+#searchbox {
+  background-color: @background-alt;
+  min-width: 360px;
+  min-height: 36px;
+  margin-top: 46px;
+  margin-bottom: 30px;
+  border-radius: 40px;
+  border: none;
+  padding: 0 15px;
+}
+
+#searchbox image {
+  margin-right: 10px;
+}
+
+#description {
+  margin-bottom: 20px;
+}
