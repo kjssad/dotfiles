@@ -1,7 +1,7 @@
 {
   "ipc": true,
   "position": "top",
-  "height": 24,
+  "height": 32,
   "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
   "modules-center": ["clock"],
   "modules-right": [
@@ -60,7 +60,7 @@
         "months": "<span><b>{}</b></span>",
         "days": "<span>{}</span>",
         "weekdays": "<span>{}</span>",
-        "today": "<span color='#75bfff'><b><u>{}</u></b></span>",
+        "today": "<span background='#3584e4'><b>{}</b></span>",
       },
     },
     "actions": {

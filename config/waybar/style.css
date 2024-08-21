@@ -1,10 +1,11 @@
-@define-color background #1b1b1d;
-@define-color background-alt #232327;
-@define-color foreground #b1b1b3;
-@define-color foreground-alt #737373;
-@define-color urgent #ff7de9;
-@define-color accent #75bfff;
-@define-color splitter #38383d;
+@define-color background #000000;
+@define-color background-alt #353535;
+@define-color background-sec #474747;
+@define-color foreground #ffffff;
+@define-color foreground-alt #a3a3a3;
+@define-color urgent #f66151;
+@define-color accent #3584e4;
+@define-color splitter #424242;
 
 * {
   font-family: Cantarell;
@@ -19,13 +20,12 @@
 window#waybar {
   background-color: @background;
   color: @foreground;
-  font-size: 14px;
-  border-bottom: 1px solid @splitter;
+  font-size: 15px;
 }
 
 tooltip {
   background-color: @background-alt;
-  border-radius: 4px;
+  border-radius: 18px;
   border: 1px solid @splitter;
 }
 tooltip label {
@@ -58,7 +58,7 @@ tooltip label {
   background: @foreground;
   border-radius: 20px;
   padding: 0px 5px;
-  margin: 7px 3px;
+  margin: 12px 3px;
   font-size: 0px;
 }
 
@@ -98,6 +98,16 @@ window#waybar.mode-invisible.floating {
 #tray,
 #idle_inhibitor {
   padding: 0 8px;
+}
+
+#clock {
+  padding: 0 12px;
+  margin: 3px 0px;
+  border-radius: 20px;
+}
+
+#clock:hover {
+  background: @background-sec;
 }
 
 #temperature.critical {

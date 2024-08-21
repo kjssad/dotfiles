@@ -1,5 +1,5 @@
 # General {{{
-    font Roboto Regular 10
+    font Cantarell Medium 11
 
     set $mod Mod4
 
@@ -235,19 +235,19 @@
 # }}}
 
 # Appearance {{{
-    set $accent         #8AB4F8
-    set $accent-alt     #343b46
-    set $background     #1F1F1F
-    set $background-alt #272727
-    set $border         #474747
-    set $foreground     #E2E2E2
+    set $accent         #3584e4
+    set $background     #242424
+    set $background-alt #303030
+    set $border         #5d5d5d
+    set $foreground     #ffffff
+    set $foreground-alt #919191
 
-    # class                 border      backgr.         text        indic.  child_border
-    client.focused          $accent-alt $background-alt $accent     $accent $border
-    client.focused_inactive $background $background     $foreground $accent $background
-    client.unfocused        $background $background     $foreground $accent $background
-    client.urgent           $accent     $accent         $background $accent $accent
-    client.placeholder      $background $background     $foreground $accent $background
+    # class                 border          backgr.         text            indic.  child_border
+    client.focused          $border         $background-alt $foreground     $accent $border
+    client.focused_inactive $background-alt $background     $foreground-alt $accent $background
+    client.unfocused        $background-alt $background     $foreground-alt $accent $background
+    client.urgent           $accent         $accent         $foreground     $accent $accent
+    client.placeholder      $background-alt $background     $foreground-alt $accent $background
 
     client.background       $background
 
