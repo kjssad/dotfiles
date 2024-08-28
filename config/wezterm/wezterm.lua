@@ -5,6 +5,7 @@ config.color_scheme = "QuantumDark"
 
 config.font_size = 10
 config.line_height = 1.2
+config.underline_position = -4
 
 config.enable_tab_bar = false
 config.window_padding = {
