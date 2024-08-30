@@ -14,7 +14,7 @@ opt.mouse = "a"
 opt.foldenable = false
 opt.foldlevelstart = 99
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = "getline(v:foldstart) . '⋯'"
 
 -- searching
