@@ -1,7 +1,7 @@
 require("autocmds")
-require("options")
 require("commands")
-require("keymaps").defaults()
+require("keymaps")
+require("options")
 
 local install_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
