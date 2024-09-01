@@ -1,76 +1,86 @@
-local augroup = vim.api.nvim_create_augroup
+local function augroup(name, opts)
+  vim.api.nvim_create_augroup(name, opts or { clear = true })
+end
+
 local autocmd = vim.api.nvim_create_autocmd
 local utils = require("utils")
 
-local M = {}
+local config_augroup = augroup("config_group")
 
-function M.defaults()
-  augroup("config_group", {})
-  autocmd("FocusLost", {
-    group = "config_group",
-    command = "silent! wa",
-  })
-  autocmd("FileType", {
-    group = "config_group",
-    pattern = { "help", "qf" },
-    command = "wincmd J",
-  })
-  autocmd("FileType", {
-    group = "config_group",
-    pattern = { "help", "qf" },
-    callback = function()
-      utils.map("n", "q", ":q<CR>", { buffer = true })
-    end,
-  })
-  autocmd("TermOpen", {
-    group = "config_group",
-    callback = function()
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
-      vim.opt_local.signcolumn = "no"
+-- Open help and quickfix windows at the verry bottom
+autocmd("FileType", {
+  group = config_augroup,
+  pattern = { "help", "qf" },
+  command = "wincmd J",
+})
+
+-- Close help and quickfix windows with `<q>`
+autocmd("FileType", {
+  group = config_augroup,
+  pattern = { "help", "qf" },
+  callback = function()
+    utils.map("n", "q", ":q<CR>", { buffer = true })
+  end,
+})
+
+-- Disable gutters and winbar in terminals
+autocmd("TermOpen", {
+  group = config_augroup,
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.winbar = nil
+  end,
+})
+
+-- Show absolute numbers in Insert mode and when the buffer is unfocused, otherwise show relative numbers
+local ln_augroup = augroup("line_numbers")
+autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  group = ln_augroup,
+  callback = function()
+    utils.set_relative_number(true)
+  end,
+})
+autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  group = ln_augroup,
+  callback = function()
+    utils.set_relative_number(false)
+  end,
+})
+
+-- Show winbar on supported file and buffer types
+autocmd({ "BufWinEnter", "BufFilePost" }, {
+  group = augroup("show_winbar"),
+  callback = function()
+    local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree", "neo-tree-popup" }
+    local buftype_exclude = { "nofile" }
+
+    if utils.in_table(filetype_exclude, vim.bo.filetype) or utils.in_table(buftype_exclude, vim.bo.buftype) then
       vim.opt_local.winbar = nil
-    end,
-  })
-  autocmd("BufReadPost", {
-    group = "config_group",
-    callback = utils.last_cursor,
-  })
-  autocmd("TextYankPost", {
-    group = "config_group",
-    callback = function()
-      vim.highlight.on_yank({ timeout = 250 })
-    end,
-  })
+      return
+    end
 
-  augroup("line_numbers", {})
-  autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-    group = "line_numbers",
-    callback = function()
-      utils.set_relative_number(true)
-    end,
-  })
-  autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-    group = "line_numbers",
-    callback = function()
-      utils.set_relative_number(false)
-    end,
-  })
+    vim.opt_local.winbar = "%{%v:lua.require('utils').set_winbar()%}"
+  end,
+})
 
-  augroup("winbar_filetypes", {})
-  autocmd({ "BufWinEnter", "BufFilePost" }, {
-    group = "winbar_filetypes",
-    callback = function()
-      local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree", "neo-tree-popup" }
-      local buftype_exclude = { "nofile" }
+-- Save on focus lost
+autocmd("FocusLost", {
+  group = augroup("auto_save"),
+  command = "silent! wa",
+})
 
-      if utils.in_table(filetype_exclude, vim.bo.filetype) or utils.in_table(buftype_exclude, vim.bo.buftype) then
-        vim.opt_local.winbar = nil
-        return
-      end
+-- Open files at last cursor position
+autocmd("BufReadPost", {
+  group = augroup("last_cursor_pos"),
+  callback = utils.last_cursor,
+})
 
-      vim.opt_local.winbar = "%{%v:lua.require('utils').set_winbar()%}"
-    end,
-  })
-end
-
-return M
+-- Highlight on yank
+autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    vim.highlight.on_yank({ timeout = 250 })
+  end,
+})
