@@ -69,34 +69,4 @@ function M.defaults()
   map("n", "<F2>", ":TSHighlightCapturesUnderCursor<CR>")
 end
 
-function M.gitsigns(bufnr)
-  local options = { buffer = bufnr }
-  local expr = { buffer = bufnr, expr = true }
-  local gitsigns = require("gitsigns")
-
-  -- Navigation
-  map("n", "]c", "&diff ? ']c' : ':Gitsigns next_hunk<CR>'", expr)
-  map("n", "[c", "&diff ? '[c' : ':Gitsigns prev_hunk<CR>'", expr)
-
-  -- Actions
-  map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", options)
-  map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", options)
-  map("n", "<leader>hS", gitsigns.stage_buffer, options)
-  map("n", "<leader>hu", gitsigns.undo_stage_hunk, options)
-  map("n", "<leader>hR", gitsigns.reset_buffer, options)
-  map("n", "<leader>hp", gitsigns.preview_hunk, options)
-  map("n", "<leader>hb", function()
-    gitsigns.blame_line({ full = true })
-  end, options)
-  map("n", "<leader>htb", gitsigns.toggle_current_line_blame, options)
-  map("n", "<leader>hd", gitsigns.diffthis, options)
-  map("n", "<leader>hD", function()
-    gitsigns.diffthis("~")
-  end, options)
-  map("n", "<leader>htd", gitsigns.toggle_deleted, options)
-
-  -- Text object
-  map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", options)
-end
-
 return M
