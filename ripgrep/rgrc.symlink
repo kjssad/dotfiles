@@ -1,0 +1,5 @@
+# case-sensitive search if pattern contains an upper case char
+--smart-case
+
+# follow symlinks
+--follow
