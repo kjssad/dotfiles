@@ -3,6 +3,10 @@ local config = wezterm.config_builder()
 
 config.color_scheme = "QuantumDark"
 
+config.font = wezterm.font({
+  family = "JetBrains Mono",
+  harfbuzz_features = { "cv06", "cv07", "ss19", "ss20", "zero" },
+})
 config.font_rules = {
   {
     italic = true,
