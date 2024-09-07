@@ -1,141 +1,124 @@
 return {
   "nvim-lualine/lualine.nvim",
-  opts = function()
-    local conditions = {
-      buffer_not_empty = function()
-        return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
-      end,
-      hide_in_width = function()
-        return vim.o.columns > 97
-      end,
-    }
-
-    local mode = {
-      function()
-        return require("utils").get_mode()
-      end,
-    }
-
-    local branch = {
-      "branch",
-      icon = "",
-      padding = { left = 1, right = 0 },
-    }
-
-    local status = {
-      function()
-        return vim.b.gitsigns_status or ""
-      end,
-      padding = { left = 0, right = 1 },
-    }
-
-    local filename = {
-      "filename",
-      path = 1,
-      cond = conditions.buffer_not_empty,
-    }
-
-    local diagnostics = {
-      "diagnostics",
-      symbols = { error = " ", warn = " ", info = " ", hint = " " },
-      colored = false,
-    }
-
-    local searchcount = {
-      function()
-        local result = vim.api.nvim_eval("searchcount()")
-
-        if result.incomplete == 1 then
-          return "[?/??]"
-        elseif result.incomplete == 2 then
-          if result.total > result.maxcount and result.current > result.maxcount then
-            return string.format(">%d of >%d", result.current, result.total)
-          elseif result.total > result.maxcount then
-            return string.format("%d of >%d", result.current, result.total)
-          end
-        end
-
-        return string.format("%d of %d", result.current, result.total)
-      end,
-      cond = function()
-        return vim.v.hlsearch == 1 and true or false
-      end
-    }
-
-    local indentation = {
-      function()
-        if vim.bo.expandtab then
-          return "Spaces: " .. vim.bo.shiftwidth
-        else
-          return "Tabs: " .. vim.bo.shiftwidth
-        end
-      end,
-      cond = conditions.hide_in_width,
-    }
-
-    local location = {
-      "%l, Col %v",
-      fmt = function(str)
-        return "Ln " .. str
-      end,
-    }
-
-    local encoding = {
-      "encoding",
-      cond = conditions.hide_in_width,
-      fmt = string.upper,
-    }
-
-    local filetype = {
-      "vim.bo.filetype",
-      cond = conditions.buffer_not_empty and conditions.hide_in_width,
-      fmt = function(str)
-        return str:gsub("^%l", string.upper)
-      end,
-      colored = false,
-    }
-
-    local fileformat = {
-      function()
-        local fileformat = vim.bo.fileformat
-        if fileformat == "unix" then
-          return ""
-        end
-
-        local symbols = {
-          dos = "",
-          mac = "",
-        }
-
-        return symbols[fileformat] or fileformat
-      end,
-      cond = conditions.hide_in_width,
-    }
-
-    return {
-      options = {
-        theme = "quantum",
-        component_separators = "",
-        section_separators = "",
-        globalstatus = true,
+  opts = {
+    options = {
+      theme = "auto",
+      component_separators = "",
+      section_separators = "",
+      globalstatus = true,
+    },
+    sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {
+        {
+          "branch",
+          icon = "",
+          padding = { left = 1, right = 0 },
+        },
+        {
+          "vim.b.gitsigns_status",
+          padding = { left = 0, right = 1 },
+        },
+        {
+          "diagnostics",
+          symbols = { error = " ", warn = " ", info = " ", hint = " " },
+          colored = false,
+        },
       },
-      sections = {
-        lualine_a = { mode },
-        lualine_b = {},
-        lualine_c = { branch, status, diagnostics },
-        lualine_x = { searchcount, location, indentation, encoding, filetype, fileformat },
-        lualine_y = {},
-        lualine_z = {},
+      lualine_x = {
+        "%S", -- partially entered commands
+        {
+          function()
+            if vim.v.hlsearch == 0 then
+              return ""
+            end
+
+            local ok, result = pcall(vim.fn.searchcount)
+
+            if not ok then
+              return ""
+            end
+
+            if result.incomplete == 1 then
+              return "[?/??]"
+            elseif result.incomplete == 2 then
+              if result.total > result.maxcount and result.current > result.maxcount then
+                return string.format(">%d of >%d", result.current, result.total)
+              elseif result.total > result.maxcount then
+                return string.format("%d of >%d", result.current, result.total)
+              end
+            end
+
+            return string.format("%d of %d", result.current, result.total)
+          end,
+        },
+        {
+          -- recording status
+          function()
+            local register = vim.fn.reg_recording()
+
+            if register == "" then
+              return ""
+            end
+
+            return "Recording @" .. register
+          end,
+        },
+        {
+          -- cursor position and progress
+          function()
+            local lnum = vim.fn.line(".")
+            local col = vim.fn.charcol(".")
+            local last = vim.fn.line("$")
+
+            return string.format("%d:%d, %d%%%%", lnum, col, math.floor(lnum / last * 100))
+          end,
+        },
+        {
+          "encoding",
+          fmt = function(str)
+            -- don't load component if encoding is UTF-8
+            if str == "utf-8" then
+              return ""
+            end
+
+            return string.upper(str)
+          end,
+        },
+        {
+          "fileformat",
+          -- don't load component if fileformat is unix
+          cond = function()
+            return vim.bo.fileformat ~= "unix"
+          end,
+        },
       },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { filename },
-        lualine_v = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
+      lualine_y = {},
+      lualine_z = {
+        {
+          "mode",
+          padding = 0,
+          fmt = function(_)
+            -- only show color as mode indicator
+            return " "
+          end,
+        },
       },
-    }
+    },
+  },
+  config = function(_, opts)
+    local lualine = require("lualine")
+
+    lualine.setup(opts)
+
+    -- Refresh lualine when entering record mode
+    -- NOTE: The register isn't cleared immediately after `RecordingLeave` so we just wait for lualine to refresh itself
+    vim.api.nvim_create_autocmd("RecordingEnter", {
+      group = vim.api.nvim_create_augroup("lualine_user_stl_refresh", { clear = true }),
+      callback = function()
+        lualine.refresh({ place = { "statusline" } })
+      end,
+    })
   end,
 }
