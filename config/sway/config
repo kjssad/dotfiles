@@ -179,7 +179,7 @@
     for_window [app_id="blueman-assistant"] floating enable
     for_window [app_id="blueman-manager"] floating enable
     for_window [app_id="blueman-sendto"] floating enable
-    for_window [app_id="gnome-calculator"] floating enable
+    for_window [app_id="org.gnome.calculator"] floating enable
     for_window [app_id="gnome-calendar"] floating enable
     for_window [app_id="gnome-system-monitor"] floating enable
     for_window [app_id="kitty-scratchpad"] move to scratchpad
