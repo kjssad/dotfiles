@@ -20,11 +20,6 @@ return {
           "vim.b.gitsigns_status",
           padding = { left = 0, right = 1 },
         },
-        {
-          "diagnostics",
-          symbols = { error = " ", warn = " ", info = " ", hint = " " },
-          colored = false,
-        },
       },
       lualine_x = {
         "%S", -- partially entered commands
