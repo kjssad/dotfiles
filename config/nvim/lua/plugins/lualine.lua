@@ -20,6 +20,25 @@ return {
           "vim.b.gitsigns_status",
           padding = { left = 0, right = 1 },
         },
+        {
+          "filename",
+          path = 1,
+          symbols = {
+            unnamed = "",
+          },
+        },
+        {
+          "navic",
+          color_correction = "dynamic",
+          fmt = function(str)
+            if str == "" then
+              return ""
+            end
+
+            return "❯ " .. str
+          end,
+          padding = { left = 0, right = 1 },
+        },
       },
       lualine_x = {
         "%S", -- partially entered commands

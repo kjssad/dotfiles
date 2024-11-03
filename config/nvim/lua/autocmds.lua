@@ -49,22 +49,6 @@ autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   end,
 })
 
--- Show winbar on supported file and buffer types
-autocmd({ "BufWinEnter", "BufFilePost" }, {
-  group = augroup("show_winbar"),
-  callback = function()
-    local filetype_exclude = { "help", "qf", "gitcommit", "fugitive", "NvimTree", "neo-tree-popup" }
-    local buftype_exclude = { "nofile" }
-
-    if utils.in_table(filetype_exclude, vim.bo.filetype) or utils.in_table(buftype_exclude, vim.bo.buftype) then
-      vim.opt_local.winbar = nil
-      return
-    end
-
-    vim.opt_local.winbar = "%{%v:lua.require('utils').set_winbar()%}"
-  end,
-})
-
 -- Save on focus lost
 autocmd("FocusLost", {
   group = augroup("auto_save"),
