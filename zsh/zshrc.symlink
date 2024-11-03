@@ -22,6 +22,12 @@ if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
 
+# asdf support
+if [[ -d $HOME/.asdf ]]; then
+  . $HOME/.asdf/asdf.sh
+  fpath=(${ASDF_DIR}/completions $fpath)
+fi
+
 # initialize autocomplete
 autoload -U compinit
 compinit
@@ -41,12 +47,6 @@ fi
 # load rbenv
 if type rbenv > /dev/null 2>&1; then
     eval "$(rbenv init -)"
-fi
-
-# asdf support
-if [[ -d $HOME/.asdf ]]; then
-  . $HOME/.asdf/asdf.sh
-  fpath=(${ASDF_DIR}/completions $fpath)
 fi
 
 # adding path directory for custom scripts
