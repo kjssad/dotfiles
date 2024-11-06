@@ -31,6 +31,7 @@ return {
     },
     highlight = true,
     separator = " ❯ ",
+    lazy_update_context = true,
     lsp = {
       auto_attach = true,
     },
