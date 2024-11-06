@@ -84,6 +84,8 @@ opt.mouse = "a" -- enable mouse support for all modes
 
 opt.showcmdloc = "statusline" -- display partially entered command in the statusline
 
+opt.statuscolumn = "%l%s%C" -- show gutter as number, sign, and fold columns
+
 opt.timeoutlen = 500 -- time in ms to wait for a mapped key sequence
 
 opt.updatetime = 200 -- swap file save and CursorHold event trigger time in ms
