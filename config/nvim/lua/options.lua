@@ -90,6 +90,8 @@ opt.timeoutlen = 500 -- time in ms to wait for a mapped key sequence
 
 opt.updatetime = 200 -- swap file save and CursorHold event trigger time in ms
 
+opt.virtualedit = "block" -- allow to position cursor where there is no text in visual block mode
+
 -- don't set the clipboard when in SSH (OSC 52 integration)
 if not vim.env.SSH_TTY then
   opt.clipboard = "unnamedplus"
