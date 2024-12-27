@@ -1,0 +1,22 @@
+font-family = JetBrains Mono
+font-family-bold-italic = Victor Mono
+font-size = 10
+font-feature = cv06
+font-feature = cv07
+font-feature = ss19
+font-feature = ss20
+font-feature = zero
+adjust-cell-height = 20%
+adjust-underline-position = 3
+
+theme = Quantum Dark
+
+keybind = clear
+
+window-padding-x = 0
+window-padding-y = 0
+window-decoration = false
+
+gtk-single-instance = false
+
+confirm-close-surface = false
