@@ -17,6 +17,8 @@ window-padding-x = 0
 window-padding-y = 0
 window-decoration = false
 
+resize-overlay = never
+
 gtk-single-instance = false
 
 confirm-close-surface = false
