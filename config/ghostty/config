@@ -20,5 +20,6 @@ window-decoration = false
 resize-overlay = never
 
 gtk-single-instance = false
+gtk-titlebar = false
 
 confirm-close-surface = false

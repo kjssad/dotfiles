@@ -195,7 +195,7 @@
     for_window [app_id="org.kde.kdeconnect.sms"] floating enable
     for_window [app_id="pavucontrol"] floating enable
     for_window [app_id="org.mozilla.firefox" title="Extension: \(Bitwarden - Free Password Manager\) - Bitwarden — Mozilla Firefox"] floating enable
-    for_window [app_id="com.mitchellh.ghostty-float"] floating enable
+    for_window [app_id="com.mitchellh.ghostty-float"] floating enable, border pixel 1
     for_window [class="Bluetooth-sendto"] floating enable
     for_window [class="Gnome-calculator"] floating enable
     for_window [class="Gnome-control-center"] floating enable
